@@ -4,10 +4,15 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import axios from 'axios'
+import DefaultLayout from './layouts/DefaultLayout.vue'
+import AuthLayout from './layouts/AuthLayout.vue'
+
+Vue.component('default-layout', DefaultLayout)
+Vue.component('auth-layout', AuthLayout)
 
 Vue.prototype.$http = axios.create({
-  baseURL: 'http://64.225.100.175:8000',
-  // headers: {'type': ''}
+  baseURL: 'http://64.225.100.175:8000/api/v1/',
+  headers: {'Content-Type': 'application/json'}
 })
 
 Vue.config.productionTip = false

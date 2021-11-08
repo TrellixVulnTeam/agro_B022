@@ -1,6 +1,6 @@
 <template>
   <div>
-    home
+    <h1 class="display-1">Главная</h1>
   </div>
 </template>
 

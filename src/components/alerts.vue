@@ -70,6 +70,9 @@ export default {
   computed: {
     message () {
       return this.$store.getters.message
+    },
+    error () {
+      return this.$store.getters.error
     }
   },
   created() {

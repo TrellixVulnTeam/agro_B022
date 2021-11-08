@@ -1,10 +1,14 @@
 export default {
   state: {
+    layout: 'default-layout',
     loading: false,
     error: null,
     message: null
   },
   mutations: {
+    setLayout(state, payload) {
+      state.layout = payload
+    },
     setLoading (state, payload) {
       state.loading = payload
     },
@@ -49,6 +53,9 @@ export default {
     // }
   },
   getters: {
+    layout(state) {
+      return state.layout
+    },
     loading (state) {
       return state.loading
     },

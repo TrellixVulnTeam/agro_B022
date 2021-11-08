@@ -13,7 +13,10 @@ const routes = [
   {
     path: '/getpass',
     name: 'GetPass',
-    component: () => import('../views/GetPass.vue')
+    component: () => import('../views/GetPass.vue'),
+    meta: {
+      layout: 'auth-layout'
+    }
   }
 ]
 

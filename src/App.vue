@@ -1,30 +1,10 @@
 <template>
-  <v-app>
+  <div id="app">
     <alerts></alerts>
-    <v-navigation-drawer app>
-      <v-app-bar>
-        app-bar
-      </v-app-bar>
-      navigation-drawer
-    </v-navigation-drawer>
-
-    <v-app-bar app>
-      app-bar
-    </v-app-bar>
-
-    <v-main>
-
-      MAIN
-
-      <v-container fluid>
-        <router-view></router-view>
-      </v-container>
-    </v-main>
-
-    <v-footer app>
-      Footer
-    </v-footer>
-  </v-app>
+    <component :is="layout">
+      <router-view/>
+    </component>
+  </div>
 </template>
 
 <script>
@@ -35,7 +15,11 @@ export default {
     alerts
   },
   data: () => ({
-    //
   }),
-};
+  computed: {
+    layout() {
+      return this.$route.meta.layout || 'default-layout'
+    }
+  }
+}
 </script>
