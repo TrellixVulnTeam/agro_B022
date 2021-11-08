@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <alerts></alerts>
     <v-navigation-drawer app>
       <v-app-bar>
         app-bar
@@ -27,10 +28,12 @@
 </template>
 
 <script>
-
+const alerts = () => import('@/components/alerts')
 export default {
   name: 'App',
-
+  components: {
+    alerts
+  },
   data: () => ({
     //
   }),
