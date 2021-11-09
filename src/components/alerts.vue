@@ -15,6 +15,7 @@
         <template v-slot:action="{ attrs }">
           <v-btn
             color="white"
+            class="mr-1"
             text
             v-bind="attrs"
             @click.native="closeError"
@@ -40,6 +41,7 @@
         <template v-slot:action="{ attrs }">
           <v-btn
             color="white"
+            class="mr-1"
             text
             v-bind="attrs"
             @click.native="closeMessage"

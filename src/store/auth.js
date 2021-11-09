@@ -1,5 +1,11 @@
 import router from '../router'
 // import _ from 'lodash'
+class User {
+  constructor (id) {
+    id = parseInt(id)
+    this.id = id
+  }
+}
 
 export default {
   state: {
@@ -10,11 +16,17 @@ export default {
       state.user = payload
     },
     setUserData (state, userData) {
-      localStorage.token = userData.token
-      // var base64Url = userData.token.split('.')[1]
-      // var base64 = base64Url.replace('-', '+').replace('_', '/')
-      // var encToken = JSON.parse(window.atob(base64))
-      // localStorage.urole = encToken.role
+      console.log(userData)
+      localStorage.jwt = userData.jwt
+      var base64Url = userData.jwt.split('.')[1]
+      var base64 = base64Url.replace('-', '+').replace('_', '/')
+      var encToken = JSON.parse(window.atob(base64))
+      localStorage.exp = encToken.exp
+      localStorage.user_name = encToken.Payload.user_name
+      localStorage.user_id = encToken.Payload.user_id
+      localStorage.role = encToken.Payload.role
+      localStorage.company = encToken.Payload.company
+      state.user = new User(encToken.Payload.user_id)
     }
   },
   actions: {
@@ -27,34 +39,30 @@ export default {
       this._vm.$http
       .post('auth/new_session', payload)
       .then(response => {
-        console.log(response)
-        // commit('setLoading', false)
-        // commit('setUserData', {payload: response.data})
-        // commit('setMessage', 'Вы успешно вошли в систему')
+        commit('setLoading', false)
+        commit('setMessage', response.data.human_data)
+        router.push('/signin')
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        if (error.response.status === 401) {
+          commit('setError', error.data.human_data)
+        }
+      })
+    },
+    signIn ({commit}, user) {
+      commit('setLoading', true)
+      this._vm.$http
+      .post('auth/get_token', user)
+      .then(response => {
+        commit('setLoading', false)
+        commit('setMessage', 'Вы успешно вошли в систему')
+        commit('setUserData', response.data)
         // router.push('/')
       })
       .catch(error => {
         commit('setLoading', false)
-        if (error.response.status === 401) {
-          commit('setError', error.response.data.message)
-        }
-      })
-    },
-    loginUser ({commit}, user) {
-      commit('setLoading', true)
-      this._vm.$http
-      .post('/login', user)
-      .then(response => {
-        commit('setLoading', false)
-        commit('setUserData', {payload: response.data})
-        commit('setMessage', 'Вы успешно вошли в систему')
-        router.push('/')
-      })
-      .catch(error => {
-        commit('setLoading', false)
-        if (error.response.status === 401) {
-          commit('setError', error.response.data.message)
-        }
+        commit('setError', error.data.human_data)
       })
     },
     // checkToken: _.debounce(function ({ commit, dispatch }, retryRequest) {

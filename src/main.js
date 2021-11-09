@@ -6,13 +6,17 @@ import vuetify from './plugins/vuetify'
 import axios from 'axios'
 import DefaultLayout from './layouts/DefaultLayout.vue'
 import AuthLayout from './layouts/AuthLayout.vue'
+import '@/assets/styles.scss'
 
 Vue.component('default-layout', DefaultLayout)
 Vue.component('auth-layout', AuthLayout)
 
 Vue.prototype.$http = axios.create({
   baseURL: 'http://64.225.100.175:8000/api/v1/',
-  headers: {'Content-Type': 'application/json'}
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + localStorage.jwt
+  }
 })
 
 Vue.config.productionTip = false
