@@ -1,4 +1,4 @@
-import router from '../router'
+import router from '@/router'
 // import _ from 'lodash'
 class User {
   constructor (id) {
@@ -58,7 +58,7 @@ export default {
         commit('setLoading', false)
         commit('setMessage', 'Вы успешно вошли в систему')
         commit('setUserData', response.data)
-        // router.push('/')
+        router.push('/')
       })
       .catch(error => {
         commit('setLoading', false)
