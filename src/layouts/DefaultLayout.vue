@@ -41,7 +41,7 @@
               class="searchBar"
               v-model="searchQuery"
               placeholder="Поиск..."
-              prepend-icon="mdi-dialpad"
+              prepend-icon="mdi-magnify"
             ></v-text-field>
           </v-col>
         </v-row>

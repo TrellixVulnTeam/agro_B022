@@ -6,6 +6,7 @@ import vuetify from './plugins/vuetify'
 import axios from 'axios'
 import DefaultLayout from './layouts/DefaultLayout.vue'
 import AuthLayout from './layouts/AuthLayout.vue'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@/assets/styles.scss'
 
 Vue.component('default-layout', DefaultLayout)

@@ -1,7 +1,11 @@
 import router from '@/router'
 export default {
   state: {
-    products: null
+    products: {
+      data: [],
+      folders: [],
+      paginator: {}
+    }
   },
 
   mutations: {
@@ -16,8 +20,8 @@ export default {
       this._vm.$http
       .get('products' + payload)
       .then(response => {
+        commit('setProducts', response)
         commit('setLoading', false)
-        console.log(response)
       })
       .catch(error => {
         commit('setLoading', false)
