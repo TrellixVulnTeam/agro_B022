@@ -11,18 +11,23 @@ const routes = [
     component: () => import('@/views/Home')
   },
   {
-    path: '/products',
+    path: '/products/:folder_id',
     name: 'Products',
+    props: true,
     component: () => import('@/views/Products')
   },
   {
-    path: '/products/:id',
+    path: '/products',
+    redirect: '/products/0'
+  },
+  {
+    path: '/product/:id',
     name: 'Product',
     props: true,
     component: Product
   },
   {
-    path: '/products/new',
+    path: '/product/new',
     name: 'NewProduct',
     props: true,
     component: Product

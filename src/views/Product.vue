@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div @click="$router.back()" class="back-btn">
+      <v-icon class="ml-0">chevron_left</v-icon>назад
+    </div>
     <h1 class="display-1" v-if="product.id">{{product.name}}</h1>
     <h1 class="display-1" v-else><h1 class="display-1">Новая продукция</h1></h1>
     <v-divider class="mt-2 mb-8"></v-divider>
