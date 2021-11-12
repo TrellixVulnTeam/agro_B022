@@ -15,12 +15,13 @@
         </v-list-item>
       </v-list>
 
-      <v-list dense nav>
+      <v-list
+        dense
+        nav
+      >
         <v-list-item
-          v-for="item in items"
+          v-for="item in links"
           :key="item.title"
-          link
-          class="p-0"
         >
           <v-list-item-content>
             <v-list-item-title>
@@ -65,7 +66,7 @@
     data () {
       return {
         searchQuery: '',
-        items: [
+        links: [
           { title: 'Главная', link: '/' },
           { title: 'Партнёры', link: '/partners' },
           { title: 'Общий справочник', link: '/products' },
@@ -88,7 +89,7 @@
     .v-list-item {
       margin: 0 !important;
       padding: 10px 20px !important;
-      border-radius: 0;
+      border-radius: 0 !important;
       border-bottom: 2px solid #F1F1F1;
       a {
         color: #000000;

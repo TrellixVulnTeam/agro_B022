@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/Home'
-import Products from '@/views/Products'
 import Product from '@/views/Product'
+// import Folder from '@/views/Folder'
 
 Vue.use(VueRouter)
 
@@ -10,12 +9,12 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import('@/views/Home')
   },
   {
     path: '/products',
     name: 'Products',
-    component: Products
+    component: () => import('@/views/Products')
   },
   {
     path: '/products/:id',
@@ -29,6 +28,18 @@ const routes = [
     props: true,
     component: Product
   },
+  // {
+  //   path: '/folders/:id',
+  //   name: 'Folder',
+  //   props: true,
+  //   component: Folder
+  // },
+  // {
+  //   path: '/folders/new',
+  //   name: 'NewFolder',
+  //   props: true,
+  //   component: Folder
+  // },
   {
     path: '/getpass',
     name: 'GetPass',

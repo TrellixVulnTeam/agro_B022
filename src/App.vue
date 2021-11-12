@@ -11,11 +11,11 @@
 const alerts = () => import('@/components/alerts')
 export default {
   name: 'App',
+  data: () => ({
+  }),
   components: {
     alerts
   },
-  data: () => ({
-  }),
   computed: {
     layout() {
       return this.$route.meta.layout || 'default-layout'

@@ -2,7 +2,10 @@
   <div>
     <h1 class="display-1">Плоды</h1>
     <v-divider class="mt-2 mb-4"></v-divider>
-    <v-btn @click="$router.push('/products/new')" depressed color="light-grey" class="mb-4">+ Добавить продукт</v-btn>
+    <v-btn @click="$router.push('/products/new')" depressed color="light-grey" class="mb-4 mr-4">+ Добавить продукт</v-btn>
+
+    <folder parent_id="0" id=""></folder>
+
     <v-container class="tree-box" fluid>
       <v-row class="tree-header">
         <v-col cols="3">
@@ -76,11 +79,15 @@
 </template>
 
 <script>
+const folder = () => import('@/components/folder')
 export default {
   name: 'Products',
   data() {
     return {
     }
+  },
+  components: {
+    folder
   },
   methods: {
   },
