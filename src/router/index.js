@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Products from '../views/Products.vue'
+import Home from '@/views/Home'
+import Products from '@/views/Products'
+import Product from '@/views/Product'
 
 Vue.use(VueRouter)
 
@@ -17,9 +18,21 @@ const routes = [
     component: Products
   },
   {
+    path: '/products/:id',
+    name: 'Product',
+    props: true,
+    component: Product
+  },
+  {
+    path: '/products/new',
+    name: 'NewProduct',
+    props: true,
+    component: Product
+  },
+  {
     path: '/getpass',
     name: 'GetPass',
-    component: () => import('../views/GetPass.vue'),
+    component: () => import('@/views/GetPass.vue'),
     meta: {
       layout: 'auth-layout'
     }

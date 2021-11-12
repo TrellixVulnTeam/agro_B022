@@ -54,9 +54,8 @@
       </v-container>
     </v-main>
 
-    <v-footer app>
-      Footer
-    </v-footer>
+    <!-- <v-footer app>
+    </v-footer> -->
   </v-app>
 </template>
 
