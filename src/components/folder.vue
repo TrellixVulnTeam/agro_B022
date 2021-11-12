@@ -75,12 +75,16 @@ export default {
   },
   methods: {
     updateFolder () {
+      this.dialog = false
       this.$store.dispatch('updateFolder')
     },
     createFolder () {
+      this.dialog = false
+      this.folder = this.parent_id
       this.$store.dispatch('createFolder')
     },
     deleteFolder () {
+      this.dialog = false
       this.$store.dispatch('deleteFolder')
     },
     loadFolder () {
@@ -101,7 +105,6 @@ export default {
     }
   },
   mounted() {
-    this.folder = this.parent_id
     this.$store.dispatch('getFolderModels')
   }
 }

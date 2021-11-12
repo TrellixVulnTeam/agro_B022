@@ -76,7 +76,7 @@ export default {
       .post('folder?', state.folder)
       .then(() => {
         commit('setMessage', 'Папка успешно создана')
-        dispatch('getProducts')
+        dispatch('getProducts', '')
         commit('setLoading', false)
       })
       .catch(error => {

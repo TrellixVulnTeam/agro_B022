@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Product from '@/views/Product'
-// import Folder from '@/views/Folder'
 
 Vue.use(VueRouter)
 
@@ -28,18 +27,6 @@ const routes = [
     props: true,
     component: Product
   },
-  // {
-  //   path: '/folders/:id',
-  //   name: 'Folder',
-  //   props: true,
-  //   component: Folder
-  // },
-  // {
-  //   path: '/folders/new',
-  //   name: 'NewFolder',
-  //   props: true,
-  //   component: Folder
-  // },
   {
     path: '/getpass',
     name: 'GetPass',

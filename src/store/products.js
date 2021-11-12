@@ -4,7 +4,11 @@ export default {
     products: {
       data: [],
       folders: [],
-      paginator: {}
+      paginator: {
+        total_pages: 1,
+        current_pages: 1,
+        total_items: 1
+      }
     },
     product: {}
   },
@@ -19,12 +23,14 @@ export default {
   },
 
   actions: {
-    getProducts ({commit}, payload) {
+    getProducts ({state, commit}, folder) {
       commit('setLoading', true)
       this._vm.$http
-      .get('products' + payload)
+      .get('products?folder=' + folder + '&page=' + state.products.paginator.current_pages)
       .then(response => {
-        commit('setProducts', response)
+        commit('setProducts', response.data)
+        commit('setProduct', {})
+        commit('setFolder', {})
         commit('setLoading', false)
       })
       .catch(error => {
@@ -75,12 +81,12 @@ export default {
     },
     createProduct ({commit, state}) {
       commit('setLoading', true)
-      // console.log(state.product)
       this._vm.$http
       .post('product?', state.product)
-      .then(response => {
+      .then(() => {
         commit('setMessage', 'Продукция успешно создана')
-        router.push('/products/' + response.data.id)
+        // router.push('/products/' + response.data.id)
+        router.push('/products')
         commit('setLoading', false)
       })
       .catch(error => {
@@ -90,7 +96,7 @@ export default {
           router.push('/signin')
           commit('setError', error.response.data.message)
         }
-        commit('setError', error.response.data.message)
+        commit('setError', error.response.data.human_data)
       })
     },
     deleteProduct ({commit, state}) {
