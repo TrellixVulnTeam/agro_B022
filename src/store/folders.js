@@ -34,29 +34,15 @@ export default {
       })
     },
     getFolder ({commit}, payload) {
-      commit('setLoading', true)
-      this._vm.$http
-      .get('folder?id=' + payload)
-      .then(response => {
-        commit('setFolder', response.data)
-        commit('setLoading', false)
-      })
-      .catch(error => {
-        commit('setLoading', false)
-        if (error.response.status === 401) {
-          // REFRESH
-          router.push('/signin')
-          commit('setError', error.response.data.message)
-        }
-        commit('setError', error.response.data.message)
-      })
+      commit('setFolder', payload)
     },
-    updateFolder ({commit, state}) {
+    updateFolder ({dispatch, commit, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .put('folder?id=' + state.folder.id, state.folder)
+      .put('folder', state.folder)
       .then(() => {
         commit('setMessage', 'Папка успешно обновлена')
+        dispatch('getProducts', state.folder.parent_id)
         commit('setLoading', false)
       })
       .catch(error => {
@@ -69,14 +55,14 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    createFolder ({commit, dispatch, state}) {
+    createFolder ({commit, dispatch, state}, parent_id) {
+      state.folder.parent_id = parseInt(parent_id)
       commit('setLoading', true)
-      // console.log(state.folder)
       this._vm.$http
       .post('folder?', state.folder)
       .then(() => {
         commit('setMessage', 'Папка успешно создана')
-        dispatch('getProducts', '')
+        dispatch('getProducts', parent_id)
         commit('setLoading', false)
       })
       .catch(error => {

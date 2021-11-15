@@ -59,6 +59,9 @@ export default {
         commit('setMessage', 'Вы успешно вошли в систему')
         commit('setUserData', response.data)
         router.push('/')
+        setTimeout(() => {
+          location.reload()
+        }, 100);
       })
       .catch(error => {
         commit('setLoading', false)
