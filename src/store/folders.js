@@ -75,10 +75,10 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    deleteFolder ({commit, state}) {
+    deleteFolder ({commit}, folder) {
       commit('setLoading', true)
       this._vm.$http
-      .delete('folder?id=' + state.folder.id)
+      .delete('folder?id=' + folder.id, '&model=' + folder.model)
       .then(() => {
         router.go(-1)
         commit('setMessage', 'Папка успешно удалена')

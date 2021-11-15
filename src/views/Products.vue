@@ -91,7 +91,7 @@
           </v-icon>
           <v-icon
             small
-            @click="deleteFolder(folder.id)"
+            @click="deleteFolder(folder)"
           >
             mdi-delete
           </v-icon>
@@ -154,9 +154,9 @@ export default {
       this.folderDialog = false
       this.$store.dispatch('createFolder', this.folder_id)
     },
-    deleteFolder () {
+    deleteFolder (folder) {
       this.folderDialog = false
-      this.$store.dispatch('deleteFolder')
+      this.$store.dispatch('deleteFolder', folder)
     },
     closeFolder () {
       this.folderDialog = false
