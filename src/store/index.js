@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import warehouses from './warehouses'
 import products from './products'
 import folders from './folders'
+import gardens from './gardens'
 import shared from './shared'
 import auth from './auth'
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     warehouses,
     products,
     folders,
+    gardens,
     shared,
     auth
   }

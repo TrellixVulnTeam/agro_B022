@@ -70,6 +70,7 @@
           { title: 'Главная', link: '/' },
           { title: 'Продукция', link: '/products' },
           { title: 'Склады', link: '/warehouses' },
+          { title: 'Сады', link: '/gardens' }
         ],
         right: null
       }

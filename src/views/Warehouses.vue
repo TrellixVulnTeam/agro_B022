@@ -141,7 +141,7 @@
         depressed
         v-model="paginator.current_pages"
         :length="paginator.total_pages"
-        @input="getProducts()"
+        @input="getWarehouses()"
       ></v-pagination>
     </div>
   </div>
@@ -150,7 +150,7 @@
 <script>
 import { nameTheWrhsType } from '@/helpers/helpers.js'
 export default {
-  name: 'Products',
+  name: 'Warehouses',
   data() {
     return {
       folderDialog: false

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Warehouse from '@/views/Warehouse'
 import Product from '@/views/Product'
+import Garden from '@/views/Garden'
 
 Vue.use(VueRouter)
 
@@ -55,6 +56,28 @@ const routes = [
     props: true,
     component: Warehouse
   },
+  {
+    path: '/gardens/:folder_id',
+    name: 'Gardens',
+    props: true,
+    component: () => import('@/views/Gardens')
+  },
+  {
+    path: '/Gardens',
+    redirect: '/gardens/0'
+  },
+  {
+    path: '/garden/:id',
+    name: 'Garden',
+    props: true,
+    component: Garden
+  },
+  {
+    path: '/garden/new',
+    name: 'NewGarden',
+    props: true,
+    component: Garden
+  }, 
   {
     path: '/getpass',
     name: 'GetPass',
