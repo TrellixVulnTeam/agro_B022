@@ -68,8 +68,8 @@
         searchQuery: '',
         links: [
           { title: 'Главная', link: '/' },
-          { title: 'Партнёры', link: '/partners' },
-          { title: 'Общий справочник', link: '/products' },
+          { title: 'Продукция', link: '/products' },
+          { title: 'Склады', link: '/warehouses' },
         ],
         right: null
       }

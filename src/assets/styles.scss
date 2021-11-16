@@ -13,10 +13,21 @@ body {
     border-bottom: 1px solid #DEDEDE;
   }
   .tree-row {
-    cursor: pointer;
+    // cursor: pointer;
     a {
       color: #2C2C2C;
       text-decoration: none;
+    }
+    .v-icon {
+      margin-top: -3px;
+    }
+    .folder-name {
+      cursor: pointer;
+    }
+    .actions {
+      .v-icon {
+        color: #7D90B2 !important;
+      }
     }
     &:nth-child(odd) {
       background: #F5F5F5;

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Warehouse from '@/views/Warehouse'
 import Product from '@/views/Product'
 
 Vue.use(VueRouter)
@@ -31,6 +32,28 @@ const routes = [
     name: 'NewProduct',
     props: true,
     component: Product
+  },
+  {
+    path: '/warehouses/:folder_id',
+    name: 'Warehouses',
+    props: true,
+    component: () => import('@/views/Warehouses')
+  },
+  {
+    path: '/Warehouses',
+    redirect: '/warehouses/0'
+  },
+  {
+    path: '/warehouse/:id',
+    name: 'Warehouse',
+    props: true,
+    component: Warehouse
+  },
+  {
+    path: '/warehouse/new',
+    name: 'NewWarehouse',
+    props: true,
+    component: Warehouse
   },
   {
     path: '/getpass',

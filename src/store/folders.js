@@ -63,6 +63,8 @@ export default {
       .then(() => {
         commit('setMessage', 'Папка успешно создана')
         dispatch('getProducts', parent_id)
+        dispatch('getWarehouses', parent_id)
+        dispatch('getContractors', parent_id)
         commit('setLoading', false)
       })
       .catch(error => {
