@@ -80,7 +80,7 @@ export default {
       this.$store.dispatch('createProduct')
     },
     deleteProduct () {
-      this.$store.dispatch('deleteProduct')
+      this.$store.dispatch('deleteProduct', this.product)
     }
   },
   computed: {

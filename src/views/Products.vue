@@ -74,14 +74,16 @@
       </v-row>
       <v-row class="tree-row tree-folders" v-for="folder in folders" :key="folder.id">
         <v-col cols="4" @click="openFolder(folder.id)">
-          <v-icon color="blue">folder</v-icon>
-          {{ folder.folder_name }}
+          <span class="folder-name">
+            <v-icon color="blue">folder</v-icon>
+            {{ folder.folder_name }}
+          </span>
         </v-col>
         <v-col cols="1">
         </v-col>
         <v-col cols="6">
         </v-col>
-        <v-col cols="1" class="text-right">
+        <v-col cols="1" class="text-right actions">
           <v-icon
             small
             class="mr-2"
@@ -100,10 +102,10 @@
 
       <v-row class="tree-row tree-folders" v-for="item in items" :key="item.id">
         <v-col cols="4">
-          <router-link :to="'/product/' + item.id">
+          <span class="name">
             <v-icon>mdi-file-outline</v-icon>
             {{ item.name }}
-          </router-link>
+          </span>
         </v-col>
         <v-col cols="1">
           {{ item.classification_number.slice(0, 7) }}
@@ -111,7 +113,20 @@
         <v-col cols="6">
           {{ item.description.slice(0, 40) }}
         </v-col>
-        <v-col cols="1">
+        <v-col cols="1" class="text-right actions">
+          <v-icon
+            small
+            class="mr-2"
+            @click="editItem(item)"
+          >
+            mdi-pencil
+          </v-icon>
+          <v-icon
+            small
+            @click="deleteItem(item)"
+          >
+            mdi-delete
+          </v-icon>
         </v-col>
       </v-row>
     </v-container>
@@ -136,6 +151,12 @@ export default {
   },
   props: [ 'folder_id' ],
   methods: {
+    editItem(item) {
+      this.$router.push('/product/' + item.id)
+    },
+    deleteItem(item) {
+      this.$store.dispatch('deleteProduct', item)
+    },
     openFolder(id) {
       this.$router.push('/products/' + id)
     },

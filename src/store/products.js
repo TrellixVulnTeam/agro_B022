@@ -99,12 +99,15 @@ export default {
         commit('setError', error.response.data.human_data)
       })
     },
-    deleteProduct ({commit, state}) {
+    deleteProduct ({commit, dispatch}, payload) {
       commit('setLoading', true)
       this._vm.$http
-      .delete('product?id=' + state.product.id)
+      .delete('product?id=' + payload.id)
       .then(() => {
-        router.go(-1)
+        if (router.currentRoute.path !== ('/products/' + payload.parent_id)) {
+          router.push('/products/' + payload.parent_id)
+        }
+        dispatch('getProducts', payload.parent_id)
         commit('setMessage', 'Продукция успешно удалена')
         commit('setLoading', false)
       })
