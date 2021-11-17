@@ -63,7 +63,7 @@ const routes = [
     component: () => import('@/views/Gardens')
   },
   {
-    path: '/Gardens',
+    path: '/gardens',
     redirect: '/gardens/0'
   },
   {
@@ -85,6 +85,22 @@ const routes = [
     meta: {
       layout: 'auth-layout'
     }
+  },
+  {
+    path: '/quarters/:garden_id',
+    name: 'Gardens',
+    props: true,
+    component: () => import('@/views/Quarters')
+  },
+  {
+    path: '/quarters',
+    redirect: '/quarters/1'
+  },
+  {
+    path: '/block/:id',
+    name: 'Block',
+    props: true,
+    component: () => import('../views/Block.vue'),
   },
   {
     path: '/signin',

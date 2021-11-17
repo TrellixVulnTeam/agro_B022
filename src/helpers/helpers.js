@@ -7,3 +7,13 @@ export const nameTheWrhsType = function (wrhs, types) {
   })
   return name
 }
+
+export const nameTheLandingSchemas = function (block, landing_schemas) {
+  let landing_schema_name = ''
+  landing_schemas.forEach(schema => {
+    if (block.landing_schemas_id == schema.id) {
+      landing_schema_name = schema.name
+    }
+  })
+  return landing_schema_name
+}

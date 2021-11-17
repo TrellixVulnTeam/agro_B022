@@ -1,55 +1,72 @@
-body {
-  font-family: Uni Neue;
-  color: #000000;
-}
+#app {
 
-.theme-elevation {
-  box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 1%), 0px 6px 10px 0px rgb(0 0 0 / 1%), 0px 1px 18px 0px rgb(0 0 0 / 9%) !important;
-}
-
-.tree-box {
-  border: 1px solid #DEDEDE;
-  .tree-header {
-    border-bottom: 1px solid #DEDEDE;
+  body {
+    font-family: Uni Neue;
+    color: #000000;
   }
-  .tree-row {
-    // cursor: pointer;
-    a {
-      color: #2C2C2C;
-      text-decoration: none;
+
+  .v-application .primary {
+    background-color: #09B44D !important;
+    border-color: #09B44D !important;
+  }
+
+  .theme-elevation {
+    box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 1%), 0px 6px 10px 0px rgb(0 0 0 / 1%), 0px 1px 18px 0px rgb(0 0 0 / 9%) !important;
+  }
+
+  .tree-box {
+    border: 1px solid #DEDEDE;
+    .tree-header {
+      font-weight: 500;
+      border-bottom: 1px solid #DEDEDE;
     }
-    .v-icon {
-      margin-top: -3px;
-    }
-    .folder-name {
-      cursor: pointer;
-    }
-    .actions {
+    .tree-row {
+      // cursor: pointer;
+      a {
+        color: #2C2C2C;
+        text-decoration: none;
+      }
       .v-icon {
-        color: #7D90B2 !important;
+        margin-top: -3px;
+      }
+      .folder-name {
+        cursor: pointer;
+      }
+      .actions {
+        .v-icon {
+          color: #7D90B2 !important;
+        }
+      }
+      &:nth-child(odd) {
+        background: #F5F5F5;
+      }
+      &:hover {
+        background: #f1f1f1;
       }
     }
-    &:nth-child(odd) {
-      background: #F5F5F5;
-    }
-    &:hover {
-      background: #f1f1f1;
-    }
   }
-}
 
-.back-btn {
-  cursor: pointer;
-  margin-bottom: 8px;
-  margin-left: -4px;
-}
-.v-pagination {
-  .v-pagination__item {
-    box-shadow: none !important;
-    border: 1px solid #DEDEDE;
+  .back-btn {
+    cursor: pointer;
+    margin-bottom: 8px;
+    margin-left: -4px;
   }
-  .v-pagination__navigation {
-    box-shadow: none !important;
-    border: 1px solid #DEDEDE;
+  .v-pagination {
+    justify-content: left !important;
+    li:first-child {
+      .v-pagination__navigation {
+        margin-left: 0;
+      }
+    }
+    .v-pagination__item {
+      box-shadow: none !important;
+      border: 1px solid #DEDEDE;
+      width: 32px;
+      height: 32px;
+    }
+    .v-pagination__navigation {
+      box-shadow: none !important;
+      border: 1px solid #DEDEDE;
+    }
   }
 }
