@@ -97,7 +97,7 @@ const routes = [
     redirect: '/quarters/1'
   },
   {
-    path: '/block/:id',
+    path: '/blocks/:id',
     name: 'Block',
     props: true,
     component: () => import('../views/Block.vue'),

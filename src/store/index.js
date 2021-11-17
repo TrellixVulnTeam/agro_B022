@@ -7,6 +7,7 @@ import folders from './folders'
 import gardens from './gardens'
 import blocks from './blocks'
 import shared from './shared'
+import rows from './rows'
 import auth from './auth'
 
 Vue.use(Vuex)
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     gardens,
     blocks,
     shared,
+    rows,
     auth
   }
 })

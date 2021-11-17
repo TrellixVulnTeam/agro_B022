@@ -1,34 +1,41 @@
 import router from '@/router'
 export default {
   state: {
-    block: {
-      name: '',
-      description: '',
-      quarter_id: null,
-      landing_schemas_id: null
+    rows: {
+      data: [],
+      folders: [],
+      paginator: {
+        total_pages: 1,
+        current_pages: 1,
+        total_items: 1
+      }
     },
-    landingSchemas: {}
+    row: {
+      name: '',
+      block_id: null
+    }
   },
 
   mutations: {
-    setBlock (state, payload) {
-      state.block = payload
+    setRows (state, payload) {
+      state.rows = payload
     },
-    setBlockParent (state, payload) {
-      state.block.quarter_id = payload
+    setRow (state, payload) {
+      state.row = payload
     },
-    setLandingSchemas (state, payload) {
-      state.landingSchemas = payload
+    setRowBlock (state, id) {
+      state.row.block_id = parseInt(id)
     }
   },
 
   actions: {
-    getBlock ({commit}, id) {
+    getRows ({state, commit}, block_id) {
       commit('setLoading', true)
       this._vm.$http
-      .get('blocks_unit?id=' + id)
+      .get('blocks_rows?block=' + block_id + '&page=' + state.rows.paginator.current_pages)
       .then(response => {
-        commit('setBlock', response.data)
+        commit('setRows', response.data)
+        commit('setRow', {})
         commit('setLoading', false)
       })
       .catch(error => {
@@ -41,27 +48,12 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    getLandingSchemas ({commit}) {
+    getRow ({commit}, row_id) {
+      commit('setLoading', true)
       this._vm.$http
-      .get('landing_schemas?page=' + 1)
+      .get('blocks_row?id=' + row_id)
       .then(response => {
-        commit('setLandingSchemas', response.data)
-      })
-      .catch(error => {
-        if (error.response.status === 401) {
-          // REFRESH
-          router.push('/signin')
-          commit('setError', error.response.data.message)
-        }
-        commit('setError', error.response.data.message)
-      })
-    },
-    updateBlock ({commit, state}) {
-      commit('setLoading', true)
-      this._vm.$http
-      .put('blocks_unit', state.block)
-      .then(() => {
-        commit('setMessage', 'Блок успешно обновлен')
+        commit('setRow', response.data)
         commit('setLoading', false)
       })
       .catch(error => {
@@ -74,15 +66,34 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    createBlock ({commit, state}) {
+    updateRow ({commit, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .post('blocks_unit', state.block)
+      .put('blocks_row?id=' + state.row.id, state.row)
       .then(() => {
-        commit('setMessage', 'Блок успешно создан')
+        commit('setMessage', 'Ряд успешно обновлена')
         commit('setLoading', false)
-        commit('setBlock', {})
-        // location.reload()
+        commit('setRow', {})
+        router.go(0)
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        if (error.response.status === 401) {
+          // REFRESH
+          router.push('/signin')
+          commit('setError', error.response.data.message)
+        }
+        commit('setError', error.response.data.message)
+      })
+    },
+    createRow ({commit, state}) {
+      commit('setLoading', true)
+      this._vm.$http
+      .post('blocks_row', state.row)
+      .then(() => {
+        commit('setMessage', 'Ряд успешно создан')
+        commit('setLoading', false)
+        commit('setRow', {})
         router.go(0)
       })
       .catch(error => {
@@ -95,12 +106,16 @@ export default {
         commit('setError', error.response.data.human_data)
       })
     },
-    deleteBlock ({commit}, block) {
+    deleteRow ({commit, dispatch}, row) {
       commit('setLoading', true)    
       this._vm.$http
-      .delete('blocks_unit?id=' + block.id)
+      .delete('blocks_row?id=' + row.id)
       .then(() => {
-        commit('setMessage', 'Блок успешно удален')
+        // if (router.currentRoute.path !== ('/rows/' + row.block_id)) {
+        //   router.push('/rows/' + row.block_id)
+        // }
+        dispatch('getRows', row.block_id)
+        commit('setMessage', 'Ряд успешно удален')
         commit('setLoading', false)
       })
       .catch(error => {
@@ -116,11 +131,11 @@ export default {
   },
 
   getters: {
-    block (state) {
-      return state.block
+    rows (state) {
+      return state.rows
     },
-    landingSchemas (state) {
-      return state.landingSchemas
+    row (state) {
+      return state.row
     }
   }
 }

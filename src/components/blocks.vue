@@ -49,27 +49,29 @@
         <v-col cols="1">
         </v-col>
       </v-row>
-      <v-row class="tree-row" v-for="item in blocks" :key="item.id">
-        <v-col cols="3">
-          {{ item.name }}
+      <v-row class="tree-row" v-for="block in blocks" :key="block.id">
+        <v-col cols="3" @click="openBlock(block.id)">
+          <span class="folder-name">
+            {{ block.name }}
+          </span>
         </v-col>
         <v-col cols="2">
-          {{ item.landing_schema }}
+          {{ block.landing_schema }}
         </v-col>
         <v-col cols="6">
-          {{ item.description }}
+          {{ block.description }}
         </v-col>
         <v-col cols="1" class="text-right actions">
           <v-icon
             small
             class="mr-2"
-            @click="editItem(item)"
+            @click="editItem(block)"
           >
             mdi-pencil
           </v-icon>
           <v-icon
             small
-            @click="deleteItem(item)"
+            @click="deleteItem(block)"
           >
             mdi-delete
           </v-icon>
@@ -145,6 +147,9 @@ export default {
     closeBlock () {
       this.blockDialog = false
       this.$store.commit('setBlock', {})
+    },
+    openBlock (id) {
+      this.$router.push('/blocks/' + id)
     }
   },
   computed: {
