@@ -3,10 +3,9 @@
     <div @click="$router.back()" class="back-btn">
       <v-icon class="ml-0">chevron_left</v-icon>назад
     </div>
-    <h1 class="display-1">Плоды</h1>
+    <h1 class="display-1">Приемки</h1>
     <v-divider class="mt-2 mb-4"></v-divider>
-    <v-btn @click="$router.push('/product/new')" depressed color="light-grey" class="mb-4 mr-4">+ Добавить продукт</v-btn>
-
+<!-- 
     <v-dialog
       v-model="folderDialog"
       persistent
@@ -55,68 +54,46 @@
           </div>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog> -->
 
     <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
     <v-container class="tree-box" fluid>
       <v-row class="tree-header">
-        <v-col cols="4">
-          Наименование
+        <v-col cols="2">
+          Дата
+        </v-col>
+        <v-col cols="3">
+          Работник
         </v-col>
         <v-col cols="1">
-          Код
+          Кол-во
         </v-col>
-        <v-col cols="6">
-          Описание
+        <v-col cols="3">
+          Контрагент
         </v-col>
-        <v-col cols="1">
+        <v-col cols="2">
+          Склад
         </v-col>
-      </v-row>
-      <v-row class="tree-row tree-folders" v-for="folder in folders" :key="folder.id">
-        <v-col cols="4" @click="openFolder(folder.id)">
-          <span class="folder-name">
-            <v-icon color="blue">folder</v-icon>
-            {{ folder.folder_name }}
-          </span>
-        </v-col>
-        <v-col cols="1">
-        </v-col>
-        <v-col cols="6">
-        </v-col>
-        <v-col cols="1" class="text-right">
-          <div class="actions">
-            <v-icon
-              small
-              class="mr-2"
-              @click="editFolder(folder)"
-            >
-              mdi-pencil
-            </v-icon>
-            <v-icon
-              small
-              @click="deleteFolder(folder)"
-            >
-              mdi-delete
-            </v-icon>
-          </div>
-        </v-col>
-      </v-row>
+      </v-row> 
 
-      <v-row class="tree-row tree-folders" v-for="item in items" :key="item.id">
-        <v-col cols="4">
-          <span class="name">
-            <v-icon>mdi-file-outline</v-icon>
-            {{ item.name }}
-          </span>
+      <v-row class="tree-row tree-folders" v-for="item in acceptances" :key="item.id" @click="goToAcceptance(item.id)">
+        <v-col cols="2">
+          {{ item.acceptance_date | moment('DD.MM.YYYY в hh:mm') }}
+        </v-col>
+        <v-col cols="3">
+          {{ item.employee_fio }}
         </v-col>
         <v-col cols="1">
-          {{ item.classification_number.slice(0, 7) }}
+          {{ item.quantity }}
         </v-col>
-        <v-col cols="6">
-          {{ item.description.slice(0, 40) }}
+        <v-col cols="2">
+          {{ item.contractor }}
+        </v-col>
+        <v-col cols="3">
+          {{ item.warehouse_name }}
         </v-col>
         <v-col cols="1" class="text-right">
-          <div class="actions">
+          <!-- <div class="actions">
             <v-icon
               small
               class="mr-2"
@@ -130,7 +107,7 @@
             >
               mdi-delete
             </v-icon>
-          </div>
+          </div> -->
         </v-col>
       </v-row>
     </v-container>
@@ -139,7 +116,7 @@
         depressed
         v-model="paginator.current_pages"
         :length="paginator.total_pages"
-        @input="getProducts()"
+        @input="getAcceptances()"
       ></v-pagination>
     </div>
   </div>
@@ -147,78 +124,41 @@
 
 <script>
 export default {
-  name: 'Products',
+  name: 'Acceptances',
   data() {
     return {
-      folderDialog: false
+      acceptanceDialog: false
     }
   },
-  props: [ 'folder_id' ],
   methods: {
-    editItem(item) {
-      this.$router.push('/product/' + item.id)
+    getAcceptances() {
+      this.$store.dispatch('getAcceptances')
     },
-    deleteItem(item) {
-      this.$store.dispatch('deleteProduct', item)
-    },
-    openFolder(id) {
-      this.$router.push('/products/' + id)
-    },
-    getProducts(id) {
-      this.$store.dispatch('getProducts', id)
-    },
-    editFolder(folder) {
-      this.folderDialog = true
-      this.$store.dispatch('getFolder', folder)
-    },
-    updateFolder () {
-      this.folderDialog = false
-      this.$store.dispatch('updateFolder')
-    },
-    createFolder () {
-      this.folderDialog = false
-      this.$store.dispatch('createFolder', this.folder_id)
-    },
-    deleteFolder (folder) {
-      this.folderDialog = false
-      this.$store.dispatch('deleteFolder', folder)
-    },
-    closeFolder () {
-      this.folderDialog = false
-      this.$store.dispatch('getFolder', {})
+    goToAcceptance(id) {
+      this.$router.push('/acceptance/' + id)
     }
   },
   computed: {
-    loading () {
-      return this.$store.getters.loading
-    },
-    folders() {
-      return this.$store.getters.products.folders
-    },
-    folder() {
-      return this.$store.getters.folder
-    },
-    items() {
-      return this.$store.getters.products.data
+    acceptances() {
+      return this.$store.getters.acceptances.data
     },
     paginator() {
-      return this.$store.getters.products.paginator
+      return this.$store.getters.acceptances.paginator
     },
-    folderModels() {
-      return this.$store.getters.folderModels
+    loading () {
+      return this.$store.getters.loading
     }
   },
   created() {
-    this.getProducts(this.folder_id)
-    this.$store.dispatch('getFolderModels')
+    this.getAcceptances()
   },
   watch:{
-    $route() {
-      this.getProducts(this.folder_id)
-    }
   }
 }
 </script>
 
 <style lang="scss">
+  .row {
+    cursor: pointer;
+  }
 </style>

@@ -13,6 +13,30 @@ const routes = [
     component: () => import('@/views/Home')
   },
   {
+    path: '/acceptances',
+    name: 'Acceptances',
+    props: true,
+    component: () => import('@/views/Acceptances')
+  },
+  {
+    path: '/acceptance/:id',
+    name: 'Acceptance',
+    props: true,
+    component: () => import('@/views/Acceptance')
+  },
+  {
+    path: '/researches',
+    name: 'Researches',
+    props: true,
+    component: () => import('@/views/Researches')
+  },
+  {
+    path: '/research/:id',
+    name: 'Research',
+    props: true,
+    component: () => import('@/views/Research')
+  },
+  {
     path: '/products/:folder_id',
     name: 'Products',
     props: true,
@@ -78,14 +102,7 @@ const routes = [
     props: true,
     component: Garden
   }, 
-  {
-    path: '/getpass',
-    name: 'GetPass',
-    component: () => import('@/views/GetPass.vue'),
-    meta: {
-      layout: 'auth-layout'
-    }
-  },
+
   {
     path: '/quarters/:garden_id',
     name: 'Gardens',
@@ -106,6 +123,14 @@ const routes = [
     path: '/signin',
     name: 'SignIn',
     component: () => import('../views/SignIn.vue'),
+    meta: {
+      layout: 'auth-layout'
+    }
+  },
+  {
+    path: '/getpass',
+    name: 'GetPass',
+    component: () => import('@/views/GetPass.vue'),
     meta: {
       layout: 'auth-layout'
     }

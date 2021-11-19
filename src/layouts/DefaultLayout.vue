@@ -4,13 +4,13 @@
       <v-list class="theme-elevation">
         <v-list-item class="px-2">
           <v-list-item-avatar>
-            <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+            <v-img src="https://randomuser.me/api/portraits/men/11.jpg"></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="text-h6">
-              Sierra Ferguson
+              {{ user_name }}
             </v-list-item-title>
-            <v-list-item-subtitle>s.ferguson@gmail.com</v-list-item-subtitle>
+            <v-list-item-subtitle>{{ user_email }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -70,9 +70,13 @@
           { title: 'Главная', link: '/' },
           { title: 'Продукция', link: '/products' },
           { title: 'Склады', link: '/warehouses' },
-          { title: 'Сады', link: '/quarters' }
+          { title: 'Сады', link: '/quarters' },
+          { title: 'Приемки', link: '/acceptances' },
+          { title: 'Исследования', link: '/researches' }
         ],
-        right: null
+        right: null,
+        user_email: localStorage.getItem("user_email"),
+        user_name: localStorage.getItem("user_name")
       }
     },
   }

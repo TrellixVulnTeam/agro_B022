@@ -33,15 +33,19 @@
         cursor: pointer;
       }
       .actions {
+        display: none;
         .v-icon {
           color: #7D90B2 !important;
         }
       }
-      &:nth-child(odd) {
-        background: #F5F5F5;
-      }
       &:hover {
         background: #f1f1f1;
+        .actions {
+          display: block;
+        }
+      }
+      &:nth-child(odd) {
+        background: #F5F5F5;
       }
     }
   }

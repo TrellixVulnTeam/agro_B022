@@ -88,20 +88,22 @@
         </v-col>
         <v-col cols="2">
         </v-col>
-        <v-col cols="1" class="text-right actions">
-          <v-icon
-            small
-            class="mr-2"
-            @click="editFolder(folder)"
-          >
-            mdi-pencil
-          </v-icon>
-          <v-icon
-            small
-            @click="deleteFolder(folder)"
-          >
-            mdi-delete
-          </v-icon>
+        <v-col cols="1" class="text-right">
+          <div class="actions">
+            <v-icon
+              small
+              class="mr-2"
+              @click="editFolder(folder)"
+            >
+              mdi-pencil
+            </v-icon>
+            <v-icon
+              small
+              @click="deleteFolder(folder)"
+            >
+              mdi-delete
+            </v-icon>
+          </div>
         </v-col>
       </v-row>
 

@@ -91,7 +91,7 @@ export default {
       this._vm.$http
       .put('warehouse?id=' + state.warehouse.id, state.warehouse)
       .then(() => {
-        commit('setMessage', 'Склад успешно обновлена')
+        commit('setMessage', 'Склад успешно обновлен')
         commit('setLoading', false)
       })
       .catch(error => {

@@ -3,45 +3,43 @@
     <div @click="$router.back()" class="back-btn">
       <v-icon class="ml-0">chevron_left</v-icon>назад
     </div>
-    <h1 class="display-1">Сады</h1>
+    <h1 class="display-1">Исследования</h1>
     <v-divider class="mt-2 mb-4"></v-divider>
-    <v-btn @click="$router.push('/garden/new')" depressed color="light-grey" class="mb-4 mr-4">+ Добавить сад</v-btn>
 
     <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
     <v-container class="tree-box" fluid>
       <v-row class="tree-header">
         <v-col cols="3">
-          Наименование
+          Дата
         </v-col>
         <v-col cols="2">
-
+          Приемка
         </v-col>
         <v-col cols="4">
-
+          Количество
         </v-col>
         <v-col cols="2">
-
+          Статус
         </v-col>
         <v-col cols="1">
         </v-col>
-      </v-row>
+      </v-row> 
 
-      <v-row class="tree-row tree-folders" v-for="item in items" :key="item.id">
+      <v-row class="tree-row tree-folders" v-for="item in researches" :key="item.id" @click="goToResearch(item.id)">
         <v-col cols="3">
-          <v-icon>mdi-file-outline</v-icon>
-          {{ item.name }}
+          {{ item.research_date | moment('DD.MM.YYYY в hh:mm') }}
         </v-col>
         <v-col cols="2">
-
+          {{ item.acceptance_id }}
         </v-col>
         <v-col cols="4">
-          {{ item.description.slice(0, 40) }}
+          {{ item.quantity }}
         </v-col>
         <v-col cols="2">
-
+          {{ item.status }}
         </v-col>
-        <v-col cols="1" class="text-right">
-          <div class="actions">
+        <v-col cols="1" class="text-right actions">
+          <!-- <div class="actions">
             <v-icon
               small
               class="mr-2"
@@ -55,7 +53,7 @@
             >
               mdi-delete
             </v-icon>
-          </div>
+          </div> -->
         </v-col>
       </v-row>
     </v-container>
@@ -64,62 +62,49 @@
         depressed
         v-model="paginator.current_pages"
         :length="paginator.total_pages"
-        @input="getProducts()"
+        @input="getResearches()"
       ></v-pagination>
     </div>
   </div>
 </template>
 
 <script>
-// import { nameTheWrhsType } from '@/helpers/helpers.js'
 export default {
-  name: 'Gardens',
+  name: 'Researches',
   data() {
     return {
+      acceptanceDialog: false
     }
   },
-  props: [ 'folder_id' ],
   methods: {
-    getGardens(id) {
-      this.$store.dispatch('getGardens', id)
+    getResearches() {
+      this.$store.dispatch('getResearches')
     },
-    editItem(item) {
-      this.$router.push('/garden/' + item.id)
-    },
-    deleteItem(item) {
-      this.$store.dispatch('deleteGarden', item)
+    goToResearch (id) {
+      this.$router.push('/research/' + id)
     }
   },
   computed: {
-    items() {
-      return this.$store.getters.gardens.data
+    researches() {
+      return this.$store.getters.researches.data
     },
     paginator() {
-      return this.$store.getters.gardens.paginator
-    },
-    garden_types() {
-      return this.$store.getters.garden_types.data
+      return this.$store.getters.researches.paginator
     },
     loading () {
       return this.$store.getters.loading
     }
   },
   created() {
-    this.getGardens(this.folder_id)
-    this.$store.dispatch('getGarden_types')
+    this.getResearches()
   },
   watch:{
-    // items() {
-    //   this.items.forEach(wrh => {
-    //     wrh.type = nameTheWrhsType(wrh, this.garden_types)
-    //   })
-    // },
-    // $route() {
-    //   this.getGardens(this.folder_id)
-    // }
   }
 }
 </script>
 
 <style lang="scss">
+  .row {
+    cursor: pointer;
+  }
 </style>

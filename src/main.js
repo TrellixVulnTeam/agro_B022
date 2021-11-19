@@ -9,6 +9,8 @@ import AuthLayout from './layouts/AuthLayout.vue'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@/assets/styles.scss'
 
+Vue.use(require('vue-moment'))
+
 Vue.component('default-layout', DefaultLayout)
 Vue.component('auth-layout', AuthLayout)
 

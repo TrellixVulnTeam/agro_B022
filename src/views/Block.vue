@@ -85,20 +85,22 @@
         <v-col cols="2">
 
         </v-col>
-        <v-col cols="1" class="text-right actions">
-          <v-icon
-            small
-            class="mr-2"
-            @click="editRow(row)"
-          >
-            mdi-pencil
-          </v-icon>
-          <v-icon
-            small
-            @click="deleteRow(row)"
-          >
-            mdi-delete
-          </v-icon>
+        <v-col cols="1" class="text-right">
+          <div class="actions">
+            <v-icon
+              small
+              class="mr-2"
+              @click="editRow(row)"
+            >
+              mdi-pencil
+            </v-icon>
+            <v-icon
+              small
+              @click="deleteRow(row)"
+            >
+              mdi-delete
+            </v-icon>
+          </div>
         </v-col>
       </v-row>
     </v-container>

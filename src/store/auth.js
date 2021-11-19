@@ -55,6 +55,7 @@ export default {
       this._vm.$http
       .post('auth/get_token', user)
       .then(response => {
+        localStorage.user_email = user.email
         commit('setLoading', false)
         commit('setMessage', 'Вы успешно вошли в систему')
         commit('setUserData', response.data)
