@@ -32,7 +32,7 @@
         right
         top
         :multi-line="true"
-        :timeout=3000
+        :timeout=30000
         color="success"
         @input="closeMessage"
         :value="true"
@@ -41,7 +41,7 @@
         <template v-slot:action="{ attrs }">
           <v-btn
             color="white"
-            class="mr-1"
+            class="mr-2"
             text
             v-bind="attrs"
             @click.native="closeMessage"
@@ -81,3 +81,19 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  .v-snack__wrapper {
+    font-family: Uni Neue;
+    button {
+      margin-right: 8px;
+      background: rgba(255,255,255, 0.2);
+    }
+    &.success {
+      background: #09B44D !important;
+    }
+    &.error {
+      background: #ff5b5b !important;
+    }
+  }
+</style>
