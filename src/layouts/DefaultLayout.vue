@@ -50,7 +50,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container fluid>
+      <v-container fluid class="pa-8">
         <router-view></router-view>
       </v-container>
     </v-main>
