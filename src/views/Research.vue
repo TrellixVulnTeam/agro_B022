@@ -3,23 +3,37 @@
     <div @click="$router.back()" class="back-btn">
       <v-icon class="ml-0">chevron_left</v-icon>назад
     </div>
-    <h1 class="display-1">Исследование {{ research.research_date | moment('DD.MM.YYYY hh:mm') }}</h1>
+    <h1 class="display-1">Исследование {{ research.research_date | moment('DD.MM.YYYY') }}</h1>
     <v-divider class="mt-2 mb-8"></v-divider>
     <v-row class="form-grid">
       <v-col cols="7">
         <v-row>
-          <v-col cols="5">
+          <v-col cols="7">
             <v-text-field label="Номер" outlined v-model="research.uuid"></v-text-field>
           </v-col>
-          <v-col cols="7">
-            <v-text-field label="Статус" outlined v-model="research.employee_id"></v-text-field>
+          <v-col cols="5">
+            <v-select
+              :items="researchStatuses"
+              v-model.number="research.status"
+              outlined
+              label="Статус"
+              item-text="name"
+              item-value="value"
+            ></v-select>
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="5">
-            <v-text-field label="Партия" outlined v-model="research.acceptance_id"></v-text-field>
-          </v-col>
           <v-col cols="7">
+            <v-select
+              :items="acceptances"
+              v-model.number="research.acceptance_id"
+              outlined
+              label="Приемка"
+              item-text="acceptance_label"
+              item-value="id"
+            ></v-select>
+          </v-col>
+          <v-col cols="5">
             <v-text-field label="Количество" outlined v-model="research.quantity"></v-text-field>
           </v-col>
         </v-row>
@@ -85,15 +99,15 @@
                   item-text="name"
                   item-value="id"
                 ></v-select>
-                <v-text-field label="Значение" outlined v-model="RDataItem.value"></v-text-field>
-                <v-select
+                <v-text-field label="Значение" outlined v-model.number="RDataItem.value"></v-text-field>
+                <!-- <v-select
                   :items="measurementUnits"
                   v-model="RDataItem.measurement_unit_id"
                   outlined
                   label="Единица измерения"
                   item-text="name"
                   item-value="id"
-                ></v-select>
+                ></v-select> -->
 
               </v-card-text>
               <v-card-actions class="pa-4">
@@ -216,7 +230,6 @@ export default {
       RDataItem: {
         research_id: null,
         indicator_id: null,
-        measurement_unit_id: null,
         value: null
       },
       indicator: {
@@ -247,9 +260,9 @@ export default {
     getMeasurementUnits () {
       this.$store.dispatch('getMeasurementUnits')
     },
-    // getRDataItem (id) {
-    //   this.$store.dispatch('getRDataItem', id)
-    // },
+    getAcceptances() {
+      this.$store.dispatch('getAcceptances')
+    },
     getResearchDataByIndicatorGroup (group_id) {
       this.researchDataByIndicatorGroup = this.researchData.filter(element => element.indicator_group_id == group_id)
     },
@@ -260,7 +273,7 @@ export default {
       this.$store.dispatch('getIndicatorsGroups')
     },
     createRDataItem () {
-      this.RDataItem.research_id = this.id
+      this.RDataItem.research_id = parseInt(this.id)
       this.$store.dispatch('createRDataItem', this.RDataItem)
       this.rdDialog = false
     },
@@ -280,18 +293,15 @@ export default {
     }
   },
   computed: {
-    loading () {
-      return this.$store.getters.loading
-    },
     research () {
       return this.$store.getters.research
     },
     researchData () {
-      return this.$store.getters.researchData.data
+      return this.$store.getters.researchData
     },
-    // rDataItem () {
-    //   return this.$store.getters.rDataItem
-    // },
+    acceptances() {
+      return this.$store.getters.acceptances.data
+    },
     indicators () {
       return this.$store.getters.indicators
     },
@@ -300,6 +310,12 @@ export default {
     },
     measurementUnits () {
       return this.$store.getters.measurementUnits.data
+    },
+    researchStatuses() {
+      return this.$store.getters.researchStatuses
+    },
+    loading () {
+      return this.$store.getters.loading
     }
   },
   created() {
@@ -308,12 +324,18 @@ export default {
     this.getIndicators()
     this.getIndicatorsGroups()
     this.getMeasurementUnits()
+    this.getAcceptances()
   },
   watch: {
     researchData () {
       setTimeout(() => {
         this.getResearchDataByIndicatorGroup(this.indicatorsGroups[0].id)
       }, 200)
+    },
+    acceptances () {
+      this.acceptances.forEach(acceptance => {
+        acceptance.acceptance_label = this.$moment.utc(acceptance.acceptance_date).format('YYYY.MM.DD - hh:mm') + ' : ' + acceptance.contractor
+      })
     }
   }
 }

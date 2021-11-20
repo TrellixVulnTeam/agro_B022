@@ -5,9 +5,10 @@
     </div>
     <h1 class="display-1">Приемки</h1>
     <v-divider class="mt-2 mb-8"></v-divider>
-<!-- 
+
+    <!-- Acceptance creating dialog -->
     <v-dialog
-      v-model="folderDialog"
+      v-model="acceptanceDialog"
       persistent
       max-width="600px"
     >
@@ -15,46 +16,68 @@
         <v-btn
           depressed
           color="light-grey"
-          class="mb-4"
           v-bind="attrs"
           v-on="on"
+          class="mb-4"
+          @click="openAcceptance"
         >
-          + Добавить папку
+          + Добавить приемку
         </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <span class="text-h5" v-if="folder.id">Редактирование папки</span>
-          <span class="text-h5" v-else><h1 class="display-1">Новая папка</h1></span>
+          <h1 class="display-1">Новая приемка</h1>
         </v-card-title>
         <v-divider class="mb-4"></v-divider>
         <v-card-text class="pb-0">
 
-          <v-text-field label="Наименование" outlined v-model="folder.folder_name"></v-text-field>
+          <v-menu
+            ref="menu"
+            v-model="menu"
+            :close-on-content-click="false"
+            transition="scale-transition"
+            offset-y
+            min-width="auto"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="date"
+                label="Дата"
+                readonly
+                outlined
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker
+              v-model="date"
+              :active-picker.sync="activePicker"
+              @change="save"
+            ></v-date-picker>
+          </v-menu>
 
-          <v-select
-            v-if="!folder.id"
-            :items="folderModels"
-            v-model="folder.model"
+          <v-text-field label="Номер" outlined v-model="acceptance.uuid"></v-text-field>
+
+          <!-- <v-select
+            :items="warehouses"
+            v-model.number="acceptance.warehouse_id"
             outlined
-            label="Модель папки"
-            item-text="model_name"
-          ></v-select>
+            label="Место хранения"
+            item-text="name"
+            item-value="id"
+          ></v-select> -->
 
+          <v-text-field label="Значение" outlined v-model.number="acceptance.value"></v-text-field>
         </v-card-text>
+
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
-          <div v-if="folder.id">
-            <v-btn depressed color="light-grey" @click="updateFolder" class="mr-3">Обновить</v-btn>
-            <v-btn depressed color="light-grey" @click="closeFolder" class="mr-3">Закрыть</v-btn>
-          </div>
-          <div v-else>
-            <v-btn depressed color="light-grey" @click="createFolder" class="mr-3">Создать</v-btn>
-            <v-btn depressed color="light-grey" @click="closeFolder" class="mr-3">Закрыть</v-btn>
-          </div>
+          <v-btn depressed color="light-grey" @click="createAcceptance" class="mr-3">Создать</v-btn>
+          <v-btn depressed color="light-grey" @click="closeAcceptance" class="mr-3">Закрыть</v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog> -->
+    </v-dialog>
+    <!-- / Acceptance creating dialog -->
 
     <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
     <v-container class="tree-box" fluid>
@@ -78,7 +101,7 @@
 
       <v-row class="tree-row tree-folders" v-for="item in acceptances" :key="item.id" @click="goToAcceptance(item.id)">
         <v-col cols="2">
-          {{ item.acceptance_date | moment('DD.MM.YYYY в hh:mm') }}
+          {{ item.acceptance_date | moment('DD.MM.YYYY') }}
         </v-col>
         <v-col cols="3">
           {{ item.employee_fio }}
@@ -119,6 +142,7 @@
         @input="getAcceptances()"
       ></v-pagination>
     </div>
+
   </div>
 </template>
 
@@ -127,7 +151,11 @@ export default {
   name: 'Acceptances',
   data() {
     return {
-      acceptanceDialog: false
+      acceptanceDialog: false,
+      activePicker: null,
+      date: null,
+      menu: false,
+      id: 0
     }
   },
   methods: {
@@ -136,11 +164,31 @@ export default {
     },
     goToAcceptance(id) {
       this.$router.push('/acceptance/' + id)
+    },
+    createAcceptance () {
+      this.acceptanceDialog = false
+      this.date = null
+      this.$store.dispatch('createAcceptance')
+    },
+    openAcceptance () {
+      this.$store.commit('setAcceptance', {})
+    },
+    closeAcceptance () {
+      this.date = null
+      this.acceptanceDialog = false
+    },
+    save (date) {
+      this.$refs.menu.save(date)
+      let day = new Date(this.date)
+      this.acceptance.acceptance_date = day.toISOString()
     }
   },
   computed: {
     acceptances() {
       return this.$store.getters.acceptances.data
+    },
+    acceptance() {
+      return this.$store.getters.acceptance
     },
     paginator() {
       return this.$store.getters.acceptances.paginator

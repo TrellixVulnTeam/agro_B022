@@ -11,7 +11,21 @@ export default {
     },
     research: {},
     researchData: [],
-    rDataItem: {}
+    rDataItem: {},
+    researchStatuses: [
+      {
+        value: 'draft',
+        name: 'черновик'
+      },
+      {
+        value: 'in_progress',
+        name: 'идет исследование'
+      },
+      {
+        value: 'complete',
+        name: 'исследование завершено'
+      }
+    ]
   },
 
   mutations: {
@@ -81,6 +95,25 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
+    createResearch ({commit, dispatch, state}) {
+      commit('setLoading', true)
+      state.research.employee_id =  1
+      this._vm.$http
+      .post('research', state.research)
+      .then(() => {
+        dispatch('getResearches')
+        commit('setLoading', false)
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        if (error.response.status === 401) {
+          // REFRESH
+          router.push('/signin')
+          commit('setError', error.response.data.message)
+        }
+        commit('setError', error.response.data.message)
+      })
+    },
     createRDataItem ({commit, dispatch}, rDataItem) {
       commit('setLoading', true)
       this._vm.$http
@@ -113,6 +146,9 @@ export default {
     },
     rDataItem (state) {
       return state.rDataItem
+    },
+    researchStatuses (state) {
+      return state.researchStatuses
     }
   }
 }
