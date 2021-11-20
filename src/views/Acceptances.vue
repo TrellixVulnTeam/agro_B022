@@ -4,7 +4,7 @@
       <v-icon class="ml-0">chevron_left</v-icon>назад
     </div>
     <h1 class="display-1">Приемки</h1>
-    <v-divider class="mt-2 mb-4"></v-divider>
+    <v-divider class="mt-2 mb-8"></v-divider>
 <!-- 
     <v-dialog
       v-model="folderDialog"

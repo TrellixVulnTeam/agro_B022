@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import measurementunits from './measurementunits'
 import acceptances from './acceptances'
 import contractors from './contractors'
 import warehouses from './warehouses'
@@ -19,6 +20,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
+    measurementunits,
     acceptances,
     contractors,
     warehouses,

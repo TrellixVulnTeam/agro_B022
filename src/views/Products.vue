@@ -4,7 +4,7 @@
       <v-icon class="ml-0">chevron_left</v-icon>назад
     </div>
     <h1 class="display-1">Плоды</h1>
-    <v-divider class="mt-2 mb-4"></v-divider>
+    <v-divider class="mt-2 mb-8"></v-divider>
     <v-btn @click="$router.push('/product/new')" depressed color="light-grey" class="mb-4 mr-4">+ Добавить продукт</v-btn>
 
     <v-dialog
@@ -28,7 +28,7 @@
           <span class="text-h5" v-if="folder.id">Редактирование папки</span>
           <span class="text-h5" v-else><h1 class="display-1">Новая папка</h1></span>
         </v-card-title>
-        <v-divider class="mb-4"></v-divider>
+        <v-divider class="mb-8"></v-divider>
         <v-card-text class="pb-0">
 
           <v-text-field label="Наименование" outlined v-model="folder.folder_name"></v-text-field>

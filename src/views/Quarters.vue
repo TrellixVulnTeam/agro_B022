@@ -3,50 +3,50 @@
     <div @click="$router.back()" class="back-btn">
       <v-icon class="ml-0">chevron_left</v-icon>назад
     </div>
-    <v-container fluid>
-      <v-row>
-        <v-col cols="8">
-          <h1 class="display-1">Сад</h1>
-        </v-col>
-        <v-col cols="4" class="text-right">
-          <!-- Quarter creating dialog -->
-          <v-dialog
-            v-model="quarterDialog"
-            persistent
-            max-width="600px"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                depressed
-                color="light-grey"
-                v-bind="attrs"
-                v-on="on"
-              >
-                + Добавить квартал
-              </v-btn>
-            </template>
-            <v-card>
-              <v-card-title>
-                <h1 class="display-1">Новый квартал</h1>
-              </v-card-title>
-              <v-divider class="mb-4"></v-divider>
 
-              <v-card-text class="pb-0">
-                <v-text-field label="Наименование" outlined v-model="quarter.name"></v-text-field>
-              </v-card-text>
-              <v-card-actions class="pa-4">
+    <v-row>
+      <v-col cols="8">
+        <h1 class="display-1">Сад</h1>
+      </v-col>
+      <v-col cols="4" class="text-right">
+        <!-- Quarter creating dialog -->
+        <v-dialog
+          v-model="quarterDialog"
+          persistent
+          max-width="600px"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              depressed
+              color="light-grey"
+              v-bind="attrs"
+              v-on="on"
+            >
+              + Добавить квартал
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <h1 class="display-1">Новый квартал</h1>
+            </v-card-title>
+            <v-divider class="mb-4"></v-divider>
 
-              <v-spacer></v-spacer>
-              <v-btn depressed color="light-grey" @click="createQuarter" class="mr-3">Создать</v-btn>
-              <v-btn depressed color="light-grey" @click="closeQuarter" class="mr-3">Закрыть</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-          <!-- / Quarter creating dialog -->
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-divider class="mt-2 mb-4"></v-divider>
+            <v-card-text class="pb-0">
+              <v-text-field label="Наименование" outlined v-model="quarter.name"></v-text-field>
+            </v-card-text>
+            <v-card-actions class="pa-4">
+
+            <v-spacer></v-spacer>
+            <v-btn depressed color="light-grey" @click="createQuarter" class="mr-3">Создать</v-btn>
+            <v-btn depressed color="light-grey" @click="closeQuarter" class="mr-3">Закрыть</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <!-- / Quarter creating dialog -->
+      </v-col>
+    </v-row>
+
+    <v-divider class="mt-2 mb-8"></v-divider>
 
     <!-- Block creating dialog -->
     <v-dialog
@@ -82,20 +82,20 @@
     </v-dialog>
     <!-- / Block creating dialog -->
 
-    <v-container fluid>
-      <v-row class="tree-row" v-for="quarter in quarters" :key="quarter.id">
-        <v-col cols="10">
-          <span class="headline mr-4">{{ quarter.name }}</span>
-          <v-btn depressed color="light-grey" @click="openBlockDialog(quarter.id)">+ Добавить блок</v-btn>
-        </v-col>
-        <v-col cols="12">
-          <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
-          <!-- Component with table of blocks -->
-          <blocks :quarter_id="quarter.id"></blocks>
-          <!-- / Component with table of blocks -->
-        </v-col>
-      </v-row>
-    </v-container>
+
+    <v-row class="tree-row mb-4" v-for="quarter in quarters" :key="quarter.id">
+      <v-col cols="10">
+        <span class="headline mr-4">{{ quarter.name }}</span>
+        <v-btn depressed color="light-grey" @click="openBlockDialog(quarter.id)">+ Добавить блок</v-btn>
+      </v-col>
+      <v-col cols="12">
+        <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
+        <!-- Component with table of blocks -->
+        <blocks :quarter_id="quarter.id"></blocks>
+        <!-- / Component with table of blocks -->
+      </v-col>
+    </v-row>
+
   </div>
 </template>
 

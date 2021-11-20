@@ -86,6 +86,14 @@
                   item-value="id"
                 ></v-select>
                 <v-text-field label="Значение" outlined v-model="RDataItem.value"></v-text-field>
+                <v-select
+                  :items="measurementUnits"
+                  v-model="RDataItem.measurement_unit_id"
+                  outlined
+                  label="Единица измерения"
+                  item-text="name"
+                  item-value="id"
+                ></v-select>
 
               </v-card-text>
               <v-card-actions class="pa-4">
@@ -135,14 +143,14 @@
               <v-card-text class="pb-0">
 
                 <v-text-field label="Название" outlined v-model="indicator.name"></v-text-field>
-                <!-- <v-select
-                  :items="indicators.data"
+                <v-select
+                  :items="measurementUnits"
                   v-model="indicator.measurement_unit_id"
                   outlined
                   label="Единица измерения"
                   item-text="name"
                   item-value="id"
-                ></v-select> -->
+                ></v-select>
 
               </v-card-text>
               <v-card-actions class="pa-4">
@@ -208,6 +216,7 @@ export default {
       RDataItem: {
         research_id: null,
         indicator_id: null,
+        measurement_unit_id: null,
         value: null
       },
       indicator: {
@@ -234,6 +243,9 @@ export default {
     },
     getResearchData () {
       this.$store.dispatch('getResearchData', this.id)
+    },
+    getMeasurementUnits () {
+      this.$store.dispatch('getMeasurementUnits')
     },
     // getRDataItem (id) {
     //   this.$store.dispatch('getRDataItem', id)
@@ -285,6 +297,9 @@ export default {
     },
     indicatorsGroups () {
       return this.$store.getters.indicatorsGroups.data
+    },
+    measurementUnits () {
+      return this.$store.getters.measurementUnits.data
     }
   },
   created() {
@@ -292,6 +307,7 @@ export default {
     this.getResearchData()
     this.getIndicators()
     this.getIndicatorsGroups()
+    this.getMeasurementUnits()
   },
   watch: {
     researchData () {

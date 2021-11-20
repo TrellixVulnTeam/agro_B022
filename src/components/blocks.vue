@@ -11,7 +11,7 @@
         <v-card-title>
           <span class="text-h5"><h1 class="display-1">Редактирование блока</h1></span>
         </v-card-title>
-        <v-divider class="mb-4"></v-divider>
+        <v-divider class="mb-b"></v-divider>
 
         <v-card-text class="pb-0">
           <v-text-field label="Наименование" outlined v-model="block.name"></v-text-field>
