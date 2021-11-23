@@ -99,14 +99,15 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    createAcceptance ({commit, state}) {
+    createAcceptance ({commit, dispatch, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .post('acceptance?', state.acceptance)
+      .post('acceptance', state.acceptance)
       .then(() => {
-        commit('setMessage', 'Приемка успешно создана')
-        // router.push('/acceptances')
         commit('setLoading', false)
+        commit('setMessage', 'Приемка успешно создана')
+        commit('setAcceptance', {})
+        dispatch('getAcceptances')
       })
       .catch(error => {
         commit('setLoading', false)

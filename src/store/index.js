@@ -11,6 +11,7 @@ import quarters from './quarters'
 import products from './products'
 import folders from './folders'
 import gardens from './gardens'
+import batches from './batches'
 import blocks from './blocks'
 import shared from './shared'
 import rows from './rows'
@@ -31,6 +32,7 @@ export default new Vuex.Store({
     products,
     folders,
     gardens,
+    batches,
     blocks,
     shared,
     rows,

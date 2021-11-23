@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import router from '@/router'
 export default {
   state: {
@@ -120,7 +121,25 @@ export default {
         }
         commit('setError', error.response.data.message)
       })
-    }
+    },
+    searchProduct: _.debounce(function ({commit}, payload) {
+      commit('setLoading', true)
+      this._vm.$http
+      .get('products/find?q=' + payload)
+      .then(response => {
+        commit('setLoading', false)
+        commit('setProducts', response)
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        if (error.response.status === 401) {
+          // REFRESH
+          router.push('/signin')
+          commit('setError', error.response.data.message)
+        }
+        commit('setError', error.response.data.message)
+      })
+    }, 200),
   },
 
   getters: {

@@ -7,12 +7,16 @@ export default {
       quarter_id: null,
       landing_schemas_id: null
     },
+    blocks: {},
     landingSchemas: {}
   },
 
   mutations: {
     setBlock (state, payload) {
       state.block = payload
+    },
+    setBlocks (state, payload) {
+      state.blocks = payload
     },
     setBlockParent (state, payload) {
       state.block.quarter_id = payload
@@ -23,6 +27,24 @@ export default {
   },
 
   actions: {
+    getBlocks ({commit}, quarter_id) {
+      commit('setLoading', true)
+      this._vm.$http
+      .get('blocks_units?quarter=' + quarter_id + '&page=' + 1)
+      .then(response => {
+        commit('setBlocks', response.data)
+        commit('setLoading', false)
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        if (error.response.status === 401) {
+          // REFRESH
+          router.push('/signin')
+          commit('setError', error.response.data.message)
+        }
+        commit('setError', error.response.data.message)
+      })
+    },
     getBlock ({commit}, id) {
       commit('setLoading', true)
       this._vm.$http
@@ -118,6 +140,9 @@ export default {
   getters: {
     block (state) {
       return state.block
+    },
+    blocks (state) {
+      return state.blocks
     },
     landingSchemas (state) {
       return state.landingSchemas

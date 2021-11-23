@@ -118,8 +118,8 @@ export default {
   },
   props: [ 'garden_id' ],
   methods: {
-    getQuarters(id) {
-      this.$store.dispatch('getQuarters', id)
+    getQuarters(garden_id) {
+      this.$store.dispatch('getQuarters', garden_id)
     },
     editQuarter(quarter) {
       this.$router.push('/quarter/' + quarter.id)
