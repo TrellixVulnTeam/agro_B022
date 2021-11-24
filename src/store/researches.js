@@ -124,8 +124,9 @@ export default {
       this._vm.$http
       .post('research_data', rDataItem)
       .then(() => {
-        dispatch('getResearchData', rDataItem.research_id)
         commit('setLoading', false)
+        commit('setMessage', 'Данные исследования успешно добавлены')
+        dispatch('getResearchData', rDataItem.research_id)
       })
       .catch(error => {
         commit('setLoading', false)
