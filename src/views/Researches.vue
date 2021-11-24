@@ -133,51 +133,38 @@
     <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
     <v-container class="tree-box" fluid>
       <v-row class="tree-header">
-        <v-col cols="3">
+        <v-col cols="2">
           Дата
+        </v-col>
+        <v-col cols="2">
+          Номер
         </v-col>
         <v-col cols="2">
           Приемка
         </v-col>
-        <v-col cols="4">
+        <v-col cols="2">
           Количество
         </v-col>
         <v-col cols="2">
           Статус
         </v-col>
-        <v-col cols="1">
-        </v-col>
       </v-row> 
 
       <v-row class="tree-row" v-for="item in researches" :key="item.id" @click="goToResearch(item.id)">
-        <v-col cols="3">
+        <v-col cols="2">
           {{ item.research_date | moment('DD.MM.YYYY') }}
+        </v-col>
+        <v-col cols="2">
+          {{ item.uuid }}
         </v-col>
         <v-col cols="2">
           {{ item.acceptance_id }}
         </v-col>
-        <v-col cols="4">
+        <v-col cols="2">
           {{ item.quantity }}
         </v-col>
         <v-col cols="2">
           {{ item.status }}
-        </v-col>
-        <v-col cols="1" class="text-right actions">
-          <!-- <div class="actions">
-            <v-icon
-              small
-              class="mr-2"
-              @click="editItem(item)"
-            >
-              mdi-pencil
-            </v-icon>
-            <v-icon
-              small
-              @click="deleteItem(item)"
-            >
-              mdi-delete
-            </v-icon>
-          </div> -->
         </v-col>
       </v-row>
     </v-container>
@@ -291,7 +278,7 @@ export default {
     },
     acceptances () {
       this.acceptances.forEach(acceptance => {
-        acceptance.acceptance_label = this.$moment.utc(acceptance.acceptance_date).format('YYYY.MM.DD - hh:mm') + ' : ' + acceptance.contractor
+        acceptance.acceptance_label = acceptance.uuid + ' от ' + this.$moment.utc(acceptance.acceptance_date).format('YYYY.MM.DD')
       })
     }
   }

@@ -14,13 +14,16 @@
         <v-col cols="2">
           Дата
         </v-col>
-        <v-col cols="3">
+        <v-col cols="2">
+          Номер
+        </v-col>
+        <v-col cols="2">
           Работник
         </v-col>
         <v-col cols="1">
           Кол-во
         </v-col>
-        <v-col cols="3">
+        <v-col cols="2">
           Контрагент
         </v-col>
         <v-col cols="2">
@@ -32,7 +35,10 @@
         <v-col cols="2">
           {{ item.acceptance_date | moment('DD.MM.YYYY') }}
         </v-col>
-        <v-col cols="3">
+        <v-col cols="2">
+          {{ item.uuid }}
+        </v-col>
+        <v-col cols="2">
           {{ item.employee_fio }}
         </v-col>
         <v-col cols="1">
@@ -41,10 +47,8 @@
         <v-col cols="2">
           {{ item.contractor }}
         </v-col>
-        <v-col cols="3">
+        <v-col cols="2">
           {{ item.warehouse_name }}
-        </v-col>
-        <v-col cols="1" class="text-right">
         </v-col>
       </v-row>
     </v-container>

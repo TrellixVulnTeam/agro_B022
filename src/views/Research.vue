@@ -3,7 +3,7 @@
     <div @click="$router.back()" class="back-btn">
       <v-icon class="ml-0">chevron_left</v-icon>назад
     </div>
-    <h1 class="display-1">Исследование {{ research.research_date | moment('DD.MM.YYYY') }}</h1>
+    <h1 class="display-1">Исследование {{ research.uuid }} от {{ research.research_date | moment('DD.MM.YYYY') }}</h1>
     <v-divider class="mt-2 mb-8"></v-divider>
     <v-row class="form-grid">
       <v-col cols="7">
