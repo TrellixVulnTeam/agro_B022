@@ -46,12 +46,12 @@
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
           <div v-if="folder.id">
-            <v-btn depressed color="light-grey" @click="updateFolder" class="mr-3">Обновить</v-btn>
             <v-btn depressed color="light-grey" @click="closeFolder" class="mr-3">Закрыть</v-btn>
+            <v-btn depressed color="light-grey" @click="updateFolder" class="mr-3">Обновить</v-btn>
           </div>
           <div v-else>
-            <v-btn depressed color="light-grey" @click="createFolder" class="mr-3">Создать</v-btn>
             <v-btn depressed color="light-grey" @click="closeFolder" class="mr-3">Закрыть</v-btn>
+            <v-btn depressed color="light-grey" @click="createFolder" class="mr-3">Создать</v-btn>
           </div>
         </v-card-actions>
       </v-card>

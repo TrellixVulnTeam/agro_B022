@@ -37,8 +37,8 @@
             <v-card-actions class="pa-4">
 
             <v-spacer></v-spacer>
-            <v-btn depressed color="light-grey" @click="createQuarter" class="mr-3">Создать</v-btn>
             <v-btn depressed color="light-grey" @click="closeQuarter" class="mr-3">Закрыть</v-btn>
+            <v-btn depressed color="light-grey" @click="createQuarter" class="mr-3">Создать</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -75,8 +75,8 @@
 
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
-          <v-btn depressed color="light-grey" @click="createBlock" class="mr-3">Создать</v-btn>
           <v-btn depressed color="light-grey" @click="closeBlock" class="mr-3">Закрыть</v-btn>
+          <v-btn depressed color="light-grey" @click="createBlock" class="mr-3">Создать</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

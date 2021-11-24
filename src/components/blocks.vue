@@ -28,8 +28,8 @@
 
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
-          <v-btn depressed color="light-grey" @click="updateBlock" class="mr-3">Обновить</v-btn>
           <v-btn depressed color="light-grey" @click="closeBlock" class="mr-3">Закрыть</v-btn>
+          <v-btn depressed color="light-grey" @click="updateBlock" class="mr-3">Обновить</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

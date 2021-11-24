@@ -3,7 +3,9 @@ import router from '@/router'
 export default {
   state: {
     contractor: {},
-    contractors: []
+    contractors: {
+      data: []
+    }
   },
 
   mutations: {

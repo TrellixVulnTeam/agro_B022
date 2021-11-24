@@ -157,8 +157,8 @@
               </v-card-text>
               <v-card-actions class="pa-4">
                 <v-spacer></v-spacer>
-                <v-btn depressed color="light-grey" @click="createRDataItem" class="mr-3">Создать</v-btn>
                 <v-btn depressed color="light-grey" @click="closeRDataItem" class="mr-3">Закрыть</v-btn>
+                <v-btn depressed color="light-grey" @click="createRDataItem" class="mr-3">Создать</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -214,8 +214,8 @@
               </v-card-text>
               <v-card-actions class="pa-4">
                 <v-spacer></v-spacer>
-                <v-btn depressed color="light-grey" @click="createIndicator(indicatorsGroup.id)" class="mr-3">Создать</v-btn>
                 <v-btn depressed color="light-grey" @click="closeIndicator" class="mr-3">Закрыть</v-btn>
+                <v-btn depressed color="light-grey" @click="createIndicator(indicatorsGroup.id)" class="mr-3">Создать</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>

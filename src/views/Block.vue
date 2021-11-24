@@ -42,12 +42,12 @@
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
           <div v-if="row.id">
-            <v-btn depressed color="light-grey" @click="updateRow" class="mr-3">Обновить</v-btn>
             <v-btn depressed color="light-grey" @click="closeRow" class="mr-3">Закрыть</v-btn>
+            <v-btn depressed color="light-grey" @click="updateRow" class="mr-3">Обновить</v-btn>
           </div>
           <div v-else>
-            <v-btn depressed color="light-grey" @click="createRow" class="mr-3">Создать</v-btn>
             <v-btn depressed color="light-grey" @click="closeRow" class="mr-3">Закрыть</v-btn>
+            <v-btn depressed color="light-grey" @click="createRow" class="mr-3">Создать</v-btn>
           </div>
         </v-card-actions>
       </v-card>
