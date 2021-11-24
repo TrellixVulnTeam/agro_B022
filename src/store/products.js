@@ -84,11 +84,10 @@ export default {
       commit('setLoading', true)
       this._vm.$http
       .post('product?', state.product)
-      .then(() => {
-        commit('setMessage', 'Продукция успешно создана')
-        // router.push('/products/' + response.data.id)
-        router.push('/products')
+      .then(response => {
         commit('setLoading', false)
+        commit('setMessage', 'Продукция успешно создана')
+        router.push('/products/' + response.data.id)
       })
       .catch(error => {
         commit('setLoading', false)
@@ -96,8 +95,9 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.human_data)
       })
     },
     deleteProduct ({commit, dispatch}, payload) {

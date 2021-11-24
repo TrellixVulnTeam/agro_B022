@@ -17,14 +17,14 @@
             <v-text-field label="Код" outlined v-model="product.classification_number"></v-text-field>
           </v-col>
         </v-row>
-        <v-row>
+        <!-- <v-row>
           <v-col cols="9">
             <v-text-field label="Файл" outlined v-model="product.files"></v-text-field>
           </v-col>
           <v-col cols="3">
             <v-text-field label="Родитель" outlined v-model.number="product.parent_id"></v-text-field>
           </v-col>
-        </v-row>
+        </v-row> -->
         <v-row>
           <v-col cols="12">
             <v-textarea label="Описание" outlined v-model="product.description"></v-textarea>
@@ -41,11 +41,11 @@
       </v-col>
     </v-row>
     <div v-if="product.id">
-      <v-btn x-large depressed color="light-grey" @click="updateProduct" class="mr-3">Обновить</v-btn>
+      <v-btn x-large depressed color="success" @click="updateProduct" class="mr-3">Обновить</v-btn>
       <v-btn x-large depressed color="light-red" @click="deleteProduct" class="">Удалить продукцию</v-btn>
     </div>
     <div v-else>
-      <v-btn x-large depressed color="light-grey" @click="createProduct" class="mr-3">Создать</v-btn>
+      <v-btn x-large depressed color="success" @click="createProduct" class="mr-3">Создать</v-btn>
     </div>
 
   </div>
@@ -56,7 +56,7 @@ import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 export default {
   name: 'Product',
-  props: ['id'],
+  props: ['id', 'parent'],
   components: {
     vueDropzone: vue2Dropzone
   },
@@ -77,6 +77,7 @@ export default {
       this.$store.dispatch('updateProduct')
     },
     createProduct () {
+      this.product.parent_id =  this.parent
       this.$store.dispatch('createProduct')
     },
     deleteProduct () {
@@ -108,6 +109,9 @@ export default {
     .col {
       padding-top: 0;
       padding-bottom: 0;
+    }
+    textarea {
+      height: 216px;
     }
   }
   .dropzone {

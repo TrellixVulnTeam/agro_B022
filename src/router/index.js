@@ -53,7 +53,7 @@ const routes = [
     component: Product
   },
   {
-    path: '/product/new',
+    path: '/product/new/:parent',
     name: 'NewProduct',
     props: true,
     component: Product

@@ -5,7 +5,7 @@
     </div>
     <h1 class="display-1">Плоды</h1>
     <v-divider class="mt-2 mb-8"></v-divider>
-    <v-btn @click="$router.push('/product/new')" depressed color="light-grey" class="mb-4 mr-4">+ Добавить продукт</v-btn>
+    <v-btn @click="$router.push('/product/new/' + folder_id)" depressed color="light-grey" class="mb-4 mr-4">+ Добавить продукт</v-btn>
 
     <v-dialog
       v-model="folderDialog"
