@@ -22,12 +22,13 @@
         <v-list-item
           v-for="item in links"
           :key="item.title"
+          @click="$router.push(item.link)"
         >
           <v-list-item-content>
             <v-list-item-title>
-              <router-link :to="item.link">
+              <span>
                 {{ item.title }}
-              </router-link>
+              </span>
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -96,7 +97,7 @@
       padding: 10px 20px !important;
       border-radius: 0 !important;
       border-bottom: 2px solid #F1F1F1;
-      a {
+      span {
         color: #000000;
         font-size: 18px;
         text-decoration: none;
