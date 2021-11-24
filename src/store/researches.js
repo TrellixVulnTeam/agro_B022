@@ -55,8 +55,9 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.message)
       })
     },
     getResearch ({commit}, id) {
@@ -73,8 +74,9 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.message)
       })
     },
     getResearchData ({commit}, research_id) {
@@ -91,18 +93,20 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.message)
       })
     },
-    createResearch ({commit, dispatch, state}) {
+    createResearch ({commit, state}) {
       commit('setLoading', true)
       state.research.employee_id =  1
       this._vm.$http
       .post('research', state.research)
-      .then(() => {
-        dispatch('getResearches')
+      .then(response => {
         commit('setLoading', false)
+        commit('setMessage', 'Исследование успешно добавлено')
+        router.push('/research/' + response.data.id)
       })
       .catch(error => {
         commit('setLoading', false)
@@ -110,8 +114,9 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.message)
       })
     },
     createRDataItem ({commit, dispatch}, rDataItem) {
@@ -128,8 +133,9 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.message)
       })
     },
   },

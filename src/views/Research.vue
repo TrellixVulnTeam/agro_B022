@@ -12,17 +12,31 @@
             <v-text-field label="Номер" outlined v-model="research.uuid"></v-text-field>
           </v-col>
           <v-col cols="5">
-            <v-select
-              :items="researchStatuses"
-              v-model.number="research.status"
-              outlined
-              label="Статус"
-              item-text="name"
-              item-value="value"
-            ></v-select>
+            <v-menu
+              ref="menu"
+              v-model="menu"
+              :close-on-content-click="false"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="date"
+                  label="Дата"
+                  readonly
+                  outlined
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                v-model="date"
+                :active-picker.sync="activePicker"
+                @change="save"
+              ></v-date-picker>
+            </v-menu>
           </v-col>
-        </v-row>
-        <v-row>
           <v-col cols="7">
             <v-select
               :items="acceptances"
@@ -36,6 +50,26 @@
           <v-col cols="5">
             <v-text-field label="Количество" outlined v-model="research.quantity"></v-text-field>
           </v-col>
+          <v-col cols="7">
+            <v-select
+              :items="employees"
+              v-model.number="research.employee_id"
+              outlined
+              label="Сотрудник"
+              item-text="fio"
+              item-value="id"
+            ></v-select>
+          </v-col>
+          <v-col cols="5">
+            <v-select
+              :items="researchStatuses"
+              v-model.number="research.status"
+              outlined
+              label="Статус"
+              item-text="name"
+              item-value="value"
+            ></v-select>
+          </v-col>
         </v-row>
       </v-col>
       <v-col cols="5">
@@ -46,6 +80,17 @@
           :options="dropzoneOptions"
         ></vue-dropzone>
       </v-col>
+      <!-- <v-col cols="12">
+        <v-autocomplete
+          :items="contractors"
+          v-model.number="research.contractor_id"
+          outlined
+          label="Контрагент"
+          item-text="name"
+          item-value="id"
+          @input.native="searchСontractor($event)"
+        ></v-autocomplete>
+      </v-col> -->
     </v-row>
 
     <v-tabs
@@ -247,7 +292,10 @@ export default {
         maxFilesize: 1,
         dictDefaultMessage: "<i class='v-icon notranslate mdi mdi-cloud-upload theme--light'></i> ЗАГРУЗИТЬ ФАЙЛЫ",
         headers: { "Header": "header value" }
-      }
+      },
+      activePicker: null,
+      date: null,
+      menu: false
     }
   },
   methods: {
@@ -290,6 +338,17 @@ export default {
     },
     openIndicatorDialog () {
       this.indicatorDialog = true
+    },
+    searchСontractor (e) {
+      this.$store.dispatch('searchСontractor', e.target.value)
+    },
+    save (date) {
+      this.$refs.menu.save(date)
+      let day = new Date(this.date)
+      this.research.research_date = day.toISOString()
+    },
+    getEmployees () {
+      this.$store.dispatch('getEmployees')
     }
   },
   computed: {
@@ -314,6 +373,12 @@ export default {
     researchStatuses() {
       return this.$store.getters.researchStatuses
     },
+    contractors () {
+      return this.$store.getters.contractors.data
+    },
+    employees () {
+      return this.$store.getters.employees
+    },
     loading () {
       return this.$store.getters.loading
     }
@@ -325,8 +390,12 @@ export default {
     this.getIndicatorsGroups()
     this.getMeasurementUnits()
     this.getAcceptances()
+    this.getEmployees()
   },
   watch: {
+    research () {
+      this.date = this.$moment.utc(this.research.research_date).format('YYYY-MM-DD')  
+    },
     researchData () {
       setTimeout(() => {
         this.getResearchDataByIndicatorGroup(this.indicatorsGroups[0].id)
@@ -369,7 +438,7 @@ export default {
     }
   }
   .dropzone {
-    min-height: 200px;
+    min-height: 228px;
     margin-bottom: 20px;
   }
 </style>

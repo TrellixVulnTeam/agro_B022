@@ -59,8 +59,9 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.message)
       })
     },
     getAcceptance ({commit}, payload) {
@@ -77,8 +78,9 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.message)
       })
     },
     updateAcceptance ({commit, state}) {
@@ -95,19 +97,19 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.message)
       })
     },
-    createAcceptance ({commit, dispatch, state}) {
+    createAcceptance ({commit, state}) {
       commit('setLoading', true)
       this._vm.$http
       .post('acceptance', state.acceptance)
-      .then(() => {
+      .then(response => {
         commit('setLoading', false)
         commit('setMessage', 'Приемка успешно создана')
-        commit('setAcceptance', {})
-        dispatch('getAcceptances')
+        router.push('/acceptance/' + response.data.id)
       })
       .catch(error => {
         commit('setLoading', false)
@@ -115,8 +117,9 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.human_data)
       })
     },
     deleteAcceptance ({commit, dispatch}, payload) {
@@ -137,8 +140,9 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.message)
       })
     },
     getBatches ({state, commit}) {
@@ -156,8 +160,9 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.message)
       })
     },
     getBatch ({commit}, payload) {
@@ -174,8 +179,9 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.message)
       })
     },
     updateBatch ({commit, state}) {
@@ -192,8 +198,9 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.message)
       })
     },
     createBatch ({commit, state}) {
@@ -211,8 +218,9 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.human_data)
       })
     },
     deleteBatch ({commit, dispatch}, payload) {
@@ -233,8 +241,9 @@ export default {
           // REFRESH
           router.push('/signin')
           commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
         }
-        commit('setError', error.response.data.message)
       })
     }
   },
