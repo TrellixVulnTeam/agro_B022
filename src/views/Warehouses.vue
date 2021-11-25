@@ -33,14 +33,14 @@
 
           <v-text-field label="Наименование" outlined v-model="folder.folder_name"></v-text-field>
 
-          <v-select
+          <!-- <v-select
             v-if="!folder.id"
             :items="folderModels"
             v-model="folder.model"
             outlined
             label="Модель папки"
             item-text="model_name"
-          ></v-select>
+          ></v-select> -->
 
         </v-card-text>
         <v-card-actions class="pa-4">
@@ -184,6 +184,7 @@ export default {
     },
     createFolder () {
       this.folderDialog = false
+      this.folder.model = 'warehouses'
       this.$store.dispatch('createFolder', this.folder_id)
     },
     deleteFolder (folder) {

@@ -33,25 +33,25 @@
 
           <v-text-field label="Наименование" outlined v-model="folder.folder_name"></v-text-field>
 
-          <v-select
+          <!-- <v-select
             v-if="!folder.id"
             :items="folderModels"
             v-model="folder.model"
             outlined
             label="Модель папки"
             item-text="model_name"
-          ></v-select>
+          ></v-select> -->
 
         </v-card-text>
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
           <div v-if="folder.id">
             <v-btn depressed color="light-grey" @click="closeFolder" class="mr-3">Закрыть</v-btn>
-            <v-btn depressed color="light-grey" @click="updateFolder" class="mr-3">Обновить</v-btn>
+            <v-btn depressed color="success" @click="updateFolder" class="mr-3">Обновить</v-btn>
           </div>
           <div v-else>
             <v-btn depressed color="light-grey" @click="closeFolder" class="mr-3">Закрыть</v-btn>
-            <v-btn depressed color="light-grey" @click="createFolder" class="mr-3">Создать</v-btn>
+            <v-btn depressed color="success" @click="createFolder" class="mr-3">Создать</v-btn>
           </div>
         </v-card-actions>
       </v-card>
@@ -177,6 +177,7 @@ export default {
     },
     createFolder () {
       this.folderDialog = false
+      this.folder.model = 'products'
       this.$store.dispatch('createFolder', this.folder_id)
     },
     deleteFolder (folder) {

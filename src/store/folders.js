@@ -59,7 +59,7 @@ export default {
       state.folder.parent_id = parseInt(parent_id)
       commit('setLoading', true)
       this._vm.$http
-      .post('folder?', state.folder)
+      .post('folder', state.folder)
       .then(() => {
         commit('setMessage', 'Папка успешно создана')
         dispatch('getProducts', parent_id)
