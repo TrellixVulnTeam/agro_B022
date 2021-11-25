@@ -40,7 +40,6 @@
           nav
         >
           <v-list-item
-            @click="$router.push('/')"
             class="bottom-nav"
           >
             <v-list-item-content>
@@ -52,7 +51,7 @@
             </v-list-item-content>
           </v-list-item>
           <v-list-item
-            @click="$router.push('/')"
+            @click="logOut()"
           >
             <v-list-item-content>
               <v-list-item-title>
@@ -112,6 +111,11 @@
         user_name: localStorage.getItem("user_name")
       }
     },
+    methods: {
+      logOut() {
+        this.$store.dispatch('logOut')
+      }
+    }
   }
 </script>
 

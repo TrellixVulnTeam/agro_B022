@@ -86,7 +86,7 @@ export default {
     },
 
     logOut ({commit}) {
-      router.push('/login')
+      router.push('/signin')
       localStorage.clear()
       commit('setUser', null)
     }
