@@ -10,6 +10,8 @@
           :rules="loginRules"
           required
           v-on:keyup.enter="signIn"
+          @input.native="checkEmailValid()"
+          ref="inputEmail"
         ></v-text-field>
         <v-text-field
           name="email"
@@ -20,6 +22,9 @@
           :rules="codeRules"
           required
           v-on:keyup.enter="signIn"
+          ref="inputCode"
+          @input.native="checkCodeValid()"
+          v-if="showCodeField"
         ></v-text-field>
       </v-form>
 
@@ -31,6 +36,7 @@
         :loading="loading"
         :disabled="!valid || loading"
         @click="signIn"
+        v-if="showSubmitBtn"
       >
         Войти
       </v-btn>
@@ -54,14 +60,20 @@ export default {
       email: '',
       code: '',
       loginRules: [
-        v => !!v || 'Необходимо указать email',
-        v => (v && v.length >= 1) || 'Логин не может быть меньше одного символа'
+        value => !!value || 'Необходимо указать email',
+        value => (value || '').length <= 30 || 'Максимум 30 символов',
+        value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          return pattern.test(value) || 'Некорректный e-mail адрес'
+        },
       ],
       codeRules: [
         v => !!v || 'Необходимо указать пароль',
         v => (v && v.length >= 6) || 'Пароль не может быть меньше 6-и символов'
       ],
-      valid: false
+      valid: false,
+      showCodeField: false,
+      showSubmitBtn: false,
     }
   },
   methods: {
@@ -74,12 +86,20 @@ export default {
     },
     goToGetPass() {
       this.$router.push('/getpass')
+    },
+    checkEmailValid() {
+      this.showCodeField = this.$refs.inputEmail.valid
+    },
+    checkCodeValid() {
+      this.showSubmitBtn = this.$refs.inputCode.valid
     }
   },
   computed: {
     loading () {
       return this.$store.getters.loading
     }
+  },
+  watch: {
   },
   created() {
   }

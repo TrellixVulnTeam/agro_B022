@@ -33,6 +33,38 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+      <template v-slot:append>
+        <v-list
+          dense
+          nav
+        >
+          <v-list-item
+            @click="$router.push('/')"
+            class="bottom-nav"
+          >
+            <v-list-item-content>
+              <v-list-item-title>
+                <span>
+                  Настройки
+                </span>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item
+            @click="$router.push('/')"
+          >
+            <v-list-item-content>
+              <v-list-item-title>
+                <span>
+                  Выход
+                </span>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </template>
+
     </v-navigation-drawer>
 
     <v-app-bar app color="white theme-elevation">
@@ -89,6 +121,9 @@
   }
   .v-main {
     padding-top: 82px !important;
+  }
+  .bottom-nav {
+    border-top: 2px solid #F1F1F1;
   }
   .v-list--nav {
     padding: 0 !important;

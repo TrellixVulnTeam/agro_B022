@@ -13,6 +13,8 @@
           :rules="loginRules"
           required
           v-on:keyup.enter="getPass"
+          @input.native="checkEmailValid()"
+          ref="inputEmail"
         ></v-text-field>
       </v-form>
 
@@ -24,6 +26,7 @@
         :loading="loading"
         :disabled="!valid || loading"
         @click="getPass"
+        v-if="showSubmitBtn"
       >
         Далее
       </v-btn>
@@ -46,10 +49,15 @@ export default {
     return {
       email: '',
       loginRules: [
-        v => !!v || 'Необходимо указать email',
-        v => (v && v.length >= 1) || 'Логин не может быть меньше одного символа'
+        value => !!value || 'Необходимо указать email',
+        value => (value || '').length <= 30 || 'Максимум 30 символов',
+        value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          return pattern.test(value) || 'Некорректный e-mail адрес'
+        },
       ],
-      valid: false
+      valid: false,
+      showSubmitBtn: false,
     }
   },
   methods: {
@@ -60,6 +68,9 @@ export default {
     },
     goToSignIn() {
       this.$router.push('/signin')
+    },
+    checkEmailValid() {
+      this.showSubmitBtn = this.$refs.inputEmail.valid
     }
   },
   computed: {

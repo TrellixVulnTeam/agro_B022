@@ -8,7 +8,7 @@
           </div>
           <slot/>
           <footer class="authFooter">
-            <a href="#">Стать партнером Agro ></a>
+            <a href="#">Стать партнером Agro <v-icon class="ml-0" color="black">chevron_right</v-icon></a>
           </footer>
         </div>
       </v-container>
