@@ -50,7 +50,6 @@ export default {
       .get('acceptances?page=' + state.acceptances.paginator.current_pages)
       .then(response => {
         commit('setAcceptances', response.data)
-        commit('setAcceptance', {})
         commit('setLoading', false)
       })
       .catch(error => {
@@ -107,9 +106,9 @@ export default {
       this._vm.$http
       .post('acceptance', state.acceptance)
       .then(response => {
-        commit('setLoading', false)
-        commit('setMessage', 'Приемка успешно создана')
         router.push('/acceptance/' + response.data.id)
+        commit('setLoading', false)
+        commit('setAcceptancesMessage', true)
       })
       .catch(error => {
         commit('setLoading', false)

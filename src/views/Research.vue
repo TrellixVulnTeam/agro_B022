@@ -512,6 +512,9 @@ export default {
     this.getAcceptances()
     this.getEmployees()
   },
+  beforeDestroy () {
+    this.$store.commit('setResearch', {})
+  },
   watch: {
     research () {
       this.date = this.$moment.utc(this.research.research_date).format('YYYY-MM-DD')  

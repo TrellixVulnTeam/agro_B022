@@ -3,7 +3,8 @@ export default {
     layout: 'default-layout',
     loading: false,
     error: null,
-    message: null
+    message: null,
+    acceptancesMessage: false,
   },
   mutations: {
     setLayout(state, payload) {
@@ -17,6 +18,9 @@ export default {
     },
     setMessage (state, payload) {
       state.message = payload
+    },
+    setAcceptancesMessage (state, payload) {
+      state.acceptancesMessage = payload
     },
     clearErrors (state) {
       state.error = null
@@ -34,6 +38,9 @@ export default {
     },
     setMessage ({commit}, payload) {
       commit('setMessage', payload)
+    },
+    setAcceptancesMessage ({commit}, payload) {
+      commit('setAcceptancesMessage', payload)
     },
     clearErrors ({commit}) {
       commit('clearErrors')
@@ -64,6 +71,9 @@ export default {
     },
     message (state) {
       return state.message
+    },
+    acceptancesMessage (state) {
+      return state.acceptancesMessage
     }
   }
 }

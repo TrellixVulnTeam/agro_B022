@@ -90,6 +90,9 @@ export default {
     if (!isNaN(this.id)) {
       this.$store.dispatch('getWarehouse', this.id)
     }
+  },
+  beforeDestroy () {
+    this.$store.commit('setWarehouse', {})
   }
 }
 </script>

@@ -100,7 +100,6 @@ export default {
     },
     createResearch ({commit, state}) {
       commit('setLoading', true)
-      state.research.employee_id =  1
       this._vm.$http
       .post('research', state.research)
       .then(response => {

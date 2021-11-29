@@ -11,12 +11,16 @@ export default {
         total_items: 1
       }
     },
+    searchedProducts: [],
     product: {}
   },
 
   mutations: {
     setProducts (state, payload) {
       state.products = payload
+    },
+    setSearchedProducts (state, payload) {
+      state.searchedProducts = payload
     },
     setProduct (state, payload) {
       state.product = payload
@@ -128,7 +132,7 @@ export default {
       .get('products/find?q=' + payload)
       .then(response => {
         commit('setLoading', false)
-        commit('setProducts', response)
+        commit('setSearchedProducts', response.data)
       })
       .catch(error => {
         commit('setLoading', false)
@@ -145,6 +149,9 @@ export default {
   getters: {
     products (state) {
       return state.products
+    },
+    searchedProducts (state) {
+      return state.searchedProducts
     },
     product (state) {
       return state.product

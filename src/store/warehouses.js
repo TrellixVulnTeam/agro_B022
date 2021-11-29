@@ -11,6 +11,7 @@ export default {
         total_items: 1
       }
     },
+    searchedWarehouses: [],
     warehouse: {},
     warehouses_types: {
       data: [],
@@ -21,6 +22,9 @@ export default {
   mutations: {
     setWarehouses (state, payload) {
       state.warehouses = payload
+    },
+    setSearchedWarehouses (state, payload) {
+      state.searchedWarehouses = payload
     },
     setWarehouse (state, payload) {
       state.warehouse = payload
@@ -152,7 +156,7 @@ export default {
       .get('warehouse/find?q=' + payload)
       .then(response => {
         commit('setLoading', false)
-        commit('setWarehouses', response)
+        commit('setSearchedWarehouses', response.data)
       })
       .catch(error => {
         commit('setLoading', false)
@@ -169,6 +173,9 @@ export default {
   getters: {
     warehouses (state) {
       return state.warehouses
+    },
+    searchedWarehouses (state) {
+      return state.searchedWarehouses
     },
     warehouse (state) {
       return state.warehouse

@@ -96,6 +96,9 @@ export default {
     if (!isNaN(this.id)) {
       this.$store.dispatch('getProduct', this.id)
     }
+  },
+  beforeDestroy () {
+    this.$store.commit('setProduct', {})
   }
 }
 </script>

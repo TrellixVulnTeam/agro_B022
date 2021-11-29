@@ -63,7 +63,7 @@
                 </v-col>
                 <v-col cols="5">
                   <v-autocomplete
-                    :items="products"
+                    :items="searchedProducts"
                     v-model.number="acceptance.product_id"
                     outlined
                     label="Продукция"
@@ -74,7 +74,7 @@
                 </v-col>
                 <v-col cols="7">
                   <v-autocomplete
-                    :items="warehouses"
+                    :items="searchedWarehouses"
                     v-model.number="acceptance.warehouse_id"
                     outlined
                     label="Склад"
@@ -84,11 +84,11 @@
                   ></v-autocomplete>
                 </v-col>
                 <v-col cols="5">
-                  <v-text-field label="Количество" outlined v-model.number="acceptance.value"></v-text-field>
+                  <v-text-field label="Количество" outlined v-model.number="acceptance.quantity"></v-text-field>
                 </v-col>
                 <v-col cols="7">
                   <v-autocomplete
-                    :items="contractors"
+                    :items="searchedContractors"
                     v-model.number="acceptance.contractor_id"
                     outlined
                     label="Контрагент"
@@ -150,6 +150,9 @@
                     item-value="id"
                     :disabled="!block_id"
                   ></v-select> 
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field label="Комментарий" outlined v-model="acceptance.comment"></v-text-field>
                 </v-col>
               </v-row>
             </v-col>
@@ -248,14 +251,14 @@ export default {
     acceptance () {
       return this.$store.getters.acceptance
     },
-    warehouses () {
-      return this.$store.getters.warehouses.data
+    searchedWarehouses () {
+      return this.$store.getters.searchedWarehouses
     },
-    products () {
-      return this.$store.getters.products.data
+    searchedProducts () {
+      return this.$store.getters.searchedProducts
     },
-    contractors () {
-      return this.$store.getters.contractors.data
+    searchedContractors () {
+      return this.$store.getters.searchedContractors
     },
     gardens () {
       return [ {name: 'Первый', id: 1} ]
@@ -293,6 +296,6 @@ export default {
 
 <style lang="scss" scoped>
   .dropzone {
-    min-height: 400px;
+    min-height: 485px;
   }
 </style>

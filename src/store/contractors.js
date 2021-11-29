@@ -5,7 +5,8 @@ export default {
     contractor: {},
     contractors: {
       data: []
-    }
+    },
+    searchedContractors: []
   },
 
   mutations: {
@@ -14,6 +15,9 @@ export default {
     },
     setContractors (state, payload) {
       state.contractors = payload
+    },
+    setSearchedContractors (state, payload) {
+      state.searchedContractors = payload
     }
   },
 
@@ -60,7 +64,7 @@ export default {
       .get('contractors/find?q=' + payload)
       .then(response => {
         commit('setLoading', false)
-        commit('setContractors', response)
+        commit('setSearchedContractors', response.data)
       })
       .catch(error => {
         commit('setLoading', false)
@@ -80,6 +84,9 @@ export default {
     },
     contractors (state) {
       return state.contractors
+    },
+    searchedContractors (state) {
+      return state.searchedContractors
     }
   }
 }
