@@ -123,7 +123,7 @@
 
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
-          <v-btn depressed x-large color="success" @click="createResearch" class="mr-3">Принять продукцию</v-btn>
+          <v-btn depressed x-large color="success" @click="createResearch" class="mr-3">Создать исследование</v-btn>
           <v-btn depressed x-large color="light-grey" @click="closeResearch" class="mr-3">Закрыть</v-btn>
         </v-card-actions>
       </v-card>
