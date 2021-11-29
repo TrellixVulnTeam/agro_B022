@@ -39,7 +39,7 @@
           dense
           nav
         >
-          <v-list-item
+          <!-- <v-list-item
             class="bottom-nav"
           >
             <v-list-item-content>
@@ -49,7 +49,7 @@
                 </span>
               </v-list-item-title>
             </v-list-item-content>
-          </v-list-item>
+          </v-list-item> -->
           <v-list-item
             @click="logOut()"
           >
@@ -100,9 +100,9 @@
         searchQuery: '',
         links: [
           { title: 'Главная', link: '/' },
-          { title: 'Продукция', link: '/products' },
-          { title: 'Склады', link: '/warehouses' },
-          { title: 'Сады', link: '/quarters' },
+          // { title: 'Продукция', link: '/products' },
+          // { title: 'Склады', link: '/warehouses' },
+          // { title: 'Сады', link: '/quarters' },
           { title: 'Приемки', link: '/acceptances' },
           { title: 'Исследования', link: '/researches' }
         ],

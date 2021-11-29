@@ -83,6 +83,7 @@
         </v-col>
         <v-col>
           <div class="catalogue">
+            <router-link to="/products">Продукция</router-link>
             <router-link to="/">Типы складов</router-link>
             <router-link to="/">Схемы посадки</router-link>
             <router-link to="/">Единицы измерений</router-link>
