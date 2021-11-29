@@ -39,7 +39,7 @@ export default {
         commit('setLoading', false)
         if (error.response.status === 401) {
           // REFRESH
-          router.push('/signin')
+          router.push('/getpass')
           commit('setError', error.response.data.message)
         }
         commit('setError', error.response.data.message)
@@ -57,7 +57,7 @@ export default {
         commit('setLoading', false)
         if (error.response.status === 401) {
           // REFRESH
-          router.push('/signin')
+          router.push('/getpass')
           commit('setError', error.response.data.message)
         }
         commit('setError', error.response.data.message)
@@ -72,7 +72,7 @@ export default {
       .catch(error => {
         if (error.response.status === 401) {
           // REFRESH
-          router.push('/signin')
+          router.push('/getpass')
           commit('setError', error.response.data.message)
         }
         commit('setError', error.response.data.message)
@@ -90,7 +90,7 @@ export default {
         commit('setLoading', false)
         if (error.response.status === 401) {
           // REFRESH
-          router.push('/signin')
+          router.push('/getpass')
           commit('setError', error.response.data.message)
         }
         commit('setError', error.response.data.message)
@@ -111,7 +111,7 @@ export default {
         commit('setLoading', false)
         if (error.response.status === 401) {
           // REFRESH
-          router.push('/signin')
+          router.push('/getpass')
           commit('setError', error.response.data.message)
         }
         commit('setError', error.response.data.human_data)
@@ -129,7 +129,7 @@ export default {
         commit('setLoading', false)
         if (error.response.status === 401) {
           // REFRESH
-          router.push('/signin')
+          router.push('/getpass')
           commit('setError', error.response.data.message)
         }
         commit('setError', error.response.data.message)

@@ -8,7 +8,7 @@
           </div>
           <slot/>
           <footer class="authFooter">
-            <a href="#">Стать партнером Agro <v-icon class="ml-0" color="black">chevron_right</v-icon></a>
+            <a href="#">Стать нашим партнером <v-icon class="ml-0" color="black">chevron_right</v-icon></a>
           </footer>
         </div>
       </v-container>
@@ -28,8 +28,8 @@ export default {}
       height: 58px;
     }
     .logo {
-      width: 149px;
-      margin: 100px auto 68px;
+      width: 180px;
+      margin: 100px auto 40px;
       img {
         max-width: 100%;
       }

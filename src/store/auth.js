@@ -45,9 +45,7 @@ export default {
       })
       .catch(error => {
         commit('setLoading', false)
-        if (error.response.status === 401) {
-          commit('setError', error.data.human_data)
-        }
+        commit('setError', error.data.human_data)
       })
     },
     signIn ({commit}, user) {
@@ -64,9 +62,9 @@ export default {
           location.reload()
         }, 100);
       })
-      .catch(error => {
+      .catch(() => {
         commit('setLoading', false)
-        commit('setError', error.data.human_data)
+        commit('setError', 'Полученный код не верный для этой почты или он уже просрочен')
       })
     },
     // checkToken: _.debounce(function ({ commit, dispatch }, retryRequest) {
@@ -86,7 +84,7 @@ export default {
     },
 
     logOut ({commit}) {
-      router.push('/signin')
+      router.push('/getpass')
       localStorage.clear()
       commit('setUser', null)
     }

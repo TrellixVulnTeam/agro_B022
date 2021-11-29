@@ -118,7 +118,7 @@ export default {
         this.$store.commit('setLoading', false)
         if (error.response.status === 401) {
           // REFRESH
-          this.$router.push('/signin')
+          this.$router.push('/getpass')
           this.$store.commit('setError', error.response.data.message)
         }
         this.$store.commit('setError', error.response.data.message)

@@ -3,7 +3,7 @@
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field
           name="email"
-          label="Логин или email"
+          label="Ваш email"
           type="text"
           outlined
           v-model="email"
@@ -16,7 +16,7 @@
         <v-text-field
           name="email"
           label="Пароль"
-          type="password"
+          type="text"
           outlined
           v-model="code"
           :rules="codeRules"
@@ -47,7 +47,7 @@
         color="white"
         @click="goToGetPass"
       >
-        Сбросить пароль
+        Получить код для входа
       </v-btn>
     </div>
 </template>

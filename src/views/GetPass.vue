@@ -37,7 +37,7 @@
         color="white"
         @click="goToSignIn"
       >
-        Отменить
+        Войти
       </v-btn>
     </div>
 </template>
