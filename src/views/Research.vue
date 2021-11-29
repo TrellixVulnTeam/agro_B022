@@ -443,6 +443,7 @@ export default {
     createRDataItem () {
       this.RDataItem.research_id = parseInt(this.id)
       this.$store.dispatch('createRDataItem', this.RDataItem)
+      this.rDataItem = {}
       this.rdDialog = false
     },
     closeRDataItem () {
