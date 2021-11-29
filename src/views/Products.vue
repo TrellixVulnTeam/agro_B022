@@ -211,7 +211,6 @@ export default {
   },
   created() {
     this.getProducts(this.folder_id)
-    console.log('getProducts' + ' in ' + this.folder_id)
     this.$store.dispatch('getFolderModels')
   },
   watch:{
