@@ -1,7 +1,7 @@
 <template>
     <div>
       <p class="authInfo">
-        Пожалуйста, укажите email, который<br>привязан к Вашему аккаунту
+        Введите email куда мы отправим<br>одноразовый пароль
       </p>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field
@@ -26,11 +26,10 @@
         :loading="loading"
         :disabled="!valid || loading"
         @click="getPass"
-        v-if="showSubmitBtn"
       >
-        Далее
+        Получить одноразовый код
       </v-btn>
-      <v-btn
+      <!-- <v-btn
         block
         depressed
         large
@@ -38,7 +37,7 @@
         @click="goToSignIn"
       >
         Войти
-      </v-btn>
+      </v-btn> -->
     </div>
 </template>
 

@@ -9,11 +9,15 @@ class User {
 
 export default {
   state: {
-    user: null
+    user: null,
+    enteredEmail: ''
   },
   mutations: {
     setUser (state, payload) {
       state.user = payload
+    },
+    setEnteredEmail (state, payload) {
+      state.enteredEmail = payload
     },
     setUserData (state, userData) {
       localStorage.jwt = userData.jwt
@@ -41,10 +45,11 @@ export default {
         commit('setLoading', false)
         commit('setMessage', response.data.human_data)
         router.push('/signin')
+        commit('setEnteredEmail', email)
       })
-      .catch(error => {
+      .catch(() => {
         commit('setLoading', false)
-        commit('setError', error.data.human_data)
+        commit('setError', 'Пользователь с таким email не найден')
       })
     },
     signIn ({commit}, user) {
@@ -92,6 +97,9 @@ export default {
   getters: {
     user (state) {
       return state.user
+    },
+    enteredEmail (state) {
+      return state.enteredEmail
     }
   }
 }

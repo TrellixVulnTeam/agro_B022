@@ -1,18 +1,22 @@
 <template>
     <div>
+      <p class="authInfo">
+        Введите одноразовый пароль, мы отправили его<br> на 
+        <strong>{{ enteredEmail }}</strong>
+      </p>
       <v-form ref="form" v-model="valid" lazy-validation>
-        <v-text-field
+        <!-- <v-text-field
           name="email"
           label="Ваш email"
           type="text"
           outlined
-          v-model="email"
+          v-model="enteredEmail"
           :rules="loginRules"
           required
           v-on:keyup.enter="signIn"
           @input.native="checkEmailValid()"
           ref="inputEmail"
-        ></v-text-field>
+        ></v-text-field> -->
         <v-text-field
           name="email"
           label="Пароль"
@@ -24,7 +28,6 @@
           v-on:keyup.enter="signIn"
           ref="inputCode"
           @input.native="checkCodeValid()"
-          v-if="showCodeField"
         ></v-text-field>
       </v-form>
 
@@ -36,7 +39,6 @@
         :loading="loading"
         :disabled="!valid || loading"
         @click="signIn"
-        v-if="showSubmitBtn"
       >
         Войти
       </v-btn>
@@ -47,7 +49,7 @@
         color="white"
         @click="goToGetPass"
       >
-        Получить код для входа
+        Ввести другой email
       </v-btn>
     </div>
 </template>
@@ -57,7 +59,6 @@ export default {
   name: 'Home',
   data() {
     return {
-      email: '',
       code: '',
       loginRules: [
         value => !!value || 'Необходимо указать email',
@@ -78,7 +79,7 @@ export default {
   },
   methods: {
     signIn() {
-      const { email, code } = this
+      const { email = this.enteredEmail, code } = this
 
       if (this.$refs.form.validate()) {
         this.$store.dispatch('signIn', { email, code })
@@ -95,6 +96,9 @@ export default {
     }
   },
   computed: {
+    enteredEmail () {
+      return this.$store.getters.enteredEmail
+    },
     loading () {
       return this.$store.getters.loading
     }
