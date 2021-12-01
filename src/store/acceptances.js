@@ -108,7 +108,6 @@ export default {
       .then(response => {
         router.push('/acceptance/' + response.data.id)
         commit('setLoading', false)
-        commit('setAcceptancesMessage', true)
       })
       .catch(error => {
         commit('setLoading', false)

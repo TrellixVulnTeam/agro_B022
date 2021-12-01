@@ -3,26 +3,23 @@
     <div @click="$router.back()" class="back-btn">
       <v-icon class="ml-0">chevron_left</v-icon>назад
     </div>
-    <h1 class="display-1">Приемка {{ acceptance.uuid }} от {{ acceptance.acceptance_date | moment('DD.MM.YYYY') }}</h1>
-    <v-divider class="mt-2 mb-8"></v-divider>
+    <v-row>
 
-    <v-alert type="success" class="mb-8" outlined text v-if="acceptancesMessage">
-      <v-row>
-        <v-col>
-          Приемка успешно создана!
-        </v-col>
-        <v-col class="text-right">
-          <v-btn
-            depressed
-            color="success"
-            @click="openResearch"
-            outlined
-          >
-            + Cоздать новое исследование
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-alert>
+      <v-col>
+        <h1 class="display-1">Приемка {{ acceptance.uuid }} от {{ acceptance.acceptance_date | moment('DD.MM.YYYY') }}</h1>
+      </v-col>
+      <v-col class="text-right">
+        <v-btn
+          depressed
+          color="light-grey"
+          @click="openResearch"
+        >
+          + Cоздать новое исследование
+        </v-btn>
+      </v-col>
+
+    </v-row>
+    <v-divider class="mt-2 mb-8"></v-divider>
 
     <v-row class="form-grid">
       <v-col cols="7">
@@ -162,6 +159,52 @@
         ></vue-dropzone>
       </v-col>
     </v-row>
+
+    <!-- Researches -->
+    <h4 class="text-h5 mb-4 mt-8">Исследования</h4>
+    <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
+    <div v-if="researches.length < 1">
+      <div class="mb-2">Исследования для этой приемки еще не созданы.</div>
+      <v-btn
+        depressed
+        color="light-grey"
+        @click="openResearch"
+      >
+        + Cоздать новое исследование
+      </v-btn>
+    </div>
+    <v-container class="tree-box" fluid v-else>
+      <v-row class="tree-header">
+        <v-col cols="2">
+          Дата
+        </v-col>
+        <v-col cols="3">
+          Номер
+        </v-col>
+        <v-col cols="2">
+          Количество
+        </v-col>
+        <v-col cols="3">
+          Статус
+        </v-col>
+      </v-row>
+
+      <v-row class="tree-row" v-for="item in researches" :key="item.id" @click="goToResearch(item.id)">
+        <v-col cols="2">
+          {{ item.research_date | moment('DD.MM.YYYY') }}
+        </v-col>
+        <v-col cols="3">
+          {{ item.uuid }}
+        </v-col>
+        <v-col cols="2">
+          {{ item.quantity }}
+        </v-col>
+        <v-col cols="3">
+          {{ item.status }}
+        </v-col>
+      </v-row>
+    </v-container>
+    <!-- / Researches -->
 
     <!-- Research creating dialog -->
     <v-dialog
@@ -345,7 +388,15 @@ export default {
     openResearch () {
       // this.ResearchDate = null
       this.researchDialog = true
-      // this.$store.commit('setResearch', {})
+    },
+    getFilteredResearches() {
+      let params = {
+        acceptance_id: this.id
+      }
+      this.$store.dispatch('getFilteredResearches', params)
+    },
+    goToResearch (id) {
+      this.$router.push('/research/' + id)
     }
   },
   computed: {
@@ -354,6 +405,9 @@ export default {
     },
     acceptances() {
       return this.$store.getters.acceptances.data
+    },
+    researches () {
+      return this.$store.getters.researches.data
     },
     product () {
       return this.$store.getters.product
@@ -403,9 +457,6 @@ export default {
     researchStatuses () {
       return this.$store.getters.researchStatuses
     },
-    acceptancesMessage () {
-      return this.$store.getters.acceptancesMessage
-    },
     loading () {
       return this.$store.getters.loading
     }
@@ -415,9 +466,9 @@ export default {
     this.$store.dispatch('getAcceptances')
     this.getQuarters()
     this.getEmployees()
+    this.getFilteredResearches()
   },
   beforeDestroy () {
-    this.$store.commit('setAcceptancesMessage', false)
     this.$store.commit('setAcceptance', {})
   },
   watch: {
@@ -449,12 +500,24 @@ export default {
     },
     row () {
       this.rows.push(this.row)
+    },
+    researches () {
+      this.researches.forEach(research => {
+        this.researchStatuses.forEach(status => {
+          if (research.status == status.value) {
+            research.status = status.name
+          }
+        })
+      })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+  .tree-row {
+    cursor: pointer;
+  }
   .dropzone {
     min-height: 400px;
     &.small {

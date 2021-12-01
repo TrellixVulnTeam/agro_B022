@@ -60,6 +60,25 @@ export default {
         }
       })
     },
+    getFilteredResearches ({state, commit}, params) {
+      commit('setLoading', true)
+      this._vm.$http
+      .get('researches_filter?page=' + state.researches.paginator.current_pages + '&acceptance_id=' + params.acceptance_id)
+      .then(response => {
+        commit('setResearches', response.data)
+        commit('setLoading', false)
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        if (error.response.status === 401) {
+          // REFRESH
+          router.push('/getpass')
+          commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
+        }
+      })
+    },
     getResearch ({commit}, id) {
       commit('setLoading', true)
       this._vm.$http
