@@ -34,7 +34,7 @@
           v-model="item.active"
         >
           <template v-slot:activator>
-            <v-list-item-content>
+            <v-list-item-content @click="$router.push(item.link)">
               <v-list-item-title v-text="item.title"></v-list-item-title>
             </v-list-item-content>
           </template>
@@ -104,6 +104,7 @@
         items: [
           {
             title: 'Справочники',
+            link: '/catalog',
             // active: true,
             items: [
               { title: 'Показатели исследований', link: '/researches'},
@@ -119,6 +120,7 @@
           },
           {
             title: 'Организация',
+            link: '#',
             items: [
               { title: 'Сведения об организации', link: '/organization'},
               { title: 'Структура сада', link: '/gardens'},
