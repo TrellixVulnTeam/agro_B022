@@ -15,49 +15,52 @@
         </v-list-item>
       </v-list>
 
-      <v-list
-        dense
-        nav
-      >
-        <v-list-item
-          v-for="item in links"
-          :key="item.title"
-          @click="$router.push(item.link)"
-        >
-          <v-list-item-content>
-            <v-list-item-title>
-              <span>
-                {{ item.title }}
-              </span>
-            </v-list-item-title>
-          </v-list-item-content>
+      <v-list nav>
+        <v-list-item link>
+          <v-list-item-title @click="$router.push('/')">Главная</v-list-item-title>
         </v-list-item>
+        <v-list-item link>
+          <v-list-item-title @click="$router.push('/documents')">Документы</v-list-item-title>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-title @click="$router.push('/reports')">Отчеты</v-list-item-title>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-title @click="$router.push('/exploration')">Исследования</v-list-item-title>
+        </v-list-item>
+        <v-list-group
+          v-for="item in items"
+          :key="item.title"
+        >
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title"></v-list-item-title>
+            </v-list-item-content>
+          </template>
+
+          <v-list-item
+            link
+            v-for="child in item.items"
+            :key="child.title"
+            @click="$router.push(child.link)"
+          >
+            <v-list-item-content>
+              <v-list-item-title v-text="child.title"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
       </v-list>
 
       <template v-slot:append>
         <v-list
-          dense
           nav
         >
-          <!-- <v-list-item
-            class="bottom-nav"
-          >
-            <v-list-item-content>
-              <v-list-item-title>
-                <span>
-                  Настройки
-                </span>
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item> -->
           <v-list-item
             @click="logOut()"
           >
             <v-list-item-content>
               <v-list-item-title>
-                <span>
-                  Выход
-                </span>
+                Выход
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -97,15 +100,34 @@
     name: 'DefaultLayout',
     data () {
       return {
-        searchQuery: '',
-        links: [
-          { title: 'Главная', link: '/' },
-          // { title: 'Продукция', link: '/products' },
-          // { title: 'Склады', link: '/warehouses' },
-          // { title: 'Сады', link: '/quarters' },
-          { title: 'Приемки', link: '/acceptances' },
-          { title: 'Исследования', link: '/researches' }
+        items: [
+          {
+            title: 'Справочники',
+            items: [
+              { title: 'Показатели исследований', link: '/researches'},
+              { title: 'Контрагенты', link: '#'},
+              { title: 'Сорта', link: '#'},
+              { title: 'Подвои', link: '#'},
+              { title: 'Типы продукции', link: '#'},
+              { title: 'Продукция', link: '/products'},
+              { title: 'Типы складов', link: '#'},
+              { title: 'Схемы посадки', link: '#'},
+              { title: 'Единицы измерения', link: '#'},
+            ],
+          },
+          {
+            title: 'Организация',
+            items: [
+              { title: 'Сведения об организации', link: '/organization'},
+              { title: 'Структура сада', link: '/gardens'},
+              { title: 'Ряды блока', link: '#'},
+              { title: 'Блоки квартала', link: '#'},
+              { title: 'Склады', link: '/warehouses'},
+              { title: 'Сотрудники/пользователи', link: '#'},
+            ],
+          }
         ],
+        searchQuery: '',
         right: null,
         user_email: localStorage.getItem("user_email"),
         user_name: localStorage.getItem("user_name")
@@ -136,14 +158,18 @@
       padding: 10px 20px !important;
       border-radius: 0 !important;
       border-bottom: 2px solid #F1F1F1;
-      span {
-        color: #000000;
-        font-size: 18px;
-        text-decoration: none;
-        line-height: 24px;
-        font-weight: normal;
+      color: #000000;
+      font-size: 18px;
+      text-decoration: none;
+      line-height: 24px;
+      font-weight: normal;
+    }
+    .v-list-group__items {
+      .v-list-item {
+        padding-left: 40px !important;
       }
     }
+
   }
   .searchBar {
     padding-top: 34px !important;
