@@ -15,9 +15,6 @@
           <h3>Почтовый адрес</h3>
           <span class="value">{{contractor.real_address}}</span>
 
-          <h3>Должность руководителя организации</h3>
-          <span class="value">{{contractor.account_name}}</span>
-
           <h3>ФИО руководителя организации</h3>
           <span class="value">{{contractor.full_name}}</span>
 
