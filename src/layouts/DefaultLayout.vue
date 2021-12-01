@@ -31,6 +31,7 @@
         <v-list-group
           v-for="item in items"
           :key="item.title"
+          v-model="item.active"
         >
           <template v-slot:activator>
             <v-list-item-content>
@@ -103,6 +104,7 @@
         items: [
           {
             title: 'Справочники',
+            // active: true,
             items: [
               { title: 'Показатели исследований', link: '/researches'},
               { title: 'Контрагенты', link: '#'},
