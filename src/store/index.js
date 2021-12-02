@@ -7,6 +7,7 @@ import warehouses from './warehouses'
 import researches from './researches'
 import indicators from './indicators'
 import employees from './employees'
+import documents from './documents'
 import quarters from './quarters'
 import products from './products'
 import folders from './folders'
@@ -28,6 +29,7 @@ export default new Vuex.Store({
     researches,
     indicators,
     employees,
+    documents,
     quarters,
     products,
     folders,

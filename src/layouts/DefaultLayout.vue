@@ -16,17 +16,17 @@
       </v-list>
 
       <v-list nav>
-        <v-list-item link>
-          <v-list-item-title @click="$router.push('/')">Главная</v-list-item-title>
+        <v-list-item link @click="$router.push('/')">
+          <v-list-item-title>Главная</v-list-item-title>
         </v-list-item>
-        <v-list-item link>
-          <v-list-item-title @click="$router.push('/documents')">Документы</v-list-item-title>
+        <v-list-item link @click="$router.push('/documents')">
+          <v-list-item-title>Документы</v-list-item-title>
         </v-list-item>
-        <v-list-item link>
-          <v-list-item-title @click="$router.push('/reports')">Отчеты</v-list-item-title>
+        <v-list-item link @click="$router.push('/reports')">
+          <v-list-item-title>Отчеты</v-list-item-title>
         </v-list-item>
-        <v-list-item link>
-          <v-list-item-title @click="$router.push('/exploration')">Исследования</v-list-item-title>
+        <v-list-item link @click="$router.push('/exploration')">
+          <v-list-item-title>Исследования</v-list-item-title>
         </v-list-item>
         <v-list-group
           v-for="item in items"
