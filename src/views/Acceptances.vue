@@ -3,19 +3,29 @@
     <div @click="$router.back()" class="back-btn">
       <v-icon class="ml-0">chevron_left</v-icon>назад
     </div>
-    <h1 class="display-1">Приемки</h1>
-    <v-divider class="mt-2 mb-8"></v-divider>
+    <v-row>
+      <v-col>
+        <h1 class="display-1">Приемки</h1>
+      </v-col>
+      <v-col class="text-right">
+        <newAcceptance/>
+      </v-col>
+    </v-row>
+    <v-divider class="mt-2 mb-5"></v-divider>
 
-    <newAcceptance/>
+    <acceptanceFilter />
 
     <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
     <v-container class="tree-box" fluid>
       <v-row class="tree-header">
-        <v-col cols="2">
+        <v-col cols="1">
           Дата
         </v-col>
-        <v-col cols="2">
+        <v-col cols="1">
           Номер
+        </v-col>
+        <v-col cols="3">
+          Продукция
         </v-col>
         <v-col cols="2">
           Работник
@@ -32,11 +42,14 @@
       </v-row>
 
       <v-row class="tree-row tree-folders" v-for="item in acceptances" :key="item.id" @click="goToAcceptance(item.id)">
-        <v-col cols="2">
+        <v-col cols="1">
           {{ item.acceptance_date | moment('DD.MM.YYYY') }}
         </v-col>
-        <v-col cols="2">
+        <v-col cols="1">
           {{ item.uuid }}
+        </v-col>
+        <v-col cols="3">
+          {{ item.product_name }}
         </v-col>
         <v-col cols="2">
           {{ item.employee_fio }}
@@ -66,10 +79,12 @@
 
 <script>
 import newAcceptance from '@/components/newAcceptance'
+import acceptanceFilter from '@/components/filters/acceptanceFilter'
 export default {
   name: 'Acceptances',
   components: {
-    newAcceptance
+    newAcceptance,
+    acceptanceFilter
   },
   data() {
     return {

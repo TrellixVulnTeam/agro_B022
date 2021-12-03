@@ -25,7 +25,14 @@ export default {
         total_items: 1
       }
     },
-    batche: {}
+    batche: {},
+    acceptanceFilter: {
+      uuid: null,
+      product_id: null,
+      contractor_id: null,
+      from_date: null,
+      to_date: null
+    }
   },
 
   mutations: {
@@ -45,9 +52,17 @@ export default {
 
   actions: {
     getAcceptances ({state, commit}) {
+      let filterParams = ''
+
+      for (let key in state.acceptanceFilter) {
+        if (state.acceptanceFilter[key] != null && state.acceptanceFilter[key] != '') {
+          filterParams += '&' + key + '=' + state.acceptanceFilter[key]
+        }
+      }
+
       commit('setLoading', true)
       this._vm.$http
-      .get('acceptances?page=' + state.acceptances.paginator.current_pages)
+      .get('acceptance_filter?page=' + state.acceptances.paginator.current_pages + filterParams)
       .then(response => {
         commit('setAcceptances', response.data)
         commit('setLoading', false)
@@ -258,6 +273,9 @@ export default {
     },
     batch (state) {
       return state.batch
+    },
+    acceptanceFilter (state) {
+      return state.acceptanceFilter
     }
   }
 }
