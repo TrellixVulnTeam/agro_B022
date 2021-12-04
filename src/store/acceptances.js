@@ -9,6 +9,7 @@ export default {
         total_items: 1
       }
     },
+    acceptanceWithResearch: [],
     acceptance: {
       product_id: null,
       warehouse_id: null,
@@ -41,6 +42,9 @@ export default {
     },
     setAcceptance (state, payload) {
       state.acceptance = payload
+    },
+    setAcceptanceWithResearch (state, payload) {
+      state.acceptanceWithResearch = payload
     },
     setBatches (state, payload) {
       state.batches = payload
@@ -84,6 +88,25 @@ export default {
       .get('acceptance?id=' + payload)
       .then(response => {
         commit('setAcceptance', response.data)
+        commit('setLoading', false)
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        if (error.response.status === 401) {
+          // REFRESH
+          router.push('/getpass')
+          commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
+        }
+      })
+    },
+    getAcceptanceWithResearch ({commit}, id) {
+      commit('setLoading', true)
+      this._vm.$http
+      .get('acceptance_with_research?id=' + id)
+      .then(response => {
+        commit('setAcceptanceWithResearch', response.data)
         commit('setLoading', false)
       })
       .catch(error => {
@@ -267,6 +290,9 @@ export default {
     },
     acceptance (state) {
       return state.acceptance
+    },
+    acceptanceWithResearch (state) {
+      return state.acceptanceWithResearch
     },
     batches (state) {
       return state.batches

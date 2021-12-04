@@ -3,8 +3,8 @@
     <div @click="$router.back()" class="back-btn">
       <v-icon class="ml-0">chevron_left</v-icon>назад
     </div>
-    <v-row>
 
+    <v-row>
       <v-col>
         <h1 class="display-1">Приемка {{ acceptance.uuid }} от {{ acceptance.acceptance_date | moment('DD.MM.YYYY') }}</h1>
       </v-col>
@@ -160,6 +160,8 @@
       </v-col>
     </v-row>
 
+    <line-chart :id="id" class="mt-10"></line-chart>
+
     <!-- Researches -->
     <h4 class="text-h5 mb-4 mt-8">Исследования</h4>
     <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
@@ -312,9 +314,11 @@
 
 <script>
 import vue2Dropzone from 'vue2-dropzone'
+import LineChart from '@/components/LineChart'
 export default {
   components: {
-    vueDropzone: vue2Dropzone
+    vueDropzone: vue2Dropzone,
+    LineChart
   },
   name: 'acceptance',
   props: ['id'],
@@ -403,6 +407,7 @@ export default {
     acceptance () {
       return this.$store.getters.acceptance
     },
+
     acceptances() {
       return this.$store.getters.acceptances.data
     },
