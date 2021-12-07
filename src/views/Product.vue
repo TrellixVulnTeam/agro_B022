@@ -77,7 +77,7 @@ export default {
       this.$store.dispatch('updateProduct')
     },
     createProduct () {
-      this.product.parent_id =  this.parent
+      this.product.parent_id =  parseInt(this.parent)
       this.$store.dispatch('createProduct')
     },
     deleteProduct () {

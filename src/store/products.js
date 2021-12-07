@@ -91,7 +91,7 @@ export default {
       .then(response => {
         commit('setLoading', false)
         commit('setMessage', 'Продукция успешно создана')
-        router.push('/products/' + response.data.id)
+        router.push('/product/' + response.data.id)
       })
       .catch(error => {
         commit('setLoading', false)
