@@ -4,7 +4,12 @@
       <v-icon class="ml-0">chevron_left</v-icon>назад
     </div>
     <h1 class="display-1" v-if="product.id">{{product.name}}</h1>
-    <h1 class="display-1" v-else><h1 class="display-1">Новая продукция</h1></h1>
+    <h1 class="display-1" v-else>
+      Новая продукция
+      <span v-if="folderMeta.current_folder">
+        в папке "{{ folderMeta.current_folder }}"
+      </span>
+    </h1>
     <v-divider class="mt-2 mb-8"></v-divider>
 
     <v-row class="form-grid">
@@ -90,12 +95,16 @@ export default {
     },
     product() {
       return this.$store.getters.product
+    },
+    folderMeta() {
+      return this.$store.getters.folderMeta
     }
   },
   created() {
     if (!isNaN(this.id)) {
       this.$store.dispatch('getProduct', this.id)
     }
+    this.$store.dispatch('getFolderMeta', this.parent)
   },
   beforeDestroy () {
     this.$store.commit('setProduct', {})

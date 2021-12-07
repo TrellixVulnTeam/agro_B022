@@ -17,7 +17,8 @@ export default {
       }
     },
     searchedProducts: [],
-    product: {}
+    product: {},
+    folderMeta: {}
   },
 
   mutations: {
@@ -29,6 +30,9 @@ export default {
     },
     setProduct (state, payload) {
       state.product = payload
+    },
+    setFolderMeta (state, payload) {
+      state.folderMeta = payload
     }
   },
 
@@ -149,6 +153,26 @@ export default {
         commit('setError', error.response.data.message)
       })
     }, 200),
+    getFolderMeta ({commit}, parent) {
+      commit('setLoading', true)
+      this._vm.$http
+      .get('/folder_meta?model=product&folder=' + parent)
+      .then(response => {
+        commit('setFolderMeta', response.data)
+        commit('setLoading', false)
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        if (error.response.status === 401) {
+          // REFRESH
+          router.push('/getpass')
+          commit('setError', error.response.data.message)
+        } else if (error.response.status === 400) {
+          commit('setFolderMeta', {})
+        }
+        commit('setError', error.response.data.message)
+      })
+    },
   },
 
   getters: {
@@ -160,6 +184,9 @@ export default {
     },
     product (state) {
       return state.product
+    },
+    folderMeta (state) {
+      return state.folderMeta
     }
   }
 }
