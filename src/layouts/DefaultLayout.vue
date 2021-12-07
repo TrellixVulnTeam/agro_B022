@@ -108,14 +108,8 @@
             // active: true,
             items: [
               { title: 'Показатели исследований', link: '/researches'},
-              { title: 'Контрагенты', link: '#'},
-              { title: 'Сорта', link: '#'},
-              { title: 'Подвои', link: '#'},
-              { title: 'Типы продукции', link: '#'},
-              { title: 'Продукция', link: '/products'},
-              { title: 'Типы складов', link: '#'},
-              { title: 'Схемы посадки', link: '#'},
-              { title: 'Единицы измерения', link: '#'},
+              { title: 'Контрагенты', link: '/contractors'},
+              { title: 'Продукция', link: '/products'}
             ],
           },
           {
