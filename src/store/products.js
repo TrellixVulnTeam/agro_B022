@@ -5,6 +5,11 @@ export default {
     products: {
       data: [],
       folders: [],
+      meta: {
+        current_folder: "",
+        parent_name: "",
+        parent_id: 0
+      },
       paginator: {
         total_pages: 1,
         current_pages: 1,

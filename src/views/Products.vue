@@ -1,17 +1,21 @@
 <template>
   <div>
-    <div @click="$router.back()" class="back-btn">
-      <v-icon class="ml-0">chevron_left</v-icon>назад
+    <div class="folder_meta" v-if="folder_id != 0">
+      <div @click="$router.push('/products/' + meta.parent_id)" class="back-btn">
+        <v-icon class="ml-0">chevron_left</v-icon> {{ meta.parent_name }}
+      </div>
+      <h1 class="display-1">{{ meta.current_folder }}</h1>
+      <v-divider class="mt-2 mb-8"></v-divider>
     </div>
-    <h1 class="display-1">Плоды</h1>
-    <v-divider class="mt-2 mb-8"></v-divider>
-    <v-btn @click="$router.push('/product/new/' + folder_id)" depressed color="light-grey" class="mb-4 mr-4">+ Добавить продукт</v-btn>
-
-    <v-dialog
-      v-model="folderDialog"
-      persistent
-      max-width="600px"
+    <v-btn
+      @click="$router.push('/product/new/' + folder_id)"
+      depressed
+      color="light-grey"
+      class="mb-4 mr-4"
+      >+ Добавить продукт</v-btn
     >
+
+    <v-dialog v-model="folderDialog" persistent max-width="600px">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           depressed
@@ -26,12 +30,17 @@
       <v-card>
         <v-card-title>
           <span class="text-h5" v-if="folder.id">Редактирование папки</span>
-          <span class="text-h5" v-else><h1 class="display-1">Новая папка</h1></span>
+          <span class="text-h5" v-else
+            ><h1 class="display-1">Новая папка</h1></span
+          >
         </v-card-title>
         <v-divider class="mb-8"></v-divider>
         <v-card-text class="pb-0">
-
-          <v-text-field label="Наименование" outlined v-model="folder.folder_name"></v-text-field>
+          <v-text-field
+            label="Наименование"
+            outlined
+            v-model="folder.folder_name"
+          ></v-text-field>
 
           <!-- <v-select
             v-if="!folder.id"
@@ -41,17 +50,32 @@
             label="Модель папки"
             item-text="model_name"
           ></v-select> -->
-
         </v-card-text>
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
           <div v-if="folder.id">
-            <v-btn depressed color="light-grey" @click="closeFolder" class="mr-3">Закрыть</v-btn>
-            <v-btn depressed color="success" @click="updateFolder" class="mr-3">Обновить</v-btn>
+            <v-btn
+              depressed
+              color="light-grey"
+              @click="closeFolder"
+              class="mr-3"
+              >Закрыть</v-btn
+            >
+            <v-btn depressed color="success" @click="updateFolder" class="mr-3"
+              >Обновить</v-btn
+            >
           </div>
           <div v-else>
-            <v-btn depressed color="light-grey" @click="closeFolder" class="mr-3">Закрыть</v-btn>
-            <v-btn depressed color="success" @click="createFolder" class="mr-3">Создать</v-btn>
+            <v-btn
+              depressed
+              color="light-grey"
+              @click="closeFolder"
+              class="mr-3"
+              >Закрыть</v-btn
+            >
+            <v-btn depressed color="success" @click="createFolder" class="mr-3"
+              >Создать</v-btn
+            >
           </div>
         </v-card-actions>
       </v-card>
@@ -60,44 +84,30 @@
     <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
     <v-container class="tree-box" fluid>
       <v-row class="tree-header">
-        <v-col cols="4">
-          Наименование
-        </v-col>
-        <v-col cols="1">
-          Код
-        </v-col>
-        <v-col cols="6">
-          Описание
-        </v-col>
-        <v-col cols="1">
-        </v-col>
+        <v-col cols="4">Наименование </v-col>
+        <v-col cols="1">Код </v-col>
+        <v-col cols="6">Описание </v-col>
+        <v-col cols="1"> </v-col>
       </v-row>
-      <v-row class="tree-row tree-folders" v-for="folder in folders" :key="folder.id">
+      <v-row
+        class="tree-row tree-folders"
+        v-for="folder in folders"
+        :key="folder.id"
+      >
         <v-col cols="4" @click="openFolder(folder.id)">
           <span class="folder-name">
             <v-icon color="blue">folder</v-icon>
             {{ folder.folder_name }}
           </span>
         </v-col>
-        <v-col cols="1">
-        </v-col>
-        <v-col cols="6">
-        </v-col>
+        <v-col cols="1"> </v-col>
+        <v-col cols="6"> </v-col>
         <v-col cols="1" class="text-right">
           <div class="actions">
-            <v-icon
-              small
-              class="mr-2"
-              @click="editFolder(folder)"
-            >
+            <v-icon small class="mr-2" @click="editFolder(folder)">
               mdi-pencil
             </v-icon>
-            <v-icon
-              small
-              @click="deleteFolder(folder)"
-            >
-              mdi-delete
-            </v-icon>
+            <v-icon small @click="deleteFolder(folder)"> mdi-delete </v-icon>
           </div>
         </v-col>
       </v-row>
@@ -117,19 +127,10 @@
         </v-col>
         <v-col cols="1" class="text-right">
           <div class="actions">
-            <v-icon
-              small
-              class="mr-2"
-              @click="editItem(item)"
-            >
+            <v-icon small class="mr-2" @click="editItem(item)">
               mdi-pencil
             </v-icon>
-            <v-icon
-              small
-              @click="deleteItem(item)"
-            >
-              mdi-delete
-            </v-icon>
+            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
           </div>
         </v-col>
       </v-row>
@@ -147,78 +148,81 @@
 
 <script>
 export default {
-  name: 'Products',
+  name: "Products",
   data() {
     return {
-      folderDialog: false
-    }
+      folderDialog: false,
+    };
   },
-  props: [ 'folder_id' ],
+  props: ["folder_id"],
   methods: {
     editItem(item) {
-      this.$router.push('/product/' + item.id)
+      this.$router.push("/product/" + item.id);
     },
     deleteItem(item) {
-      this.$store.dispatch('deleteProduct', item)
+      this.$store.dispatch("deleteProduct", item);
     },
     openFolder(id) {
-      this.$router.push('/products/' + id)
+      this.$router.push("/products/" + id);
     },
     getProducts(id) {
-      this.$store.dispatch('getProducts', id)
+      this.$store.dispatch("getProducts", id);
     },
     editFolder(folder) {
-      this.folderDialog = true
-      this.$store.dispatch('getFolder', folder)
+      this.folderDialog = true;
+      this.$store.dispatch("getFolder", folder);
     },
-    updateFolder () {
-      this.folderDialog = false
-      this.$store.dispatch('updateFolder')
+    updateFolder() {
+      this.folderDialog = false;
+      this.$store.dispatch("updateFolder");
     },
-    createFolder () {
-      this.folderDialog = false
-      this.folder.model = 'products'
-      this.$store.dispatch('createFolder', this.folder_id)
+    createFolder() {
+      this.folderDialog = false;
+      this.folder.model = "products";
+      this.$store.dispatch("createFolder", this.folder_id);
     },
-    deleteFolder (folder) {
-      this.folderDialog = false
-      this.$store.dispatch('deleteFolder', folder)
+    deleteFolder(folder) {
+      this.folderDialog = false;
+      this.$store.dispatch("deleteFolder", folder);
     },
-    closeFolder () {
-      this.folderDialog = false
-      this.$store.dispatch('getFolder', {})
-    }
+    closeFolder() {
+      this.folderDialog = false;
+      this.$store.dispatch("getFolder", {});
+    },
   },
   computed: {
-    loading () {
-      return this.$store.getters.loading
+    loading() {
+      return this.$store.getters.loading;
     },
     folders() {
-      return this.$store.getters.products.folders
+      return this.$store.getters.products.folders;
     },
     folder() {
-      return this.$store.getters.folder
+      return this.$store.getters.folder;
     },
     items() {
-      return this.$store.getters.products.data
+      return this.$store.getters.products.data;
+    },
+    meta() {
+      return this.$store.getters.products.meta;
     },
     paginator() {
-      return this.$store.getters.products.paginator
+      return this.$store.getters.products.paginator;
     },
     folderModels() {
-      return this.$store.getters.folderModels
-    }
+      return this.$store.getters.folderModels;
+    },
   },
   created() {
-    this.getProducts(this.folder_id)
-    this.$store.dispatch('getFolderModels')
+    this.getProducts(this.folder_id);
+    this.$store.dispatch("getFolderModels");
   },
-  watch:{
+  watch: {
     $route() {
-      this.getProducts(this.folder_id)
-    }
-  }
-}
+      this.getProducts(this.folder_id);
+    },
+  },
+};
 </script>
 
 <style lang="scss">
