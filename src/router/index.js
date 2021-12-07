@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Warehouse from '@/views/Warehouse'
+import Contractor from '@/views/Contractor'
 import Product from '@/views/Product'
 import Garden from '@/views/Garden'
 
@@ -136,9 +137,9 @@ const routes = [
     }
   },
   {
-    path: '/contractor',
-    name: 'Contractor',
-    component: () => import('@/views/Contractor.vue')
+    path: '/organizationinfo',
+    name: 'Organizationinfo',
+    component: () => import('@/views/Organizationinfo.vue')
   },
   {
     path: '/organization',
@@ -164,6 +165,18 @@ const routes = [
     path: '/catalog',
     name: 'Catalog',
     component: () => import('@/views/Сatalog.vue')
+  },
+  {
+    path: '/contractors',
+    name: 'Contractors',
+    props: true,
+    component: () => import('@/views/Contractors')
+  },
+  {
+    path: '/contractor/:id',
+    name: 'Contractor',
+    props: true,
+    component: Contractor
   }
 ]
 

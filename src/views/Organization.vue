@@ -4,7 +4,7 @@
     <v-divider class="mt-2 mb-8"></v-divider>
     <v-row>
       <v-col cols="3">
-        <v-card class="mx-auto" @click="$router.push('/contractor')">
+        <v-card class="mx-auto" @click="$router.push('/organizationinfo')">
           <v-img
             src="/images/org-item.png"
           >

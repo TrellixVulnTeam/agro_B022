@@ -2,9 +2,25 @@ import _ from 'lodash'
 import router from '@/router'
 export default {
   state: {
-    contractor: {},
+    contractor: {
+      bank_account: "",
+      bank_name: "",
+      bik: "",
+      billing_account: "",
+      full_name: "",
+      inn: "",
+      kpp: "",
+      legal_address: "",
+      ogrn: "",
+      real_address: ""
+    },
     contractors: {
-      data: []
+      data: [],
+      paginator: {
+        total_pages: 1,
+        current_pages: 1,
+        total_items: 1
+      }
     },
     searchedContractors: []
   },
@@ -22,10 +38,10 @@ export default {
   },
 
   actions: {
-    getСontractors ({commit}) {
+    getContractors ({commit, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .get('contractors')
+      .get('contractors?page=' + state.contractors.paginator.current_pages)
       .then(response => {
         commit('setContractors', response.data)
         commit('setLoading', false)
@@ -47,6 +63,66 @@ export default {
       .then(response => {
         commit('setContractor', response.data)
         commit('setLoading', false)
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        if (error.response.status === 401) {
+          // REFRESH
+          router.push('/getpass')
+          commit('setError', error.response.data.message)
+        }
+        commit('setError', error.response.data.message)
+      })
+    },
+    createContractor ({commit, state}) {
+      commit('setLoading', true)
+      this._vm.$http
+      .post('contractor', state.contractor)
+      .then(response => {
+        console.log(response.data.id)
+        commit('setLoading', false)
+        router.push('/contractor/' + response.data.id)
+        commit('setContractor', {})
+        commit('setMessage', 'Контрагент успешно создан!')
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        if (error.response.status === 401) {
+          // REFRESH
+          router.push('/getpass')
+          commit('setError', error.response.data.message)
+        }
+        commit('setError', error.response.data.message)
+      })
+    },
+    updateContractor ({commit, state}) {
+      commit('setLoading', true)
+      this._vm.$http
+      .put('contractor', state.contractor)
+      .then(() => {
+        commit('setLoading', false)
+        commit('setContractor', {})
+        commit('setMessage', 'Контрагент успешно обновлен!')
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        if (error.response.status === 401) {
+          // REFRESH
+          router.push('/getpass')
+          commit('setError', error.response.data.message)
+        }
+        commit('setError', error.response.data.message)
+      })
+    },
+    deleteContractor ({commit, state}) {
+      commit('setLoading', true)
+      this._vm.$http
+      .delete('contractor?id=' + state.contractor.id)
+      .then(() => {
+        commit('setLoading', false)
+        commit('setContractor', {})
+        router.push('/contractors')
+        commit('setMessage', 'Контрагент успешно удален!')
       })
       .catch(error => {
         commit('setLoading', false)

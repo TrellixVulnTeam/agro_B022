@@ -116,7 +116,7 @@
             title: 'Организация',
             link: 'organization',
             items: [
-              { title: 'Сведения об организации', link: '/contractor'},
+              { title: 'Сведения об организации', link: '/organizationinfo'},
               { title: 'Структура сада', link: '#'},
               { title: 'Ряды блока', link: '#'},
               { title: 'Блоки квартала', link: '#'},
