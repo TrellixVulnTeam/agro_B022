@@ -16,7 +16,7 @@
         </v-card>
       </v-col>
       <v-col cols="3">
-        <v-card class="mx-auto" @click="$router.push('#')">
+        <v-card class="mx-auto" @click="$router.push('/quarters/1')">
           <v-img
             src="/images/org-item.png"
           >
@@ -24,30 +24,6 @@
           </v-img>
           <v-card-text class="text--primary">
             <div>Структура сада</div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="3">
-        <v-card class="mx-auto" @click="$router.push('#')">
-          <v-img
-            src="/images/org-item.png"
-          >
-            <!-- <v-card-title>Title</v-card-title> -->
-          </v-img>
-          <v-card-text class="text--primary">
-            <div>Ряды блока</div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="3">
-        <v-card class="mx-auto" @click="$router.push('#')">
-          <v-img
-            src="/images/org-item.png"
-          >
-            <!-- <v-card-title>Title</v-card-title> -->
-          </v-img>
-          <v-card-text class="text--primary">
-            <div>Блоки квартала</div>
           </v-card-text>
         </v-card>
       </v-col>

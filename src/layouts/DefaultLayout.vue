@@ -114,12 +114,10 @@
           },
           {
             title: 'Организация',
-            link: 'organization',
+            link: '/organization',
             items: [
               { title: 'Сведения об организации', link: '/organizationinfo'},
-              { title: 'Структура сада', link: '#'},
-              { title: 'Ряды блока', link: '#'},
-              { title: 'Блоки квартала', link: '#'},
+              { title: 'Структура сада', link: '/quarters/1'},
               { title: 'Склады', link: '/warehouses'},
               { title: 'Сотрудники/пользователи', link: '#'},
             ],
