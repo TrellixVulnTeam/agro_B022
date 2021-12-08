@@ -71,7 +71,7 @@
     </v-navigation-drawer>
 
     <v-app-bar app color="white theme-elevation">
-      <v-container id="input-usage" fluid>
+      <!-- <v-container id="input-usage" fluid>
         <v-row>
           <v-col cols="11">
             <v-text-field
@@ -82,7 +82,7 @@
             ></v-text-field>
           </v-col>
         </v-row>
-      </v-container>
+      </v-container> -->
     </v-app-bar>
 
     <v-main>
