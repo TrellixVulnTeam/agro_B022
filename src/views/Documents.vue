@@ -1,6 +1,13 @@
 <template>
   <div>
-    <h1 class="display-1">Документы</h1>
+    <v-row>
+      <v-col>
+        <h1 class="display-1">Документы</h1>
+      </v-col>
+      <v-col class="text-right">
+        <newAcceptance/>
+      </v-col>
+    </v-row>
     <v-divider class="mt-2 mb-8"></v-divider>
 
     <v-treeview
@@ -51,8 +58,13 @@
 </template>
 
 <script>
+import newAcceptance from '@/components/newAcceptance'
 export default {
   name: 'Documents',
+  components: {
+    newAcceptance
+  },
+
   data() {
     return {
       initiallyOpen: ['public'],
