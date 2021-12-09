@@ -1,14 +1,7 @@
 import router from '@/router'
 export default {
   state: {
-    gardens: {
-      data: [],
-      paginator: {
-        total_pages: 1,
-        current_pages: 1,
-        total_items: 1
-      }
-    },
+    gardens: {},
     garden: {},
     garden_types: {
       data: [],
@@ -29,10 +22,10 @@ export default {
   },
 
   actions: {
-    getGardens ({state, commit}) {
+    getGardens ({commit}) {
       commit('setLoading', true)
       this._vm.$http
-      .get('gardens?page=' + state.gardens.paginator.current_pages)
+      .get('gardens')
       .then(response => {
         commit('setGardens', response.data)
         commit('setGarden', {})
@@ -51,7 +44,7 @@ export default {
     getGarden ({commit}, payload) {
       commit('setLoading', true)
       this._vm.$http
-      .get('gardens?id=' + payload)
+      .get('garden?id=' + payload)
       .then(response => {
         commit('setGarden', response.data)
         commit('setLoading', false)
@@ -87,9 +80,9 @@ export default {
     updateGarden ({commit, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .put('garden?id=' + state.garden.id, state.garden)
+      .put('gardens', state.garden)
       .then(() => {
-        commit('setMessage', 'Склад успешно обновлена')
+        commit('setMessage', 'Сад успешно обновлена')
         commit('setLoading', false)
       })
       .catch(error => {
@@ -105,9 +98,10 @@ export default {
     createGarden ({commit, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .post('garden?', state.garden)
-      .then(() => {
-        commit('setMessage', 'Склад успешно создан')
+      .post('gardens', state.garden)
+      .then(response => {
+        commit('setMessage', 'Сад успешно создан')
+        router.push('/garden/' + response.data.id)
         router.push('/gardens')
         commit('setLoading', false)
       })
@@ -124,13 +118,11 @@ export default {
     deleteGarden ({commit, dispatch}, payload) {
       commit('setLoading', true)    
       this._vm.$http
-      .delete('garden?id=' + payload.id)
+      .delete('gardens?id=' + payload.id)
       .then(() => {
-        if (router.currentRoute.path !== ('/gardens/' + payload.parent_id)) {
-          router.push('/gardens/' + payload.parent_id)
-        }
-        dispatch('getGardens', payload.parent_id)
-        commit('setMessage', 'Склад успешно удален')
+        router.push('/gardens')
+        dispatch('getGardens')
+        commit('setMessage', 'Сад успешно удален')
         commit('setLoading', false)
       })
       .catch(error => {

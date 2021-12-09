@@ -82,15 +82,15 @@ const routes = [
     component: Warehouse
   },
   {
-    path: '/gardens/:folder_id',
+    path: '/gardens',
     name: 'Gardens',
     props: true,
     component: () => import('@/views/Gardens')
   },
-  {
-    path: '/gardens',
-    redirect: '/gardens/0'
-  },
+  // {
+  //   path: '/gardens',
+  //   redirect: '/gardens/0'
+  // },
   {
     path: '/garden/:id',
     name: 'Garden',
@@ -110,10 +110,10 @@ const routes = [
     props: true,
     component: () => import('@/views/Quarters')
   },
-  {
-    path: '/quarters',
-    redirect: '/quarters/1'
-  },
+  // {
+  //   path: '/quarters',
+  //   redirect: '/quarters/1'
+  // },
   {
     path: '/blocks/:id',
     name: 'Block',

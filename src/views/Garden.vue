@@ -12,14 +12,15 @@
         <v-text-field label="Наименование" outlined v-model="garden.name"></v-text-field>
         <v-select
           :items="garden_types"
-          v-model="garden.gardens_type_id"
+          v-model="garden.garden_type_id"
           outlined
           label="Тип сада"
           item-text="name"
           item-value="id"
         ></v-select>
-        <v-text-field label="Размер участка в га" outlined v-model.number="garden.volume"></v-text-field>
-        <v-textarea label="Описание" outlined v-model="garden.description"></v-textarea>
+        <v-text-field label="Размер участка в га" outlined v-model.number="garden.area_size"></v-text-field>
+        <v-text-field label="Кадастровый номер" outlined v-model="garden.cadastr_number"></v-text-field>
+        <!-- <v-textarea label="Описание" outlined v-model="garden.description"></v-textarea> -->
       </v-col>
       <v-col cols="5">
         <vue-dropzone

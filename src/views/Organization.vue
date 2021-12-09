@@ -16,7 +16,7 @@
         </v-card>
       </v-col>
       <v-col cols="3">
-        <v-card class="mx-auto" @click="$router.push('/quarters/1')">
+        <v-card class="mx-auto" @click="$router.push('/gardens')">
           <v-img
             src="/images/org-item.png"
           >

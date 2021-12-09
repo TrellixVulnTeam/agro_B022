@@ -67,8 +67,8 @@
           <div class="catalogue">
             <router-link to="/">Ряды блоков</router-link>
             <router-link to="/">Блоки квартала</router-link>
-            <router-link to="/quarters">Кварталы сада</router-link>
-            <router-link to="/quarters">Сады</router-link>
+            <router-link to="/">Кварталы сада</router-link>
+            <router-link to="/gardens">Сады</router-link>
             <router-link to="/">Показатели исследований</router-link>
           </div>
         </v-col>
