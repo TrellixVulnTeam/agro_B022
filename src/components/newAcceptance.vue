@@ -143,7 +143,7 @@
                 <v-col cols="3">
                   <v-select
                     :items="rows"
-                    v-model.number="acceptance.blocks_id"
+                    v-model.number="acceptance.blockrow_id"
                     outlined
                     label="Ряд"
                     item-text="name"

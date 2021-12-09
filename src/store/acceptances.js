@@ -15,7 +15,7 @@ export default {
       warehouse_id: null,
       quantity: null,
       contractor_id: null,
-      blocks_id: null,
+      blockrow_id: null,
       employee_id: null
     },
     batches: {

@@ -138,7 +138,7 @@
           <v-col cols="7">
             <v-select
               :items="rows"
-              v-model.number="acceptance.blocks_id"
+              v-model.number="acceptance.blockrow_id"
               outlined
               label="Ряд"
               item-text="name"
@@ -487,7 +487,7 @@ export default {
       this.$store.dispatch('getProduct', this.acceptance.product_id)
       this.$store.dispatch('getWarehouse', this.acceptance.warehouse_id)
       this.$store.dispatch('getContractor', this.acceptance.contractor_id)
-      this.getRow(this.acceptance.blocks_id)
+      this.getRow(this.acceptance.blockrow_id)
       this.date = this.$moment.utc(this.acceptance.acceptance_date).format('YYYY-MM-DD')  
       // this.$store.dispatch('getEmployee', this.acceptance.employee_id)
     },
