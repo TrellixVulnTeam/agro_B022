@@ -183,6 +183,7 @@ export default {
     },
     deleteFolder(folder) {
       this.folderDialog = false;
+      folder.model = 'products'
       this.$store.dispatch("deleteFolder", folder);
     },
     closeFolder() {

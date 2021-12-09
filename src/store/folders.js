@@ -77,12 +77,12 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    deleteFolder ({commit}, folder) {
+    deleteFolder ({commit, dispatch}, folder) {
       commit('setLoading', true)
       this._vm.$http
-      .delete('folder?id=' + folder.id, '&model=' + folder.model)
+      .delete('folder?id=' + folder.id + '&model=' + folder.model)
       .then(() => {
-        router.go(-1)
+        dispatch('getProducts')
         commit('setMessage', 'Папка успешно удалена')
         commit('setLoading', false)
       })
