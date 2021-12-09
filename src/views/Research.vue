@@ -195,7 +195,7 @@
               <v-col cols="2">
                 Номер
               </v-col>
-              <v-col cols="4">
+              <v-col cols="3">
                 Показатель
               </v-col>
               <v-col cols="3">
@@ -204,13 +204,13 @@
               <v-col cols="3">
                 Ед.Измерения
               </v-col>
-            </v-row> 
+            </v-row>
 
             <v-row class="tree-row tree-folders" v-for="item in researchDataByIndicatorGroup" :key="item.id">
               <v-col cols="2">
                 {{ item.indicator_id }}
               </v-col>
-              <v-col cols="4">
+              <v-col cols="3">
                 {{ item.indicator_name }}
               </v-col>
               <v-col cols="3">
@@ -218,6 +218,11 @@
               </v-col>
               <v-col cols="3">
                 {{ item.measurement_name }}
+              </v-col>
+              <v-col cols="1" class="text-right">
+                <div class="actions">
+                  <v-icon small @click="deleteRDataItem(item)"> mdi-delete </v-icon>
+                </div>
               </v-col>
             </v-row>
           </v-container>
@@ -342,7 +347,7 @@
               <v-col cols="2">
                 Номер
               </v-col>
-              <v-col cols="4">
+              <v-col cols="3">
                 Показатель
               </v-col>
               <v-col cols="3">
@@ -357,7 +362,7 @@
               <v-col cols="2">
                 {{ item.indicator_id }}
               </v-col>
-              <v-col cols="4">
+              <v-col cols="3">
                 {{ item.indicator_name }}
               </v-col>
               <v-col cols="3">
@@ -365,6 +370,11 @@
               </v-col>
               <v-col cols="3">
                 {{ item.measurement_name }}
+              </v-col>
+              <v-col cols="1" class="text-right">
+                <div class="actions">
+                  <v-icon small @click="deleteRDataItem(item)"> mdi-delete </v-icon>
+                </div>
               </v-col>
             </v-row>
           </v-container>
@@ -444,6 +454,11 @@ export default {
       this.RDataItem.research_id = parseInt(this.id)
       this.$store.dispatch('createRDataItem', this.RDataItem)
       this.rDataItem = {}
+      this.rdDialog = false
+    },
+    deleteRDataItem (item) {
+      item.research_id = parseInt(this.id)
+      this.$store.dispatch('deleteRDataItem', item)
       this.rdDialog = false
     },
     closeRDataItem () {

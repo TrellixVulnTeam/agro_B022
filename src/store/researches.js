@@ -37,6 +37,9 @@ export default {
     },
     setResearchData (state, payload) {
       state.researchData = payload
+    },
+    setRDataItem (state, payload) {
+      state.rDataItem = payload
     }
   },
 
@@ -142,8 +145,30 @@ export default {
       this._vm.$http
       .post('research_data', rDataItem)
       .then(() => {
+        commit('setRDataItem', {})
         commit('setLoading', false)
         commit('setMessage', 'Данные исследования успешно добавлены')
+        dispatch('getResearchData', rDataItem.research_id)
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        if (error.response.status === 401) {
+          // REFRESH
+          router.push('/getpass')
+          commit('setError', error.response.data.message)
+        } else {
+          commit('setError', error.response.data.human_data)
+        }
+      })
+    },
+    deleteRDataItem ({commit, dispatch}, rDataItem) {
+      commit('setLoading', true)
+      this._vm.$http
+      .delete('research_data?id=' + rDataItem.measurement_unit_id)
+      .then(() => {
+        commit('setRDataItem', {})
+        commit('setLoading', false)
+        commit('setMessage', 'Данные исследования успешно удалены')
         dispatch('getResearchData', rDataItem.research_id)
       })
       .catch(error => {
