@@ -177,6 +177,18 @@ const routes = [
     name: 'Contractor',
     props: true,
     component: Contractor
+  },
+  {
+    path: '/employees',
+    name: 'Employees',
+    props: true,
+    component: () => import('@/views/Employees')
+  },
+  {
+    path: '/employee/:id',
+    name: 'Employee',
+    props: true,
+    component: () => import('@/views/Employee')
   }
 ]
 

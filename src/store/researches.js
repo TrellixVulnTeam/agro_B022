@@ -164,7 +164,7 @@ export default {
     deleteRDataItem ({commit, dispatch}, rDataItem) {
       commit('setLoading', true)
       this._vm.$http
-      .delete('research_data?id=' + rDataItem.measurement_unit_id)
+      .delete('research_data?id=' + rDataItem.research_item_id)
       .then(() => {
         commit('setRDataItem', {})
         commit('setLoading', false)
