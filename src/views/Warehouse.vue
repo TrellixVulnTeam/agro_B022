@@ -71,7 +71,7 @@ export default {
       this.$store.dispatch('createWarehouse')
     },
     deleteWarehouse () {
-      this.$store.dispatch('deleteWarehouse', this.warehouse)
+      confirm('Вы уверены что хотите удалить склад? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteWarehouse', this.warehouse)
     }
   },
   computed: {

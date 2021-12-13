@@ -37,7 +37,7 @@ export default {
       this.$store.dispatch('updateEmployee')
     },
     deleteEmployee() {
-      this.$store.dispatch('deleteEmployee')
+      confirm('Вы уверены, что хотите удалить контрагента? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteEmployee')
     }
   },
   computed: {
@@ -47,6 +47,9 @@ export default {
   },
   created () {
     this.$store.dispatch('getEmployee', this.id)
+  },
+  beforeDestroy () {
+    this.$store.commit('setEmployee', {})
   }
 }
 </script>

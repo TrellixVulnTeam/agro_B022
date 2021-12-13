@@ -132,7 +132,7 @@ export default {
       this.$store.commit('setBlock', block)
     },
     deleteItem (block) {
-      this.$store.dispatch('deleteBlock', block)
+      confirm('Вы уверены что хотите удалить блок? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteBlock', block)
       setTimeout(() => {
         this.getBlocks()
       }, 300)

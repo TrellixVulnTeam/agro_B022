@@ -457,8 +457,8 @@ export default {
       this.rdDialog = false
     },
     deleteRDataItem (item) {
+      confirm('Вы уверены что хотите удалить данные исследования? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteRDataItem', item)
       item.research_id = parseInt(this.id)
-      this.$store.dispatch('deleteRDataItem', item)
       this.rdDialog = false
     },
     closeRDataItem () {

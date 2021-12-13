@@ -160,7 +160,7 @@ export default {
       this.$router.push("/product/" + item.id);
     },
     deleteItem(item) {
-      this.$store.dispatch("deleteProduct", item);
+      confirm('Вы уверены что хотите удалить продукцию? Вернуть его уже будет нельзя!') && this.$store.dispatch("deleteProduct", item);
     },
     openFolder(id) {
       this.$router.push("/products/" + id);

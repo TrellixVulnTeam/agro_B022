@@ -176,7 +176,7 @@ export default {
       this.$router.push('/warehouse/' + item.id)
     },
     deleteItem(item) {
-      this.$store.dispatch('deleteWarehouse', item)
+      confirm('Вы уверены что хотите удалить склад? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteWarehouse', item)
     },
     updateFolder () {
       this.folderDialog = false

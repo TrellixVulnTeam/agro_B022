@@ -152,7 +152,7 @@ export default {
       this.rowDialog = false
     },
     deleteRow (row) {
-      this.$store.dispatch('deleteRow', row)
+      confirm('Вы уверены что хотите удалить ряд? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteRow', row)
       this.rowDialog = false
     }
   },

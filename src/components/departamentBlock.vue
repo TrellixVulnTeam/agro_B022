@@ -111,17 +111,11 @@ export default {
       this.$store.commit('setEmployee', employee)
     },
     deleteItem (employee) {
-      this.$store.dispatch('deleteEmployee', employee)
-      // setTimeout(() => {
-      //   this.getEmployees()
-      // }, 300)
+      confirm('Вы уверены что хотите удалить "' + employee.fio + '"? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteEmployee', employee)
     },
     updateEmployee () {
       this.employeesDialog = false
       this.$store.dispatch('updateEmployee')
-      // setTimeout(() => {
-      //   this.getEmployees()
-      // }, 300)
     },
     closeEmployee () {
       this.employeesDialog = false

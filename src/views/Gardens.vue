@@ -89,7 +89,7 @@ export default {
       this.$router.push('/garden/' + item.id)
     },
     deleteItem(item) {
-      this.$store.dispatch('deleteGarden', item)
+      confirm('Вы уверены что хотите удалить сад? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteGarden', item)
     }
   },
   computed: {

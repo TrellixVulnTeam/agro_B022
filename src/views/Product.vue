@@ -86,7 +86,7 @@ export default {
       this.$store.dispatch('createProduct')
     },
     deleteProduct () {
-      this.$store.dispatch('deleteProduct', this.product)
+      confirm('Вы уверены что хотите удалить продукцию? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteProduct', this.product)
     }
   },
   computed: {
