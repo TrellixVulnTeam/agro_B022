@@ -117,7 +117,7 @@ export default {
       if (item.id) {
         this.$store.commit('setLanding_schema', item)
       } else {
-        this.$store.commit('setl=Landing_schema', {})
+        this.$store.commit('setLanding_schema', {})
       }
     },
     deleteLanding_schema (item) {

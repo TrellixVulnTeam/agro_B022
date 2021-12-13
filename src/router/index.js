@@ -193,14 +193,17 @@ const routes = [
   {
     path: '/garden_types',
     name: 'GardenTypes',
-    props: true,
     component: () => import('@/views/GardenTypes')
   },
   {
     path: '/landing_schemas',
     name: 'LandingSchemas',
-    props: true,
     component: () => import('@/views/LandingSchemas')
+  },
+  {
+    path: '/rootstocks',
+    name: 'Rootstocks',
+    component: () => import('@/views/Rootstocks')
   },
 ]
 

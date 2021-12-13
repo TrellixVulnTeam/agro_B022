@@ -8,6 +8,7 @@ import contractors from './contractors'
 import warehouses from './warehouses'
 import researches from './researches'
 import indicators from './indicators'
+import rootstock from './rootstock'
 import employees from './employees'
 import documents from './documents'
 import quarters from './quarters'
@@ -32,6 +33,7 @@ export default new Vuex.Store({
     warehouses,
     researches,
     indicators,
+    rootstock,
     employees,
     documents,
     quarters,

@@ -9,8 +9,7 @@ export default {
         current_pages: 1,
         total_items: 1
       }
-    },
-    searchedContractors: []
+    }
   },
 
   mutations: {

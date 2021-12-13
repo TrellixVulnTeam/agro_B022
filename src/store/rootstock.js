@@ -1,8 +1,8 @@
 import router from '@/router'
 export default {
   state: {
-    landing_schema: {},
-    landing_schemas: {
+    rootstock: {},
+    rootstocks: {
       data: [],
       paginator: {
         total_pages: 1,
@@ -13,21 +13,21 @@ export default {
   },
 
   mutations: {
-    setLanding_schema (state, payload) {
-      state.landing_schema = payload
+    setRootstock (state, payload) {
+      state.rootstock = payload
     },
-    setLanding_schemas (state, payload) {
-      state.landing_schemas = payload
+    setRootstocks (state, payload) {
+      state.rootstocks = payload
     }
   },
 
   actions: {
-    getLanding_schemas ({commit, state}) {
+    getRootstocks ({commit, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .get('landing_schemas?page=' + state.landing_schemas.paginator.current_pages)
+      .get('rootstocks?page=' + state.rootstocks.paginator.current_pages)
       .then(response => {
-        commit('setLanding_schemas', response.data)
+        commit('setRootstocks', response.data)
         commit('setLoading', false)
       })
       .catch(error => {
@@ -40,12 +40,12 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    getLanding_schema ({commit}, id) {
+    getRootstock ({commit}, id) {
       commit('setLoading', true)
       this._vm.$http
-      .get('landing_schema?id=' + id)
+      .get('rootstock?id=' + id)
       .then(response => {
-        commit('setLanding_schema', response.data)
+        commit('setRootstock', response.data)
         commit('setLoading', false)
       })
       .catch(error => {
@@ -58,15 +58,15 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    createLanding_schema ({commit, dispatch, state}) {
+    createRootstock ({commit, dispatch, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .post('landing_schema', state.landing_schema)
+      .post('rootstock', state.rootstock)
       .then(() => {
-        dispatch('getLanding_schemas')
+        dispatch('getRootstocks')
         commit('setLoading', false)
-        commit('setLanding_schema', {})
-        commit('setMessage', 'Схема посадки успешно создана!')
+        commit('setRootstock', {})
+        commit('setMessage', 'Подвой успешно создан!')
       })
       .catch(error => {
         commit('setLoading', false)
@@ -78,15 +78,15 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    updateLanding_schema({commit, dispatch, state}) {
+    updateRootstock({commit, dispatch, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .put('landing_schema', state.landing_schema)
+      .put('rootstock', state.rootstock)
       .then(() => {
-        dispatch('getLanding_schemas')
+        dispatch('getRootstocks')
         commit('setLoading', false)
-        commit('setLanding_schema', {})
-        commit('setMessage', 'Схема посадки успешно обновлена!')
+        commit('setRootstock', {})
+        commit('setMessage', 'Подвой успешно обновлен!')
       })
       .catch(error => {
         commit('setLoading', false)
@@ -98,15 +98,15 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    deleteLanding_schema ({commit, dispatch}, item) {
+    deleteRootstock ({commit, dispatch}, item) {
       commit('setLoading', true)
       this._vm.$http
-      .delete('landing_schema?id=' + item.id)
+      .delete('rootstock?id=' + item.id)
       .then(() => {
-        dispatch('getLanding_schemas')
+        dispatch('getRootstocks')
         commit('setLoading', false)
-        commit('setLanding_schema', {})
-        commit('setMessage', 'Схема посадки успешно удалена!')
+        commit('setRootstock', {})
+        commit('setMessage', 'Подвой успешно удален!')
       })
       .catch(error => {
         commit('setLoading', false)
@@ -121,11 +121,11 @@ export default {
   },
 
   getters: {
-    landing_schema (state) {
-      return state.landing_schema
+    rootstock (state) {
+      return state.rootstock
     },
-    landing_schemas (state) {
-      return state.landing_schemas
+    rootstocks (state) {
+      return state.rootstocks
     }
   }
 }
