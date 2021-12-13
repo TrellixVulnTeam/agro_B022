@@ -37,28 +37,40 @@
 
     <v-container class="tree-box" fluid>
       <v-row class="tree-header">
-        <v-col cols="3">
+        <v-col cols="2">
           Наименование
         </v-col>
-        <v-col cols="4">
+        <v-col cols="2">
           Схема посадки(м)
         </v-col>
-        <v-col cols="4">
+        <v-col cols="2">
+          Вид плодовой продукции
+        </v-col>
+        <v-col cols="3">
+          Наименование плодовой продукции
+        </v-col>
+        <v-col cols="2">
           Описание
         </v-col>
         <v-col cols="1">
         </v-col>
       </v-row>
       <v-row class="tree-row" v-for="block in blocks" :key="block.id">
-        <v-col cols="3" @click="openBlock(block.id)">
+        <v-col cols="2" @click="openBlock(block.id)">
           <span class="folder-name">
             {{ block.name }}
           </span>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="2">
           {{ block.landing_schema }}
         </v-col>
-        <v-col cols="4">
+        <v-col cols="2">
+          {{ block.product_type }}
+        </v-col>
+        <v-col cols="3">
+          {{ block.product_name }}
+        </v-col>
+        <v-col cols="2">
           {{ block.description }}
         </v-col>
         <v-col cols="1" class="text-right actions">

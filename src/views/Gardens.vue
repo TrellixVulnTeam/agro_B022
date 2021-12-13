@@ -27,9 +27,9 @@
       </v-row>
 
       <v-row class="tree-row tree-folders" v-for="item in gardens" :key="item.id">
-        <v-col cols="3" @click="$router.push('/quarters/' + item.id)">
+        <v-col cols="3" @click="$router.push('/quarters/' + item.garden_id)">
           <v-icon>mdi-file-outline</v-icon>
-          {{ item.name }}
+          {{ item.garden_name }}
         </v-col>
         <v-col cols="2">
           {{ item.area_size }}
