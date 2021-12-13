@@ -107,7 +107,7 @@
             link: '/catalog',
             // active: true,
             items: [
-              { title: 'Показатели исследований', link: '/researches'},
+              { title: 'Акты-оценки качества', link: '/researches'},
               { title: 'Контрагенты', link: '/contractors'},
               { title: 'Продукция', link: '/products'}
             ],

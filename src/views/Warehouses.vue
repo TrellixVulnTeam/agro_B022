@@ -64,7 +64,7 @@
           Наименование
         </v-col>
         <v-col cols="2">
-          Размер участка
+          Поля складов
         </v-col>
         <v-col cols="4">
           Описание
@@ -113,7 +113,7 @@
           {{ item.name }}
         </v-col>
         <v-col cols="2">
-          {{ item.volume }} га
+          {{ item.volume }}
         </v-col>
         <v-col cols="4">
           {{ item.description.slice(0, 40) }}

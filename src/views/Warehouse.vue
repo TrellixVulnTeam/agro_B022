@@ -18,7 +18,7 @@
           item-text="name"
           item-value="id"
         ></v-select>
-        <v-text-field label="Размер участка в га" outlined v-model.number="warehouse.volume"></v-text-field>
+        <v-text-field label="Объем хранения" outlined v-model.number="warehouse.volume"></v-text-field>
         <!-- <v-text-field label="Работник" outlined v-model="warehouse.employee_id"></v-text-field> -->
         <v-textarea label="Описание" outlined v-model="warehouse.description"></v-textarea>
       </v-col>

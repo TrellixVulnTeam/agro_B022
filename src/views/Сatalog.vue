@@ -12,7 +12,7 @@
             <!-- <v-card-title>Title</v-card-title> -->
           </v-img>
           <v-card-text class="text--primary">
-            <div>Показатели исследований</div>
+            <div>Акты-оценки качества</div>
           </v-card-text>
         </v-card>
       </v-col>
