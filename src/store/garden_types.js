@@ -1,27 +1,34 @@
 import router from '@/router'
 export default {
   state: {
-    gardens: {},
-    garden: {}
+    garden_type: {},
+    garden_types: {
+      data: [],
+      paginator: {
+        total_pages: 1,
+        current_pages: 1,
+        total_items: 1
+      }
+    },
+    searchedContractors: []
   },
 
   mutations: {
-    setGardens (state, payload) {
-      state.gardens = payload
+    setGarden_type (state, payload) {
+      state.garden_type = payload
     },
-    setGarden (state, payload) {
-      state.garden = payload
+    setGarden_types (state, payload) {
+      state.garden_types = payload
     }
   },
 
   actions: {
-    getGardens ({commit}) {
+    getGarden_types ({commit, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .get('gardens')
+      .get('garden_types?page=' + state.garden_types.paginator.current_pages)
       .then(response => {
-        commit('setGardens', response.data)
-        commit('setGarden', {})
+        commit('setGarden_types', response.data)
         commit('setLoading', false)
       })
       .catch(error => {
@@ -34,12 +41,12 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    getGarden ({commit}, payload) {
+    getGarden_type ({commit}, id) {
       commit('setLoading', true)
       this._vm.$http
-      .get('garden?id=' + payload)
+      .get('garden_type?id=' + id)
       .then(response => {
-        commit('setGarden', response.data)
+        commit('setGarden_type', response.data)
         commit('setLoading', false)
       })
       .catch(error => {
@@ -52,13 +59,15 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    updateGarden ({commit, state}) {
+    createGarden_type ({commit, dispatch, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .put('gardens', state.garden)
+      .post('garden_type', state.garden_type)
       .then(() => {
-        commit('setMessage', 'Сад успешно обновлена')
+        dispatch('getGarden_types')
         commit('setLoading', false)
+        commit('setGarden_type', {})
+        commit('setMessage', 'Тип сада успешно создан!')
       })
       .catch(error => {
         commit('setLoading', false)
@@ -70,15 +79,15 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    createGarden ({commit, state}) {
+    updateGarden_type ({commit, dispatch, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .post('gardens', state.garden)
-      .then(response => {
-        commit('setMessage', 'Сад успешно создан')
-        router.push('/garden/' + response.data.id)
-        router.push('/gardens')
+      .put('garden_type', state.garden_type)
+      .then(() => {
+        dispatch('getGarden_types')
         commit('setLoading', false)
+        commit('setGarden_type', {})
+        commit('setMessage', 'Тип сада успешно обновлен!')
       })
       .catch(error => {
         commit('setLoading', false)
@@ -87,18 +96,18 @@ export default {
           router.push('/getpass')
           commit('setError', error.response.data.message)
         }
-        commit('setError', error.response.data.human_data)
+        commit('setError', error.response.data.message)
       })
     },
-    deleteGarden ({commit, dispatch}, payload) {
-      commit('setLoading', true)    
+    deleteGarden_type ({commit, dispatch, state}) {
+      commit('setLoading', true)
       this._vm.$http
-      .delete('gardens?id=' + payload.id)
+      .delete('garden_type?id=' + state.garden_type.id)
       .then(() => {
-        router.push('/gardens')
-        dispatch('getGardens')
-        commit('setMessage', 'Сад успешно удален')
+        dispatch('getGarden_types')
         commit('setLoading', false)
+        commit('setGarden_type', {})
+        commit('setMessage', 'Тип сада успешно удален!')
       })
       .catch(error => {
         commit('setLoading', false)
@@ -113,11 +122,11 @@ export default {
   },
 
   getters: {
-    gardens (state) {
-      return state.gardens
+    garden_type (state) {
+      return state.garden_type
     },
-    garden (state) {
-      return state.garden
+    garden_types (state) {
+      return state.garden_types
     }
   }
 }

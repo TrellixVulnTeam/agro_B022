@@ -189,7 +189,13 @@ const routes = [
     name: 'Employee',
     props: true,
     component: () => import('@/views/Employee')
-  }
+  },
+  {
+    path: '/garden_types',
+    name: 'GardenTypes',
+    props: true,
+    component: () => import('@/views/GardenTypes')
+  },
 ]
 
 const router = new VueRouter({

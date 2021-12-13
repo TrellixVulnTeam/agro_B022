@@ -109,7 +109,10 @@
             items: [
               { title: 'Акты-оценки качества', link: '/researches'},
               { title: 'Контрагенты', link: '/contractors'},
-              { title: 'Продукция', link: '/products'}
+              { title: 'Продукция', link: '/products'},
+              { title: 'Типы садов', link: '/garden_types'},
+              { title: 'Схема посадки', link: '/landing_schemas'},
+              { title: 'Подвои', link: '/rootstocks'}
             ],
           },
           {

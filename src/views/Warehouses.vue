@@ -189,7 +189,7 @@ export default {
     },
     deleteFolder (folder) {
       this.folderDialog = false
-      this.$store.dispatch('deleteFolder', folder)
+      confirm('Вы уверены что хотите удалить папку? Вернуть ее уже будет нельзя!') && this.$store.dispatch('deleteFolder', folder)
     },
     closeFolder () {
       this.folderDialog = false

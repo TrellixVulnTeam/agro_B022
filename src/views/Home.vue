@@ -77,15 +77,15 @@
             <router-link to="/">Контрагенты</router-link>
             <router-link to="/warehouses">Склады</router-link>
             <router-link to="/">Сорта</router-link>
-            <router-link to="/">Подвои</router-link>
+            <router-link to="/rootstocks">Подвои</router-link>
             <router-link to="/">Типы продукции</router-link>
           </div>
         </v-col>
         <v-col>
           <div class="catalogue">
             <router-link to="/products">Продукция</router-link>
-            <router-link to="/">Типы складов</router-link>
-            <router-link to="/">Схемы посадки</router-link>
+            <router-link to="/garden_types">Типы садов</router-link>
+            <router-link to="/landing_schemas">Схемы посадки</router-link>
             <router-link to="/">Единицы измерений</router-link>
           </div>
         </v-col>
