@@ -196,6 +196,12 @@ const routes = [
     props: true,
     component: () => import('@/views/GardenTypes')
   },
+  {
+    path: '/landing_schemas',
+    name: 'LandingSchemas',
+    props: true,
+    component: () => import('@/views/LandingSchemas')
+  },
 ]
 
 const router = new VueRouter({

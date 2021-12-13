@@ -1,8 +1,8 @@
 import router from '@/router'
 export default {
   state: {
-    garden_type: {},
-    garden_types: {
+    landing_schema: {},
+    landing_schemas: {
       data: [],
       paginator: {
         total_pages: 1,
@@ -14,21 +14,21 @@ export default {
   },
 
   mutations: {
-    setGarden_type (state, payload) {
-      state.garden_type = payload
+    setLanding_schema (state, payload) {
+      state.landing_schema = payload
     },
-    setGarden_types (state, payload) {
-      state.garden_types = payload
+    setLanding_schemas (state, payload) {
+      state.landing_schemas = payload
     }
   },
 
   actions: {
-    getGarden_types ({commit, state}) {
+    getLanding_schemas ({commit, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .get('garden_types?page=' + state.garden_types.paginator.current_pages)
+      .get('landing_schemas?page=' + state.landing_schemas.paginator.current_pages)
       .then(response => {
-        commit('setGarden_types', response.data)
+        commit('setLanding_schemas', response.data)
         commit('setLoading', false)
       })
       .catch(error => {
@@ -41,12 +41,12 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    getGarden_type ({commit}, id) {
+    getLanding_schema ({commit}, id) {
       commit('setLoading', true)
       this._vm.$http
-      .get('garden_type?id=' + id)
+      .get('landing_schema?id=' + id)
       .then(response => {
-        commit('setGarden_type', response.data)
+        commit('setLanding_schema', response.data)
         commit('setLoading', false)
       })
       .catch(error => {
@@ -59,15 +59,15 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    createGarden_type ({commit, dispatch, state}) {
+    createLanding_schema ({commit, dispatch, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .post('garden_type', state.garden_type)
+      .post('landing_schema', state.landing_schema)
       .then(() => {
-        dispatch('getGarden_types')
+        dispatch('getLanding_schemas')
         commit('setLoading', false)
-        commit('setGarden_type', {})
-        commit('setMessage', 'Тип сада успешно создан!')
+        commit('setLanding_schema', {})
+        commit('setMessage', 'Схема посадки успешно создана!')
       })
       .catch(error => {
         commit('setLoading', false)
@@ -79,15 +79,15 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    updateGarden_type ({commit, dispatch, state}) {
+    updateLanding_schema({commit, dispatch, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .put('garden_type', state.garden_type)
+      .put('landing_schema', state.landing_schema)
       .then(() => {
-        dispatch('getGarden_types')
+        dispatch('getLanding_schemas')
         commit('setLoading', false)
-        commit('setGarden_type', {})
-        commit('setMessage', 'Тип сада успешно обновлен!')
+        commit('setLanding_schema', {})
+        commit('setMessage', 'Схема посадки успешно обновлена!')
       })
       .catch(error => {
         commit('setLoading', false)
@@ -99,15 +99,15 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    deleteGarden_type ({commit, dispatch}, item) {
+    deleteLanding_schema ({commit, dispatch}, item) {
       commit('setLoading', true)
       this._vm.$http
-      .delete('garden_type?id=' + item.id)
+      .delete('landing_schema?id=' + item.id)
       .then(() => {
-        dispatch('getGarden_types')
+        dispatch('getLanding_schemas')
         commit('setLoading', false)
-        commit('setGarden_type', {})
-        commit('setMessage', 'Тип сада успешно удален!')
+        commit('setLanding_schema', {})
+        commit('setMessage', 'Схема посадки успешно удалена!')
       })
       .catch(error => {
         commit('setLoading', false)
@@ -122,11 +122,11 @@ export default {
   },
 
   getters: {
-    garden_type (state) {
-      return state.garden_type
+    landing_schema (state) {
+      return state.landing_schema
     },
-    garden_types (state) {
-      return state.garden_types
+    landing_schemas (state) {
+      return state.landing_schemas
     }
   }
 }
