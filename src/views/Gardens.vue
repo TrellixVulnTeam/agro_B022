@@ -7,14 +7,17 @@
     <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
     <v-container class="tree-box" fluid>
       <v-row class="tree-header">
-        <v-col cols="4">
+        <v-col cols="3">
           Наименование
         </v-col>
         <v-col cols="2">
           Размер в га
         </v-col>
-        <v-col cols="3">
+        <v-col cols="2">
           Кадастровый номер
+        </v-col>
+        <v-col cols="2">
+          Количество кварталов
         </v-col>
         <v-col cols="2">
           Тип сада
@@ -24,15 +27,18 @@
       </v-row>
 
       <v-row class="tree-row tree-folders" v-for="item in gardens" :key="item.id">
-        <v-col cols="4" @click="$router.push('/quarters/' + item.id)">
+        <v-col cols="3" @click="$router.push('/quarters/' + item.id)">
           <v-icon>mdi-file-outline</v-icon>
           {{ item.name }}
         </v-col>
         <v-col cols="2">
           {{ item.area_size }}
         </v-col>
-        <v-col cols="3">
+        <v-col cols="2">
           {{ item.cadastr_number }}
+        </v-col>
+        <v-col cols="2">
+          {{ item.quarters_count }}
         </v-col>
         <v-col cols="2">
           {{ item.type }}
