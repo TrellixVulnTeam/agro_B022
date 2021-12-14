@@ -21,7 +21,7 @@
               v-bind="attrs"
               v-on="on"
               class="mb-4"
-              @click="openIndicator()"
+              @click="openIndicator({})"
             >
               + Добавить показатель
             </v-btn>
@@ -193,11 +193,7 @@ export default {
     },
     openIndicator (item) {
       this.indicatorDialog = true
-      if (item.id) {
-        this.$store.commit('setIndicator', item)
-      } else {
-        this.$store.commit('setIndicator', {})
-      }
+      this.$store.commit('setIndicator', item)
     },
     deleteIndicator (item) {
       this.indicatorDialog = false
