@@ -50,9 +50,18 @@
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
+        <v-list-item
+          @click="logOut()"
+        >
+          <v-list-item-content>
+            <v-list-item-title>
+              Выход
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
 
-      <template v-slot:append>
+      <!-- <template v-slot:append>
         <v-list
           nav
         >
@@ -66,7 +75,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
-      </template>
+      </template> -->
 
     </v-navigation-drawer>
 
@@ -112,7 +121,8 @@
               { title: 'Продукция', link: '/products'},
               { title: 'Типы садов', link: '/garden_types'},
               { title: 'Схема посадки', link: '/landing_schemas'},
-              { title: 'Подвои', link: '/rootstocks'}
+              { title: 'Подвои', link: '/rootstocks'},
+              { title: 'Показателей исследований', link: '/indicators'}
             ],
           },
           {
@@ -134,7 +144,7 @@
     },
     methods: {
       logOut() {
-        this.$store.dispatch('logOut')
+        confirm('Вы уверены, что хотите выйти из системы?') && this.$store.dispatch('logOut')
       }
     }
   }

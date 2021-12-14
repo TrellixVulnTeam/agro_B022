@@ -81,6 +81,19 @@
         </v-card>
       </v-col>
 
+      <v-col cols="3">
+        <v-card class="mx-auto" @click="$router.push('/indicators')">
+          <v-img
+            src="/images/catalog-item.png"
+          >
+            <!-- <v-card-title>Title</v-card-title> -->
+          </v-img>
+          <v-card-text class="text--primary">
+            <div>Показателей исследований</div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
     </v-row>
 
   </div>

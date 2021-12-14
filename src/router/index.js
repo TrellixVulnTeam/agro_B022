@@ -205,6 +205,11 @@ const routes = [
     name: 'Rootstocks',
     component: () => import('@/views/Rootstocks')
   },
+  {
+    path: '/indicators',
+    name: 'Indicators',
+    component: () => import('@/views/Indicators')
+  },
 ]
 
 const router = new VueRouter({
