@@ -23,7 +23,7 @@
               class="mb-4"
               @click="openIndicator({})"
             >
-              + Добавить показатель
+              + Добавить индикатор
             </v-btn>
           </template>
           <v-card>

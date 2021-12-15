@@ -73,4 +73,27 @@
       border: 1px solid #DEDEDE;
     }
   }
+
+  .files-card {
+
+    .file-image-preview {
+      cursor: pointer;
+    }
+    .file-doc-preview {
+      cursor: pointer;
+    }
+    .file-name {
+      cursor: pointer;
+    }
+    
+    .vue-dropzone {
+      border: 0;
+      border-top: 1px solid #e5e5e5;
+      background: #f5f5f5;
+      min-height: 100px;
+      .dz-message {
+        margin: 4em 0;
+      }
+    }
+  }
 }
