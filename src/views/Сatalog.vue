@@ -5,18 +5,6 @@
 
     <v-row>
       <v-col cols="3">
-        <v-card class="mx-auto" @click="$router.push('/researches')">
-          <v-img
-            src="/images/catalog-item.png"
-          >
-            <!-- <v-card-title>Title</v-card-title> -->
-          </v-img>
-          <v-card-text class="text--primary">
-            <div>Акты-оценки качества</div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="3">
         <v-card class="mx-auto" @click="$router.push('/contractors')">
           <v-img
             src="/images/catalog-item.png"

@@ -3,14 +3,14 @@
     <div @click="$router.back()" class="back-btn">
       <v-icon class="ml-0">chevron_left</v-icon>назад
     </div>
-    <h1 class="display-1">Исследования</h1>
+    <h1 class="display-1">Акты-оценки качества</h1>
     <v-divider class="mt-2 mb-8"></v-divider>
 
     <!-- Research creating dialog -->
     <v-dialog
       v-model="researchDialog"
       persistent
-      max-width="1200px"
+      max-width="800px"
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
@@ -21,18 +21,18 @@
           class="mb-4"
           @click="openResearch"
         >
-          + Добавить исследование
+          + Добавить акт оценки
         </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <h1 class="display-1">Новое исследование</h1>
+          <h1 class="display-1">Новый акт оценки</h1>
         </v-card-title>
         <v-divider class="mb-8"></v-divider>
 
         <v-card-text class="pb-0">
           <v-row class="form-grid">
-            <v-col cols="7">
+            <v-col cols="12">
               <v-row>
                 <v-col cols="7">
                   <v-text-field label="Номер" outlined v-model="research.uuid"></v-text-field>
@@ -99,14 +99,14 @@
                 </v-col>
               </v-row>
             </v-col>
-            <v-col cols="5">
+            <!-- <v-col cols="5">
               <vue-dropzone
                 ref="myVueDropzone"
                 id="dropzone"
                 class="dropzone"
                 :options="dropzoneOptions"
               ></vue-dropzone>
-            </v-col>
+            </v-col> -->
             <!-- <v-col cols="12">
               <v-autocomplete
                 :items="contractors"
@@ -123,7 +123,7 @@
 
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
-          <v-btn depressed x-large color="success" @click="createResearch" class="mr-3">Создать исследование</v-btn>
+          <v-btn depressed x-large color="success" @click="createResearch" class="mr-3">Создать</v-btn>
           <v-btn depressed x-large color="light-grey" @click="closeResearch" class="mr-3">Закрыть</v-btn>
         </v-card-actions>
       </v-card>
@@ -180,11 +180,11 @@
 </template>
 
 <script>
-import vue2Dropzone from 'vue2-dropzone'
+// import vue2Dropzone from 'vue2-dropzone'
 export default {
   name: 'Researches',
   components: {
-    vueDropzone: vue2Dropzone
+    // vueDropzone: vue2Dropzone
   },
   data() {
     return {
@@ -192,14 +192,14 @@ export default {
       activePicker: null,
       date: null,
       menu: false,
-      dropzoneOptions: {
-        url: '#',
-        thumbnailWidth: 150,
-        thumbnailHeight: 150,
-        maxFilesize: 1,
-        dictDefaultMessage: "<i class='v-icon notranslate mdi mdi-cloud-upload theme--light'></i> ЗАГРУЗИТЬ ФАЙЛЫ",
-        headers: { "Header": "header value" }
-      }
+      // dropzoneOptions: {
+      //   url: '#',
+      //   thumbnailWidth: 150,
+      //   thumbnailHeight: 150,
+      //   maxFilesize: 1,
+      //   dictDefaultMessage: "<i class='v-icon notranslate mdi mdi-cloud-upload theme--light'></i> ЗАГРУЗИТЬ ФАЙЛЫ",
+      //   headers: { "Header": "header value" }
+      // }
     }
   },
   methods: {

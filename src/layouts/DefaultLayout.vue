@@ -19,9 +19,6 @@
         <v-list-item link @click="$router.push('/')">
           <v-list-item-title>Главная</v-list-item-title>
         </v-list-item>
-        <v-list-item link @click="$router.push('/documents')">
-          <v-list-item-title>Документы</v-list-item-title>
-        </v-list-item>
         <v-list-item link @click="$router.push('/reports')">
           <v-list-item-title>Отчеты</v-list-item-title>
         </v-list-item>
@@ -112,11 +109,18 @@
       return {
         items: [
           {
+            title: 'Документы',
+            link: '/documents',
+            // active: true,
+            items: [
+              { title: 'Акты-оценки качества', link: '/researches'},
+            ],
+          },
+          {
             title: 'Справочники',
             link: '/catalog',
             // active: true,
             items: [
-              { title: 'Акты-оценки качества', link: '/researches'},
               { title: 'Контрагенты', link: '/contractors'},
               { title: 'Продукция', link: '/products'},
               { title: 'Типы садов', link: '/garden_types'},
