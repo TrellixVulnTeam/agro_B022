@@ -72,13 +72,62 @@
           </v-col>
         </v-row>
       </v-col>
-      <v-col cols="5">
-        <vue-dropzone
-          ref="myVueDropzone"
-          id="dropzone"
-          class="dropzone"
-          :options="dropzoneOptions"
-        ></vue-dropzone>
+      <v-col cols="5" v-if="research.id">
+        <v-card outlined class="files-card">
+          <v-toolbar elevation="0">
+            <v-toolbar-title>Документы</v-toolbar-title>
+          </v-toolbar>
+          <v-divider></v-divider>
+          <v-card-text v-if="!files">
+            Что бы загрузить документы перетащите их на в зону ниже или просто кликните по ней
+          </v-card-text>
+          <v-list
+            subheader
+            two-line
+          >
+            <div
+              v-for="(file, index) in files"
+              :key="index"
+            >
+              <v-list-item>
+                <v-list-item-avatar>
+                  <img :src="file.url" alt="" v-if="isImage(file.url)" @click="download(file.url)" class="file-image-preview">
+                  <v-icon
+                    v-else
+                    class="grey lighten-1 file-doc-preview"
+                    dark
+                    @click="download(file.url)"
+                  >mdi-file</v-icon>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title v-text="file.filename" @click="download(file.url)" class="file-name"></v-list-item-title>
+                  <v-list-item-subtitle v-text="'Размер: ' + file.file_size + 'кб'"></v-list-item-subtitle>
+                </v-list-item-content>
+
+                <v-list-item-action>
+                  <v-btn icon @click="deleteFile(file.filename)">
+                    <v-icon color="grey lighten-1">mdi-delete</v-icon>
+                  </v-btn>
+                </v-list-item-action>
+              </v-list-item>
+              <v-divider
+                v-if="index < files.length - 1"
+                :key="index"
+              ></v-divider>
+
+            </div>
+          </v-list>
+
+          <vue-dropzone
+            v-on:vdropzone-sending="sendingFileEvent"
+            v-on:vdropzone-complete="completeFileEvent"
+            :options="dropzoneOptions"
+            ref="myVueDropzone"
+            id="dropzone"
+            class="dropzone"
+          ></vue-dropzone>
+        </v-card>
       </v-col>
       <!-- <v-col cols="12">
         <v-autocomplete
@@ -412,12 +461,13 @@ export default {
       rdDialog: false,
       indicatorDialog: false,
       dropzoneOptions: {
-        url: '#',
+        url: 'http://64.225.100.175:8000/api/v1/file_upload',
         thumbnailWidth: 150,
         thumbnailHeight: 150,
         maxFilesize: 1,
+        method: 'PUT',
         dictDefaultMessage: "<i class='v-icon notranslate mdi mdi-cloud-upload theme--light'></i> ЗАГРУЗИТЬ ФАЙЛЫ",
-        headers: { "Header": "header value" }
+        headers: { 'Authorization': 'Bearer ' + localStorage.jwt }
       },
       activePicker: null,
       date: null,
@@ -425,6 +475,29 @@ export default {
     }
   },
   methods: {
+    sendingFileEvent (file, xhr, formData) {
+      formData.append('model', 'research');
+      formData.append('id', this.id);
+    },
+    completeFileEvent (info) {
+      let response = JSON.parse(info.xhr.response)
+      this.$store.commit('setMessage', response.human_data)
+      this.$store.dispatch('getFiles', { model: 'research', id: this.id })
+    },
+    download (url) {
+      window.location.href = url;
+    },
+    deleteFile (name) {
+      let payload = {
+        product_id: this.id,
+        file_name: name,
+        model: 'research'
+      }
+      confirm('Вы уверены что хотите файл? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteFile', payload)
+    },
+    isImage(file) {
+      return file.match(/\.(jpg|jpeg|png|gif)$/)
+    },
     getResearch () {
       this.$store.dispatch('getResearch', this.id)
     },
@@ -515,6 +588,9 @@ export default {
     employees () {
       return this.$store.getters.employees
     },
+    files () {
+      return this.$store.getters.files
+    },
     loading () {
       return this.$store.getters.loading
     }
@@ -527,6 +603,7 @@ export default {
     this.getMeasurementUnits()
     this.getAcceptances()
     this.getEmployees()
+    this.$store.dispatch('getFiles', { model: 'research', id: this.id })
   },
   beforeDestroy () {
     this.$store.commit('setResearch', {})
@@ -575,9 +652,5 @@ export default {
       padding-top: 0;
       padding-bottom: 0;
     }
-  }
-  .dropzone {
-    min-height: 228px;
-    margin-bottom: 20px;
   }
 </style>
