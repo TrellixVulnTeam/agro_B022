@@ -18,8 +18,7 @@ export default {
     },
     searchedProducts: [],
     product: {},
-    folderMeta: {},
-    productFiles: []
+    folderMeta: {}
   },
 
   mutations: {
@@ -34,9 +33,6 @@ export default {
     },
     setFolderMeta (state, payload) {
       state.folderMeta = payload
-    },
-    setProductFiles (state, payload) {
-      state.productFiles = payload
     }
   },
 
@@ -176,48 +172,7 @@ export default {
         }
         commit('setError', error.response.data.message)
       })
-    },
-    getProductFiles ({commit}, id) {
-      commit('setLoading', true)
-      this._vm.$http
-      .get('/files?model=product&id=' + id)
-      .then(response => {
-        commit('setProductFiles', response.data)
-        commit('setLoading', false)
-      })
-      .catch(error => {
-        commit('setLoading', false)
-        if (error.response.status === 401) {
-          // REFRESH
-          router.push('/getpass')
-          commit('setError', error.response.data.message)
-        } else if (error.response.status === 400) {
-          commit('setFolderMeta', {})
-        }
-        commit('setError', error.response.data.message)
-      })
-    },
-    deleteProductFile ({commit, dispatch}, payload) {
-      commit('setLoading', true)
-      this._vm.$http
-      .delete('/file?key=products/' + payload.product_id + '/' + payload.file_key)
-      .then(() => {
-        dispatch('getProductFiles', payload.product_id)
-        commit('setMessage', 'Файл успешно удален')
-        commit('setLoading', false)
-      })
-      .catch(error => {
-        commit('setLoading', false)
-        if (error.response.status === 401) {
-          // REFRESH
-          router.push('/getpass')
-          commit('setError', error.response.data.message)
-        } else if (error.response.status === 400) {
-          commit('setFolderMeta', {})
-        }
-        commit('setError', error.response.data.message)
-      })
-    },
+    }
   },
 
   getters: {
@@ -232,9 +187,6 @@ export default {
     },
     folderMeta (state) {
       return state.folderMeta
-    },
-    productFiles (state) {
-      return state.productFiles
     }
   }
 }

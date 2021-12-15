@@ -18,6 +18,7 @@ import gardens from './gardens'
 import batches from './batches'
 import blocks from './blocks'
 import shared from './shared'
+import files from './files'
 import rows from './rows'
 import auth from './auth'
 
@@ -43,6 +44,7 @@ export default new Vuex.Store({
     batches,
     blocks,
     shared,
+    files,
     rows,
     auth
   }

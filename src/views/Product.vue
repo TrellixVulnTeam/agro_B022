@@ -40,12 +40,15 @@
             <v-toolbar-title>Документы</v-toolbar-title>
           </v-toolbar>
           <v-divider></v-divider>
+          <v-card-text v-if="!files">
+            Что бы загрузить документы перетащите их на в зону ниже или просто кликните по ней
+          </v-card-text>
           <v-list
             subheader
             two-line
           >
             <div
-              v-for="(file, index) in productFiles"
+              v-for="(file, index) in files"
               :key="index"
             >
               <v-list-item>
@@ -65,13 +68,13 @@
                 </v-list-item-content>
 
                 <v-list-item-action>
-                  <v-btn icon @click="deleteProductFile(file.key)">
+                  <v-btn icon @click="deleteFile(file.filename)">
                     <v-icon color="grey lighten-1">mdi-delete</v-icon>
                   </v-btn>
                 </v-list-item-action>
               </v-list-item>
               <v-divider
-                v-if="index < productFiles.length - 1"
+                v-if="index < files.length - 1"
                 :key="index"
               ></v-divider>
 
@@ -80,11 +83,11 @@
 
           <vue-dropzone
             v-on:vdropzone-sending="sendingFileEvent"
+            v-on:vdropzone-complete="completeFileEvent"
+            :options="dropzoneOptions"
             ref="myVueDropzone"
             id="dropzone"
             class="dropzone"
-            v-on:vdropzone-complete="completeFileEvent"
-            :options="dropzoneOptions"
           ></vue-dropzone>
         </v-card>
       </v-col>
@@ -123,7 +126,7 @@ export default {
     completeFileEvent (info) {
       let response = JSON.parse(info.xhr.response)
       this.$store.commit('setMessage', response.human_data)
-      this.$store.dispatch('getProductFiles', this.id)
+      this.$store.dispatch('getFiles', { model: 'product', id: this.id })
     },
     download (url) {
       window.location.href = url;
@@ -138,12 +141,13 @@ export default {
     deleteProduct () {
       confirm('Вы уверены что хотите удалить продукцию? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteProduct', this.product)
     },
-    deleteProductFile (key) {
+    deleteFile (name) {
       let payload = {
         product_id: this.id,
-        file_key: key
+        file_name: name,
+        model: 'product'
       }
-      confirm('Вы уверены что хотите файл? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteProductFile', payload)
+      confirm('Вы уверены что хотите файл? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteFile', payload)
     },
     isImage(file) {
       return file.match(/\.(jpg|jpeg|png|gif)$/)
@@ -159,14 +163,14 @@ export default {
     folderMeta() {
       return this.$store.getters.folderMeta
     },
-    productFiles() {
-      return this.$store.getters.productFiles
+    files() {
+      return this.$store.getters.files
     }
   },
   created() {
     if (!isNaN(this.id)) {
       this.$store.dispatch('getProduct', this.id)
-      this.$store.dispatch('getProductFiles', this.id)
+      this.$store.dispatch('getFiles', { model: 'product', id: this.id })
     }
   },
   beforeDestroy () {

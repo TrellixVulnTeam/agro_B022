@@ -5,7 +5,7 @@
     <v-dialog
       v-model="acceptanceDialog"
       persistent
-      max-width="1200px"
+      max-width="800px"
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
@@ -27,7 +27,7 @@
         <v-card-text class="pb-0">
 
           <v-row class="form-grid">
-            <v-col cols="7">
+            <v-col cols="12">
               <v-row>
                 <v-col cols="7">
                   <v-text-field label="Номер" outlined v-model="acceptance.uuid"></v-text-field>
@@ -156,14 +156,14 @@
                 </v-col>
               </v-row>
             </v-col>
-            <v-col cols="5">
+            <!-- <v-col cols="5">
               <vue-dropzone
                 ref="myVueDropzone"
                 id="dropzone"
                 class="dropzone"
                 :options="dropzoneOptions"
               ></vue-dropzone>
-            </v-col>
+            </v-col> -->
           </v-row>
 
         </v-card-text>
@@ -180,10 +180,10 @@
 </template>
 
 <script>
-import vue2Dropzone from 'vue2-dropzone'
+// import vue2Dropzone from 'vue2-dropzone'
 export default {
   components: {
-    vueDropzone: vue2Dropzone
+    // vueDropzone: vue2Dropzone
   },
   name: 'newAcceptance',
   data() {
