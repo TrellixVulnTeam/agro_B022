@@ -87,14 +87,15 @@
             <v-text-field label="Количество" outlined v-model.number="acceptance.quantity"></v-text-field>
           </v-col>
           <v-col cols="6">
-            <v-select
+            <!-- <v-select
               :items="employees"
               v-model.number="acceptance.employee_id"
               outlined
               label="Сотрудник"
               item-text="fio"
               item-value="id"
-            ></v-select>
+            ></v-select> -->
+            <employeeSelector @returnItem="setEmployee"/>
           </v-col>
 
           <v-col cols="3">
@@ -163,9 +164,10 @@
 
 <script>
 import contactorSelector from '@/components/selectors/contactorSelector'
+import employeeSelector from '@/components/selectors/employeeSelector'
 export default {
   components: {
-    contactorSelector
+    contactorSelector, employeeSelector
   },
   name: 'newAcceptance',
   data() {
@@ -191,8 +193,11 @@ export default {
     }
   },
   methods: {
-    setContactor(payload) {
+    setContactor (payload) {
       this.acceptance.contractor_id = payload.id
+    },
+    setEmployee (payload) {
+      this.acceptance.employee_id = payload.id
     },
     createAcceptance () {
       this.$store.dispatch('createAcceptance')

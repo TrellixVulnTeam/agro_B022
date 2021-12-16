@@ -2,7 +2,7 @@
   <div>
 
     <div v-if="account_name" class="catalog-selector" @click="openContractorsDialog">
-      <div class="catalog-selector-label">Контрагент:</div>
+      <div class="catalog-selector-label">Контрагент</div>
       {{account_name}}
     </div>
     <div v-else>
@@ -89,7 +89,6 @@ export default {
     },
     selectItem (item) {
       this.account_name = item.account_name
-      console.log(item)
       this.$emit('returnItem', item)
       this.contractorsDialog = false;
     },
