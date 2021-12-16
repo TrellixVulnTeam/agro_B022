@@ -5,7 +5,14 @@
         <h1 class="display-1">Документы</h1>
       </v-col>
       <v-col class="text-right">
-        <newAcceptance/>
+        <v-btn
+          depressed
+          color="light-grey"
+          class="mb-4"
+          @click="$router.push('/newacceptance')"
+        >
+          + Добавить приемку
+        </v-btn>
       </v-col>
     </v-row>
     <v-divider class="mt-2 mb-8"></v-divider>
@@ -58,11 +65,11 @@
 </template>
 
 <script>
-import newAcceptance from '@/components/newAcceptance'
+// import newAcceptance from '@/components/newAcceptance'
 export default {
   name: 'Documents',
   components: {
-    newAcceptance
+    // newAcceptance
   },
 
   data() {

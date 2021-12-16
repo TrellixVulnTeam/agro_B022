@@ -8,7 +8,14 @@
         <h1 class="display-1">Приемки</h1>
       </v-col>
       <v-col class="text-right">
-        <newAcceptance/>
+        <v-btn
+          depressed
+          color="light-grey"
+          class="mb-4"
+          @click="$router.push('/newacceptance')"
+        >
+          + Добавить приемку
+        </v-btn>
       </v-col>
     </v-row>
     <v-divider class="mt-2 mb-5"></v-divider>
@@ -78,12 +85,10 @@
 </template>
 
 <script>
-import newAcceptance from '@/components/newAcceptance'
 import acceptanceFilter from '@/components/filters/acceptanceFilter'
 export default {
   name: 'Acceptances',
   components: {
-    newAcceptance,
     acceptanceFilter
   },
   data() {
