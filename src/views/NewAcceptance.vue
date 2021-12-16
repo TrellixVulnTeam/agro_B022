@@ -50,7 +50,7 @@
             <v-text-field label="Партия" outlined v-model="acceptance.batch_name"></v-text-field>
           </v-col>
           <v-col cols="6">
-            <v-autocomplete
+            <!-- <v-autocomplete
               :items="searchedProducts"
               v-model.number="acceptance.product_id"
               outlined
@@ -58,7 +58,8 @@
               item-text="name"
               item-value="id"
               @input.native="searchProduct($event)"
-            ></v-autocomplete>
+            ></v-autocomplete> -->
+            <productSelector @returnItem="setProduct"/>
           </v-col>
           <v-col cols="6">
             <v-autocomplete
@@ -163,11 +164,12 @@
 </template>
 
 <script>
+import productSelector from '@/components/selectors/productSelector'
 import contactorSelector from '@/components/selectors/contactorSelector'
 import employeeSelector from '@/components/selectors/employeeSelector'
 export default {
   components: {
-    contactorSelector, employeeSelector
+    contactorSelector, employeeSelector, productSelector
   },
   name: 'newAcceptance',
   data() {
@@ -193,6 +195,9 @@ export default {
     }
   },
   methods: {
+    setProduct (payload) {
+      this.acceptance.product_id = payload.id
+    },
     setContactor (payload) {
       this.acceptance.contractor_id = payload.id
     },
