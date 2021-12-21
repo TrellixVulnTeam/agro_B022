@@ -78,15 +78,15 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    createQuarter ({commit}, quarter) {
+    createQuarter ({commit, dispatch}, quarter) {
       commit('setLoading', true)
       this._vm.$http
       .post('quarters_unit', quarter)
       .then(() => {
         commit('setMessage', 'Квартал успешно создан')
         commit('setLoading', false)
-        // dispatch('getQuarters', quarter.garden_id)
-        router.push('/gardens')
+        dispatch('getQuarters', quarter.garden_id)
+        // router.push('/gardens')
       })
       .catch(error => {
         commit('setLoading', false)
