@@ -3,16 +3,19 @@ import router from '@/router'
 export default {
   state: {
     contractor: {
-      bank_account: "",
-      bank_name: "",
-      bik: "",
-      billing_account: "",
-      full_name: "",
-      inn: "",
-      kpp: "",
-      legal_address: "",
-      ogrn: "",
-      real_address: ""
+      account_name: "",
+      requisites: {
+        bank_account: "",
+        bank_name: "",
+        bik: "",
+        billing_account: "",
+        full_name: "",
+        inn: "",
+        kpp: "",
+        legal_address: "",
+        ogrn: "",
+        real_address: ""
+      }
     },
     contractors: {
       data: [],
