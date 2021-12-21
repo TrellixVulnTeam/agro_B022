@@ -5,6 +5,7 @@ export default {
     contractor: {
       account_name: "",
       requisites: {
+        short_name: "",
         bank_account: "",
         bank_name: "",
         bik: "",
