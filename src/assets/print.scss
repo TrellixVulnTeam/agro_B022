@@ -1,0 +1,69 @@
+@media print {
+  .v-app-bar {
+    display: none;
+  }
+  .v-navigation-drawer {
+    display: none;
+  }
+  .back-btn {
+    display: none;
+  }
+  .v-main {
+    padding: 0 !important;
+  }
+  .v-application {
+    .display-1 {
+      font-size: 18px !important;
+    }
+  }
+  .v-divider {
+    display: none;
+  }
+  .contractor-info {
+    border: 1px solid #000;
+    .info-fields {
+      .field-row {
+        border-bottom: 1px solid #000;
+        .field-name {
+          padding: 10px;
+          min-height: 42px;
+          display: inline-block;
+          width: 50%;
+          font-size: 15px !important;
+          color: #000;
+        }
+        .field-value {
+          padding: 10px !important;
+          min-height: 42px;
+          border-left: 1px solid #000;
+          display: inline-block;
+          width: 50%;
+          margin: 0 !important;
+          .v-input__slot {
+            padding: 0;
+            margin: 0;
+            .v-text-field__slot {
+              input {
+                padding: 0;
+                color: #000;
+              }
+              textarea {
+                padding: 0;
+                color: #000;
+              }
+            }
+            &:before {
+              display: none;
+            }
+          }
+          .v-text-field__details {
+            display: none;
+          }
+        }
+      }
+    }
+    .buttons {
+      display: none;
+    }
+  }
+}

@@ -8,6 +8,7 @@ import DefaultLayout from './layouts/DefaultLayout.vue'
 import AuthLayout from './layouts/AuthLayout.vue'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@/assets/styles.scss'
+import '@/assets/print.scss'
 
 Vue.use(require('vue-moment'))
 
