@@ -111,6 +111,7 @@ export default {
     }
   }
   .catalog-selector {
+    color: #000;
     cursor: pointer;
     position: relative;
     border-radius: 4px;

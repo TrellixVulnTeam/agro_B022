@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div v-if="title" class="catalog-selector" @click="openProductsDialog">
       <div class="catalog-selector-label">Продукция</div>
       {{title}}
@@ -14,9 +13,9 @@
         x-large
         @click="openProductsDialog"
       >
-        Выбрать продукцию
+        Выбрать плодовую продукцию
       </v-btn>
-    </div>    
+    </div>
 
     <v-dialog
       v-model="productsDialog"
@@ -97,7 +96,7 @@ export default {
       title: ''
     };
   },
-  props: ["folder_id"],
+  props: ['folder_id', 'product'],
   methods: {
     selectItem (item) {
       this.title = item.name
@@ -115,34 +114,40 @@ export default {
     },
     closeProductsDialog () {
       this.productsDialog= false
+    },
+    setExistProduct () {
+      if (this.product) {
+        this.title = this.product.name
+      }
     }
   },
   computed: {
-    loading() {
+    loading () {
       return this.$store.getters.loading;
     },
-    folders() {
+    folders () {
       return this.$store.getters.products.folders;
     },
-    folder() {
+    folder () {
       return this.$store.getters.folder;
     },
-    items() {
+    items () {
       return this.$store.getters.products.data;
     },
-    meta() {
+    meta () {
       return this.$store.getters.products.meta;
     },
-    paginator() {
+    paginator () {
       return this.$store.getters.products.paginator;
     },
-    folderModels() {
+    folderModels () {
       return this.$store.getters.folderModels;
-    },
+    }
   },
   created() {
     this.getProducts(this.folder_id);
     this.$store.dispatch("getFolderModels");
+    this.setExistProduct()
   },
   watch: {
     $route() {
@@ -159,6 +164,7 @@ export default {
     }
   }
   .catalog-selector {
+    color: #000;
     cursor: pointer;
     position: relative;
     border-radius: 4px;

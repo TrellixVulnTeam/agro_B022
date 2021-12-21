@@ -62,6 +62,7 @@
 
         <v-card-text class="pb-0">
           <v-text-field label="Наименование" outlined v-model="block.name"></v-text-field>
+          <productSelector @returnItem="setProduct" class="mb-7" />
           <v-select
             :items="landingSchemas.data"
             v-model.number="block.landing_schemas_id"
@@ -100,11 +101,12 @@
 </template>
 
 <script>
+import productSelector from '@/components/selectors/productSelector'
 const blocks = () => import('@/components/blocks')
 export default {
   name: 'Quarters',
   components: {
-    blocks
+    blocks, productSelector
   },
   data() {
     return {
@@ -118,6 +120,9 @@ export default {
   },
   props: [ 'garden_id' ],
   methods: {
+    setProduct (payload) {
+      this.block.product_id = payload.id
+    },
     getQuarters(garden_id) {
       this.$store.dispatch('getQuarters', garden_id)
     },

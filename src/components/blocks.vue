@@ -11,10 +11,11 @@
         <v-card-title>
           <span class="text-h5"><h1 class="display-1">Редактирование блока</h1></span>
         </v-card-title>
-        <v-divider class="mb-b"></v-divider>
+        <v-divider class="mb-4"></v-divider>
 
         <v-card-text class="pb-0">
           <v-text-field label="Наименование" outlined v-model="block.name"></v-text-field>
+          <productSelector @returnItem="setProduct" :product="block.product" class="mb-7" />
           <v-select
             :items="landingSchemas.data"
             v-model.number="block.landing_schemas_id"
@@ -101,6 +102,7 @@
   </div>
 </template>
 <script>
+import productSelector from '@/components/selectors/productSelector'
 import { nameTheLandingSchemas } from '@/helpers/helpers.js'
 export default {
   name: 'Blocks',
@@ -115,7 +117,10 @@ export default {
       }
     }
   },
-  props: [ 'quarter_id' ],
+  props: [ 'quarter_id'],
+  components: {
+    productSelector
+  },
   methods: {
     getBlocks () {
       this.$store.commit('setLoading', true)
@@ -162,6 +167,9 @@ export default {
     },
     openBlock (id) {
       this.$router.push('/blocks/' + id)
+    },
+    setProduct (payload) {
+      this.block.product_id = payload.id
     }
   },
   computed: {
@@ -179,7 +187,13 @@ export default {
     this.getBlocks()
     this.getLandingSchemas()
   },
-  watch:{
+  watch: {
+    block() {
+      this.block.product = {
+        name: this.block.product_name,
+        id: this.block.product_id
+      }
+    },
     blocks() {
       this.blocks.forEach(block => {
         block.landing_schema = nameTheLandingSchemas(block, this.landingSchemas.data)
