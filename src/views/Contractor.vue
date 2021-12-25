@@ -126,6 +126,7 @@ export default {
   methods: {
     updateContractor() {
       this.$store.dispatch('updateContractor')
+      this.editable = false
     },
     deleteContractor() {
       confirm('Вы уверены что хотите удалить контрагента? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteContractor')

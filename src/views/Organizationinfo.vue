@@ -86,14 +86,14 @@
             :class="{ 'pressed' : editable == true}">
             <v-icon>mdi-application-edit-outline</v-icon>
           </v-btn>
-          <v-btn
+          <!-- <v-btn
             fab
             icon
             outlined
             rounded
             class="ml-4">
             <v-icon>mdi-tray-arrow-down</v-icon>
-          </v-btn>
+          </v-btn> -->
           <v-btn
             fab
             icon
@@ -124,6 +124,7 @@ export default {
   methods: {
     updateContractor() {
       this.$store.dispatch('updateContractor')
+      this.editable = false
     },
     deleteContractor() {
       confirm('Вы уверены что хотите удалить контрагента? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteContractor')
