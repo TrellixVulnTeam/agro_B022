@@ -1,41 +1,33 @@
-import _ from 'lodash'
 import router from '@/router'
 export default {
   state: {
-    warehouses: {
+    warehouse_type: {},
+    warehouses_types: {
       data: [],
-      folders: [],
       paginator: {
         total_pages: 1,
         current_pages: 1,
         total_items: 1
       }
-    },
-    searchedWarehouses: [],
-    warehouse: {}
+    }
   },
 
   mutations: {
-    setWarehouses (state, payload) {
-      state.warehouses = payload
+    setWarehouses_types (state, payload) {
+      state.warehouses_types = payload
     },
-    setSearchedWarehouses (state, payload) {
-      state.searchedWarehouses = payload
-    },
-    setWarehouse (state, payload) {
-      state.warehouse = payload
+    setWarehouse_type (state, payload) {
+      state.warehouse_type = payload
     }
   },
 
   actions: {
-    getWarehouses ({state, commit}, folder) {
+    getWarehouses_types ({commit, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .get('warehouses?folder=' + folder + '&page=' + state.warehouses.paginator.current_pages)
+      .get('warehouses_types?page=' + state.warehouses_types.paginator.current_pages)
       .then(response => {
-        commit('setWarehouses', response.data)
-        commit('setWarehouse', {})
-        commit('setFolder', {})
+        commit('setWarehouses_types', response.data)
         commit('setLoading', false)
       })
       .catch(error => {
@@ -48,12 +40,12 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    getWarehouse ({commit}, payload) {
+    getWarehouse_type ({commit}, id) {
       commit('setLoading', true)
       this._vm.$http
-      .get('warehouse?id=' + payload)
+      .get('warehouse_type?id=' + id)
       .then(response => {
-        commit('setWarehouse', response.data)
+        commit('setWarehouse_type', response.data)
         commit('setLoading', false)
       })
       .catch(error => {
@@ -66,13 +58,15 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    updateWarehouse ({commit, state}) {
+    createWarehouse_type ({commit, dispatch, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .put('warehouse?id=' + state.warehouse.id, state.warehouse)
+      .post('warehouse_type', state.warehouse_type)
       .then(() => {
-        commit('setMessage', 'Склад успешно обновлен')
+        dispatch('getWarehouses_types')
         commit('setLoading', false)
+        commit('setWarehouse_type', {})
+        commit('setMessage', 'Тип склада успешно создан!')
       })
       .catch(error => {
         commit('setLoading', false)
@@ -84,36 +78,15 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    createWarehouse ({commit, state}) {
+    updateWarehouse_type ({commit, dispatch, state}) {
       commit('setLoading', true)
       this._vm.$http
-      .post('warehouse?', state.warehouse)
+      .put('warehouse_type', state.warehouse_type)
       .then(() => {
-        commit('setMessage', 'Склад успешно создан')
-        router.push('/warehouses')
+        dispatch('getWarehouses_types')
         commit('setLoading', false)
-      })
-      .catch(error => {
-        commit('setLoading', false)
-        if (error.response.status === 401) {
-          // REFRESH
-          router.push('/getpass')
-          commit('setError', error.response.data.message)
-        }
-        commit('setError', error.response.data.human_data)
-      })
-    },
-    deleteWarehouse ({commit, dispatch}, payload) {
-      commit('setLoading', true)    
-      this._vm.$http
-      .delete('warehouse?id=' + payload.id)
-      .then(() => {
-        if (router.currentRoute.path !== ('/warehouses/' + payload.parent_id)) {
-          router.push('/warehouses/' + payload.parent_id)
-        }
-        dispatch('getWarehouses', payload.parent_id)
-        commit('setMessage', 'Склад успешно удален')
-        commit('setLoading', false)
+        commit('setWarehouse_type', {})
+        commit('setMessage', 'Тип склада успешно обновлен!')
       })
       .catch(error => {
         commit('setLoading', false)
@@ -125,13 +98,15 @@ export default {
         commit('setError', error.response.data.message)
       })
     },
-    searchWarehouse: _.debounce(function ({commit}, payload) {
+    deleteWarehouse_type ({commit, dispatch}, item) {
       commit('setLoading', true)
       this._vm.$http
-      .get('warehouse/find?q=' + payload)
-      .then(response => {
+      .delete('warehouse_type?id=' + item.id)
+      .then(() => {
+        dispatch('getWarehouses_types')
         commit('setLoading', false)
-        commit('setSearchedWarehouses', response.data)
+        commit('setWarehouse_type', {})
+        commit('setMessage', 'Тип склада успешно удален!')
       })
       .catch(error => {
         commit('setLoading', false)
@@ -142,18 +117,15 @@ export default {
         }
         commit('setError', error.response.data.message)
       })
-    }, 200),
+    }
   },
 
   getters: {
-    warehouses (state) {
-      return state.warehouses
+    warehouse_type (state) {
+      return state.warehouse_type
     },
-    searchedWarehouses (state) {
-      return state.searchedWarehouses
-    },
-    warehouse (state) {
-      return state.warehouse
+    warehouses_types (state) {
+      return state.warehouses_types
     }
   }
 }

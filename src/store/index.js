@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import measurementunits from './measurementunits'
 import landing_schemas from './landing_schemas'
+import warehouse_types from './warehouse_types'
 import garden_types from './garden_types'
 import acceptances from './acceptances'
 import contractors from './contractors'
@@ -28,6 +29,7 @@ export default new Vuex.Store({
   modules: {
     measurementunits,
     landing_schemas,
+    warehouse_types,
     garden_types,
     acceptances,
     contractors,

@@ -202,6 +202,11 @@ const routes = [
     component: () => import('@/views/GardenTypes')
   },
   {
+    path: '/warehouse_types',
+    name: 'WarehouseTypes',
+    component: () => import('@/views/WarehouseTypes')
+  },
+  {
     path: '/landing_schemas',
     name: 'LandingSchemas',
     component: () => import('@/views/LandingSchemas')

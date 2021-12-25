@@ -124,6 +124,7 @@
               { title: 'Контрагенты', link: '/contractors'},
               { title: 'Продукция', link: '/products'},
               { title: 'Типы садов', link: '/garden_types'},
+              { title: 'Типы складов', link: '/warehouse_types'},
               { title: 'Схема посадки', link: '/landing_schemas'},
               { title: 'Подвои', link: '/rootstocks'},
               { title: 'Показателей исследований', link: '/indicators'}
