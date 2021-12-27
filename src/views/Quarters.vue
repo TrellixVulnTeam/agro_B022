@@ -61,17 +61,18 @@
         <v-divider class="mb-4"></v-divider>
 
         <v-card-text class="pb-0">
-          <v-text-field label="Наименование" outlined v-model="block.name"></v-text-field>
-          <productSelector @returnItem="setProduct" class="mb-7" />
-          <v-select
+          <v-text-field label="Наименование" outlined v-model="block.block_name"></v-text-field>
+          <v-text-field label="Размер" outlined v-model="block.block_size"></v-text-field>
+          <!-- <productSelector @returnItem="setProduct" class="mb-7" /> -->
+          <!-- <v-select
             :items="landingSchemas.data"
             v-model.number="block.landing_schemas_id"
             outlined
             label="Схема посадки(м)"
             item-text="name"
             item-value="id"
-          ></v-select>
-          <v-textarea label="Описание" outlined v-model="block.description"></v-textarea>
+          ></v-select> -->
+          <v-textarea label="Описание" outlined v-model="block.block_description"></v-textarea>
         </v-card-text>
 
         <v-card-actions class="pa-4">
@@ -82,7 +83,6 @@
       </v-card>
     </v-dialog>
     <!-- / Block creating dialog -->
-
 
     <v-row class="tree-row mb-4" v-for="quarter in quarters" :key="quarter.id">
       <v-col cols="10">
@@ -101,12 +101,13 @@
 </template>
 
 <script>
-import productSelector from '@/components/selectors/productSelector'
+// import productSelector from '@/components/selectors/productSelector'
 const blocks = () => import('@/components/blocks')
 export default {
   name: 'Quarters',
   components: {
-    blocks, productSelector
+    blocks, 
+    // productSelector
   },
   data() {
     return {

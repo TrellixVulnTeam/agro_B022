@@ -2,10 +2,9 @@ import router from '@/router'
 export default {
   state: {
     block: {
-      name: '',
-      description: '',
-      quarter_id: null,
-      landing_schemas_id: null
+      block_name: '',
+      block_description: '',
+      block_size: ''
     },
     blocks: {},
     landingSchemas: {}
