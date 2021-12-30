@@ -6,7 +6,7 @@
 
     <v-row>
       <v-col cols="8">
-        <h1 class="display-1">Сад</h1>
+        <h1 class="display-1">{{ garden.name }}</h1>
       </v-col>
       <v-col cols="4" class="text-right">
         <!-- Quarter creating dialog -->
@@ -127,6 +127,9 @@ export default {
     getQuarters(garden_id) {
       this.$store.dispatch('getQuarters', garden_id)
     },
+    getGarden(garden_id) {
+      this.$store.dispatch('getGarden', garden_id)
+    },
     editQuarter(quarter) {
       this.$router.push('/quarter/' + quarter.id)
     },
@@ -171,12 +174,16 @@ export default {
     landingSchemas () {
       return this.$store.getters.landingSchemas
     },
+    garden() {
+      return this.$store.getters.garden
+    },
     loading () {
       return this.$store.getters.loading
     }
   },
   created() {
     this.getQuarters(this.garden_id)
+    this.getGarden(this.garden_id)
     this.getLandingSchemas()
   },
   watch:{
