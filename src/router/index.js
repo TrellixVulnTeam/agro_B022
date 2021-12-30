@@ -60,7 +60,7 @@ const routes = [
     component: Product
   },
   {
-    path: '/product/new/:parent',
+    path: '/product/new/:parent_id',
     name: 'NewProduct',
     props: true,
     component: Product
