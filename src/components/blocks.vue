@@ -110,14 +110,8 @@ export default {
         this.blocks.paginator = response.paginator
         this.$store.commit('setLoading', false)
       })
-      .catch(error => {
+      .catch(() => {
         this.$store.commit('setLoading', false)
-        if (error.response.status === 401) {
-          // REFRESH
-          this.$router.push('/getpass')
-          this.$store.commit('setError', error.response.data.message)
-        }
-        this.$store.commit('setError', error.response.data.message)
       })
     },
     editItem (block) {
@@ -128,7 +122,7 @@ export default {
       confirm('Вы уверены что хотите удалить блок? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteBlock', block)
       setTimeout(() => {
         this.getBlocks()
-      }, 300)
+      }, 500)
     },
     updateBlock () {
       this.blockDialog = false
