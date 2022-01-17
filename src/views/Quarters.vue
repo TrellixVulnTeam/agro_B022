@@ -61,8 +61,8 @@
         <v-divider class="mb-4"></v-divider>
 
         <v-card-text class="pb-0">
-          <v-text-field label="Наименование" outlined v-model="block.block_name"></v-text-field>
-          <v-text-field label="Размер" outlined v-model="block.block_size"></v-text-field>
+          <v-text-field label="Наименование" outlined v-model="block.name"></v-text-field>
+          <v-text-field label="Размер" outlined v-model.number="block.size"></v-text-field>
           <!-- <productSelector @returnItem="setProduct" class="mb-7" /> -->
           <!-- <v-select
             :items="landingSchemas.data"
@@ -72,7 +72,7 @@
             item-text="name"
             item-value="id"
           ></v-select> -->
-          <v-textarea label="Описание" outlined v-model="block.block_description"></v-textarea>
+          <v-textarea label="Описание" outlined v-model="block.description"></v-textarea>
         </v-card-text>
 
         <v-card-actions class="pa-4">
@@ -85,9 +85,16 @@
     <!-- / Block creating dialog -->
 
     <v-row class="tree-row mb-4" v-for="quarter in quarters" :key="quarter.id">
-      <v-col cols="10">
-        <span class="headline mr-4">{{ quarter.name }}</span>
-        <v-btn depressed color="light-grey" @click="openBlockDialog(quarter.id)">+ Добавить блок</v-btn>
+      <v-col cols="12">
+        <v-row>
+          <v-col cols="7">
+            <span class="headline">{{ quarter.name }}</span>
+          </v-col>
+          <v-col cols="5" class="text-right">
+            <v-btn depressed color="light-grey" @click="openBlockDialog(quarter.id)" class="mr-4">+ Добавить блок</v-btn>
+            <v-btn depressed color="light-grey" @click="deleteQuarter(quarter)">Удалить квартал</v-btn>
+          </v-col>
+        </v-row>
       </v-col>
       <v-col cols="12">
         <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
@@ -134,7 +141,7 @@ export default {
       this.$router.push('/quarter/' + quarter.id)
     },
     deleteQuarter(quarter) {
-      this.$store.dispatch('deleteQuarter', quarter)
+      confirm('Вы уверены что хотите удалить квартал? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteQuarter', quarter)
     },
     createQuarter () {
       this.quarterDialog = false

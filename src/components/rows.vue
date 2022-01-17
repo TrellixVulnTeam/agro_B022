@@ -23,7 +23,8 @@
         <v-divider class="mb-4"></v-divider>
         <v-card-text class="pb-0">
 
-          <v-text-field label="Наименование" outlined v-model="row.name"></v-text-field>
+          <!-- <v-text-field label="Наименование" outlined v-model="row.name"></v-text-field> -->
+          <v-text-field label="Описание" outlined v-model="row.description"></v-text-field>
 
           <v-menu
             ref="menu"
@@ -52,7 +53,13 @@
           </v-menu>
 
           <v-text-field label="Количество деревьев" outlined v-model.number="row.trees_count"></v-text-field>
+
+          <pre>
+            {{row}}
+          </pre>
+
           <productSelector @returnItem="setProduct" :product="row.product" class="mb-7" />
+
           <v-select
             :items="landingSchemas.data"
             v-model.number="row.landing_schemas_id"
@@ -89,7 +96,7 @@
     <v-container class="tree-box" fluid>
       <v-row class="tree-header">
         <v-col cols="2">
-          Наименование
+          Продукция
         </v-col>
         <v-col cols="2">
           Описание
@@ -101,21 +108,18 @@
           Дата
         </v-col>
         <v-col cols="2">
-          Продукция
-        </v-col>
-        <v-col cols="1">
           Подвой
         </v-col>
         <v-col cols="2">
           Количество деревьев
         </v-col>
-        <!-- <v-col cols="1" class="text-right">
-        </v-col> -->
+        <v-col cols="1" class="text-right">
+        </v-col>
       </v-row>
 
-      <v-row class="tree-row" v-for="row in block.rows" :key="row.id">
+      <v-row class="tree-row product_rows" v-for="row in block.rows" :key="row.id">
         <v-col cols="2">
-          {{ row.name }}
+          {{ row.product_name }}
         </v-col>
         <v-col cols="2">
           {{ row.description }}
@@ -127,20 +131,17 @@
           {{ row.plant_date | moment('MM.YYYY') }}
         </v-col>
         <v-col cols="2">
-          {{ row.product_name }}
-        </v-col>
-        <v-col cols="1">
           {{ row.rootstock_name }}
         </v-col>
         <v-col cols="2">
           {{ row.trees_count }}
         </v-col>
-        <!-- <v-col cols="1" class="text-right">
+        <v-col cols="1" class="text-right">
           <div class="actions">
             <v-icon
               small
               class="mr-2"
-              @click="editRow(row)"
+              @click="$router.push('/quarters/row/' + row.id)"
             >
               mdi-pencil
             </v-icon>
@@ -151,7 +152,7 @@
               mdi-delete
             </v-icon>
           </div>
-        </v-col> -->
+        </v-col>
       </v-row>
     </v-container>
   </div>
@@ -226,9 +227,11 @@ export default {
   watch: {
     row() {
       this.row.product = {
-        name: this.row.product_name,
+        // name: this.row.product_name,
+        name: 'Продукт',
         id: this.row.product_id
       }
+      this.date = this.$moment.utc(this.row.plant_date).format('YYYY-MM')
     }
   },
   created() {
@@ -236,5 +239,20 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+  #app {
+    .tree-box {
+      .tree-row.product_rows {
+        cursor: default;
+        .actions {
+          display: none !important;
+        }
+        &:hover {
+          .actions {
+            display: block !important;
+          }
+        }
+      }
+    }
+  }
 </style>

@@ -121,6 +121,12 @@ const routes = [
   //   redirect: '/quarters/1'
   // },
   {
+    path: '/quarters/row/:id',
+    name: 'Row',
+    props: true,
+    component: () => import('@/views/Row')
+  },
+  {
     path: '/blocks/:id',
     name: 'Block',
     props: true,

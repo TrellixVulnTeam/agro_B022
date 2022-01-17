@@ -115,6 +115,7 @@ export default {
       })
     },
     editItem (block) {
+      console.log(block)
       this.blockDialog = true
       this.$store.commit('setBlock', block)
     },
