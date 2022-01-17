@@ -61,6 +61,7 @@
                 width="600"
                 swatches-max-height="200"
                 v-model="selectedColor"
+                mode="hexa"
               ></v-color-picker>
 
             </v-card-text>
@@ -194,6 +195,9 @@ export default {
     openIndicator (item) {
       this.indicatorDialog = true
       this.$store.commit('setIndicator', item)
+      if (!item.name) {
+        item.color = "#FF0202"
+      }
     },
     deleteIndicator (item) {
       this.indicatorDialog = false

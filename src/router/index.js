@@ -82,7 +82,7 @@ const routes = [
     component: Warehouse
   },
   {
-    path: '/warehouse/new',
+    path: '/warehouse/new/:parent_id',
     name: 'NewWarehouse',
     props: true,
     component: Warehouse

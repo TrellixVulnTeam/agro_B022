@@ -47,7 +47,7 @@ import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 export default {
   name: 'Warehouse',
-  props: ['id'],
+  props: ['id', 'parent_id'],
   components: {
     vueDropzone: vue2Dropzone
   },
@@ -68,6 +68,7 @@ export default {
       this.$store.dispatch('updateWarehouse')
     },
     createWarehouse () {
+      this.warehouse.parent_id = parseInt(this.parent_id)
       this.$store.dispatch('createWarehouse')
     },
     deleteWarehouse () {

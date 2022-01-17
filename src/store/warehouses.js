@@ -88,9 +88,10 @@ export default {
       commit('setLoading', true)
       this._vm.$http
       .post('warehouse?', state.warehouse)
-      .then(() => {
+      .then(response => {
         commit('setMessage', 'Склад успешно создан')
-        router.push('/warehouses')
+        router.push('/warehouse/' + response.data.id)
+        router.go(0)
         commit('setLoading', false)
       })
       .catch(error => {
