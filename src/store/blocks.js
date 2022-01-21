@@ -4,7 +4,7 @@ export default {
     block: {
       block_name: '',
       block_description: '',
-      block_size: ''
+      block_size: null
     },
     blocks: {},
     landingSchemas: {}

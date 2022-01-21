@@ -17,11 +17,32 @@
     >
       <v-card>
         <v-card-title>
-          <span class="text-h5" v-if="row.id">Редактирование ряда</span>
+          <span class="text-h5" v-if="row.id">Редактирование вида плодовой продукции</span>
           <span class="text-h5" v-else><h1 class="display-1">Новый вид плодовой продукции</h1></span>
         </v-card-title>
         <v-divider class="mb-4"></v-divider>
         <v-card-text class="pb-0">
+
+          <productSelector @returnItem="setProduct" :product="row.product" class="mb-7" />
+
+          <v-select
+            :items="rootstocks"
+            v-model="row.rootstock_id"
+            outlined
+            label="Подвой"
+            item-text="name"
+            item-value="id"
+          ></v-select>
+
+          <v-select
+            :items="landingSchemas.data"
+            v-model.number="row.landing_schemas_id"
+            outlined
+            label="Схема посадки(м)"
+            item-text="name"
+            item-value="id"
+          ></v-select>
+          <v-text-field label="Количество деревьев" outlined v-model.number="row.trees_count"></v-text-field>
 
           <!-- <v-text-field label="Наименование" outlined v-model="row.name"></v-text-field> -->
           <v-text-field label="Описание" outlined v-model="row.description"></v-text-field>
@@ -51,32 +72,6 @@
               @change="save"
             ></v-date-picker>
           </v-menu>
-
-          <v-text-field label="Количество деревьев" outlined v-model.number="row.trees_count"></v-text-field>
-
-          <pre>
-            {{row}}
-          </pre>
-
-          <productSelector @returnItem="setProduct" :product="row.product" class="mb-7" />
-
-          <v-select
-            :items="landingSchemas.data"
-            v-model.number="row.landing_schemas_id"
-            outlined
-            label="Схема посадки(м)"
-            item-text="name"
-            item-value="id"
-          ></v-select>
-          <v-select
-            :items="rootstocks"
-            v-model="row.rootstock_id"
-            outlined
-            label="Подвой"
-            item-text="name"
-            item-value="id"
-          ></v-select>
-
         </v-card-text>
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
@@ -227,8 +222,7 @@ export default {
   watch: {
     row() {
       this.row.product = {
-        // name: this.row.product_name,
-        name: 'Продукт',
+        name: this.row.product_name,
         id: this.row.product_id
       }
       this.date = this.$moment.utc(this.row.plant_date).format('YYYY-MM')

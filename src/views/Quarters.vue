@@ -61,18 +61,18 @@
         <v-divider class="mb-4"></v-divider>
 
         <v-card-text class="pb-0">
-          <v-text-field label="Наименование" outlined v-model="block.name"></v-text-field>
-          <v-text-field label="Размер" outlined v-model.number="block.size"></v-text-field>
+          <v-text-field label="Наименование" outlined v-model="block.block_name"></v-text-field>
+          <v-text-field label="Размер" outlined v-model.number="block.block_size"></v-text-field>
           <!-- <productSelector @returnItem="setProduct" class="mb-7" /> -->
           <!-- <v-select
             :items="landingSchemas.data"
-            v-model.number="block.landing_schemas_id"
+            v-model.number="block.block_landing_schemas_id"
             outlined
             label="Схема посадки(м)"
             item-text="name"
             item-value="id"
           ></v-select> -->
-          <v-textarea label="Описание" outlined v-model="block.description"></v-textarea>
+          <v-textarea label="Описание" outlined v-model="block.block_description"></v-textarea>
         </v-card-text>
 
         <v-card-actions class="pa-4">

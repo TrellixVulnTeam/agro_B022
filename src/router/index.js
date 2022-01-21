@@ -112,7 +112,7 @@ const routes = [
 
   {
     path: '/quarters/:garden_id',
-    name: 'Gardens',
+    name: 'Quarter',
     props: true,
     component: () => import('@/views/Quarters')
   },
@@ -223,8 +223,14 @@ const routes = [
     component: () => import('@/views/Rootstocks')
   },
   {
-    path: '/indicators',
+    path: '/indicatorsgroups',
+    name: 'IndicatorsGroups',
+    component: () => import('@/views/IndicatorsGroups')
+  },
+  {
+    path: '/indicators/:id',
     name: 'Indicators',
+    props: true,
     component: () => import('@/views/Indicators')
   },
 ]

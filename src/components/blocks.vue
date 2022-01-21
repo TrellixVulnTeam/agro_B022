@@ -14,9 +14,9 @@
         <v-divider class="mb-4"></v-divider>
 
         <v-card-text class="pb-0">
-          <v-text-field label="Наименование" outlined v-model="block.name"></v-text-field>
-          <v-text-field label="Размер" outlined v-model="block.size"></v-text-field>
-          <v-textarea label="Описание" outlined v-model="block.description"></v-textarea>
+          <v-text-field label="Наименование" outlined v-model="block.block_name"></v-text-field>
+          <v-text-field label="Размер" outlined v-model="block.block_size"></v-text-field>
+          <v-textarea label="Описание" outlined v-model="block.block_description"></v-textarea>
         </v-card-text>
 
         <v-card-actions class="pa-4">
@@ -115,7 +115,6 @@ export default {
       })
     },
     editItem (block) {
-      console.log(block)
       this.blockDialog = true
       this.$store.commit('setBlock', block)
     },
