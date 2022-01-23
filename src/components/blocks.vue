@@ -15,7 +15,7 @@
 
         <v-card-text class="pb-0">
           <v-text-field label="Наименование" outlined v-model="block.block_name"></v-text-field>
-          <v-text-field label="Размер" outlined v-model="block.block_size"></v-text-field>
+          <v-text-field label="Размер" outlined v-model.number="block.block_size"></v-text-field>
           <v-textarea label="Описание" outlined v-model="block.block_description"></v-textarea>
         </v-card-text>
 
@@ -126,6 +126,7 @@ export default {
     },
     updateBlock () {
       this.blockDialog = false
+      this.block.id = this.block.block_id
       this.$store.dispatch('updateBlock')
       setTimeout(() => {
         this.getBlocks()

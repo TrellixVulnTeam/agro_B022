@@ -94,7 +94,7 @@ export default {
         commit('setMessage', 'Вид плодовой продукции успешно создан')
         commit('setLoading', false)
         commit('setRow', {})
-        // router.go(0)
+        router.go(0)
       })
       .catch(error => {
         commit('setLoading', false)
@@ -106,18 +106,14 @@ export default {
         commit('setError', error.response.data.human_data)
       })
     },
-    deleteRow ({commit, dispatch}, row) {
+    deleteRow ({commit}, row) {
       commit('setLoading', true)    
       this._vm.$http
       .delete('blocks_row?id=' + row.id)
       .then(() => {
-        // if (router.currentRoute.path !== ('/rows/' + row.block_id)) {
-        //   router.push('/rows/' + row.block_id)
-        // }
-        dispatch('getRows', row.block_id)
         commit('setMessage', 'Вид плодовой продукции успешно удален')
         commit('setLoading', false)
-        router.go(-1)
+        router.go(0)
       })
       .catch(error => {
         commit('setLoading', false)

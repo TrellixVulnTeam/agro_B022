@@ -228,7 +228,7 @@ const routes = [
     component: () => import('@/views/IndicatorsGroups')
   },
   {
-    path: '/indicators/:id',
+    path: '/indicators/:id-:name',
     name: 'Indicators',
     props: true,
     component: () => import('@/views/Indicators')

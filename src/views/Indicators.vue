@@ -1,13 +1,13 @@
 <template>
   <div>
     <div @click="$router.back()" class="back-btn">
-      <v-icon class="ml-0">chevron_left</v-icon>назад
+      <v-icon class="ml-0">chevron_left</v-icon>Показатели исследований
     </div>
     <v-row>
-      <v-col>
-        <h1 class="display-1">Показатели исследований</h1>
+      <v-col cols="8">
+        <h1 class="display-1">{{name}}</h1>
       </v-col>
-      <v-col class="text-right">
+      <v-col class="text-right" cols="4">
         <!-- indicator creating dialog -->
         <v-dialog
           v-model="indicatorDialog"
@@ -152,7 +152,7 @@ export default {
       selectedColor: ''
     }
   },
-  props: ['id'],
+  props: ['id', 'name'],
   methods: {
     getIndicators() {
       this.$store.dispatch('getIndicators')

@@ -77,7 +77,6 @@ export default {
   },
   data() {
     return {
-      rowDialog: false,
       activePicker: null,
       date: null,
       menu: false
@@ -87,31 +86,16 @@ export default {
     getRow () {
       this.$store.dispatch('getRow', this.id)
     },
-    editRow (row) {
-      this.rowDialog = true
-      // this.$store.commit('setRow', {})
-      this.$store.dispatch('getRow', row.id)
-    },
-    newRow () {
-      this.rowDialog = true
-      this.$store.commit('setRow', {})
-      this.$store.commit('setRowBlock', this.block.block_id)
-    },
     updateRow () {
       this.$store.dispatch('updateRow')
-      this.rowDialog = false
     },
     createRow () {
       delete this.row.product
       this.$store.dispatch('createRow')
-      this.rowDialog = false
-    },
-    closeRow () {
-      this.rowDialog = false
     },
     deleteRow () {
       confirm('Вы уверены что хотите удалить ряд? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteRow', this.row)
-      this.rowDialog = false
+      this.$router.go(-1)
     },
     setProduct (payload) {
       this.row.product_id = payload.id

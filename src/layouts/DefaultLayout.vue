@@ -127,7 +127,7 @@
               { title: 'Типы складов', link: '/warehouse_types'},
               { title: 'Схема посадки', link: '/landing_schemas'},
               { title: 'Подвои', link: '/rootstocks'},
-              { title: 'Показателей исследований', link: '/indicators'}
+              { title: 'Показателей исследований', link: '/indicatorsgroups'}
             ],
           },
           {

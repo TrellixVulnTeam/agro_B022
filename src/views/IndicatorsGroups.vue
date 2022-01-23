@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="folder_meta">
-      <h1 class="display-1">Показатли исследований</h1>
+      <h1 class="display-1">Показатели исследований</h1>
       <v-divider class="mt-2 mb-8"></v-divider>
     </div>
 
@@ -13,7 +13,7 @@
         :key="folder.id"
       >
         <v-col cols="12">
-          <span class="folder-name" @click="$router.push('/indicators/' + folder.id)">
+          <span class="folder-name" @click="$router.push('/indicators/' + folder.id + '-' + folder.name)">
             <v-icon color="blue">folder</v-icon>
             {{ folder.name }}
           </span>
