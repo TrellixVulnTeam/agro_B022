@@ -116,7 +116,7 @@ export default {
       this.productsDialog= false
     },
     setExistProduct () {
-      console.log(this.product)
+      // console.log(this.product)
       if (this.product) {
         this.title = this.product.name
       }

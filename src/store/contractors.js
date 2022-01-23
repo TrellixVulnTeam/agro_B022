@@ -83,7 +83,6 @@ export default {
       this._vm.$http
       .post('contractor', state.contractor)
       .then(response => {
-        console.log(response.data.id)
         commit('setLoading', false)
         router.push('/contractor/' + response.data.id)
         commit('setContractor', {})
