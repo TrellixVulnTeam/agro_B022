@@ -121,7 +121,7 @@ const routes = [
   //   redirect: '/quarters/1'
   // },
   {
-    path: '/quarters/row/:id',
+    path: '/quarters/row/:id/:productname/:productid',
     name: 'Row',
     props: true,
     component: () => import('@/views/Row')

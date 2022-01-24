@@ -556,7 +556,7 @@ export default {
       this.$store.dispatch('getWarehouse', this.acceptance.warehouse_id)
       this.$store.dispatch('getContractor', this.acceptance.contractor_id)
       this.getRow(this.acceptance.blockrow_id)
-      this.date = this.$moment.utc(this.acceptance.acceptance_date).format('YYYY-MM-DD')  
+      this.date = this.$moment.utc(this.acceptance.acceptance_date).format('YYYY-MM-DD')
       // this.$store.dispatch('getEmployee', this.acceptance.employee_id)
     },
     acceptances () {

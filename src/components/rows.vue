@@ -136,7 +136,7 @@
             <v-icon
               small
               class="mr-2"
-              @click="$router.push('/quarters/row/' + row.id)"
+              @click="$router.push('/quarters/row/' + row.id + '/' + row.product_name + '/' + row.product_id )"
             >
               mdi-pencil
             </v-icon>

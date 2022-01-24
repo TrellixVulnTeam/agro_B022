@@ -3,7 +3,7 @@
       <div @click="$router.back()" class="back-btn">
         <v-icon class="ml-0">chevron_left</v-icon>назад
       </div>
-      <h1 class="display-1">Редактирование вида плодовой продукции</h1>
+      <h1 class="display-1">Редактирование вида плодовой продукции {{productname}}</h1>
       <v-divider class="mt-2 mb-8"></v-divider>
 
       <v-row class="form-grid">
@@ -42,7 +42,7 @@
 
         </v-col>
         <v-col cols="6">
-          <productSelector @returnItem="setProduct" :product="row.product" class="mb-7" />
+          <productSelector @returnItem="setProduct" :product="product" class="mb-7" />
 
           <v-select
             :items="landingSchemas.data"
@@ -68,15 +68,22 @@
 </template>
 
 <script>
-import productSelector from '@/components/selectors/productSelector'
+// import productSelector from '@/components/selectors/productSelector'
+const productSelector = () => ({
+  component: import('@/components/selectors/productSelector'),
+  delay: 200,
+  timeout: 3000
+})
+
 export default {
   name: 'rows',
-  props: ['id'],
+  props: ['id', 'productname', 'productid'],
   components: {
     productSelector
   },
   data() {
     return {
+      product: {},
       activePicker: null,
       date: null,
       menu: false
@@ -128,14 +135,14 @@ export default {
   },
   watch: {
     row() {
-      this.row.product = {
-        name: this.row.product_name,
-        id: this.row.product_id
-      }
       this.date = this.$moment.utc(this.row.plant_date).format('YYYY-MM')
     }
   },
   created() {
+    this.product = {
+      name: this.productname,
+      id: this.productid
+    }
     this.getRow()
     this.getLandingSchemas()
     this.getRootstocks()
