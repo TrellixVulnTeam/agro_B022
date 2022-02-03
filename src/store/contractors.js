@@ -13,8 +13,8 @@ export default {
         full_name: "",
         inn: "",
         kpp: "",
-        legal_address: "",
         ogrn: "",
+        legal_address: "",
         real_address: ""
       }
     },
@@ -104,7 +104,7 @@ export default {
       .put('contractor', state.contractor)
       .then(() => {
         commit('setLoading', false)
-        commit('setContractor', {})
+        // commit('setContractor', {})
         commit('setMessage', 'Контрагент успешно обновлен!')
       })
       .catch(error => {
