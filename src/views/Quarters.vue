@@ -10,21 +10,18 @@
       </v-col>
       <v-col cols="4" class="text-right">
         <!-- Quarter creating dialog -->
+        <v-btn
+          depressed
+          color="light-grey"
+          @click="openQuarter()"
+        >
+          + Добавить квартал
+        </v-btn>
         <v-dialog
           v-model="quarterDialog"
           persistent
           max-width="600px"
         >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              depressed
-              color="light-grey"
-              v-bind="attrs"
-              v-on="on"
-            >
-              + Добавить квартал
-            </v-btn>
-          </template>
           <v-card>
             <v-card-title>
               <h1 class="display-1">Новый квартал</h1>
@@ -147,6 +144,10 @@ export default {
       this.quarterDialog = false
       this.quarter.garden_id = parseInt(this.garden_id)
       this.$store.dispatch('createQuarter', this.quarter)
+    },
+    openQuarter () {
+      this.quarterDialog = true
+      this.quarter.name = ''
     },
     closeQuarter () {
       this.quarterDialog = false
