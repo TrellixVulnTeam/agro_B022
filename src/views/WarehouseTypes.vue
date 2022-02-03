@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div @click="$router.back()" class="back-btn">
+    <div @click="$router.push('/catalog')" class="back-btn">
       <v-icon class="ml-0">chevron_left</v-icon>назад
     </div>
     <h1 class="display-1">Типы складов</h1>

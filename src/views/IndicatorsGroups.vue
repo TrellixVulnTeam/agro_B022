@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div @click="$router.push('/catalog')" class="back-btn">
+      <v-icon class="ml-0">chevron_left</v-icon>назад
+    </div>
+
     <div class="folder_meta">
       <h1 class="display-1">Показатели исследований</h1>
       <v-divider class="mt-2 mb-8"></v-divider>
