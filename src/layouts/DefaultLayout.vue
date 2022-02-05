@@ -137,7 +137,7 @@
               { title: 'Сведения об организации', link: '/organizationinfo'},
               { title: 'Структура сада', link: '/gardens'},
               { title: 'Склады', link: '/warehouses'},
-              { title: 'Сотрудники/пользователи', link: '/employees'},
+              { title: 'Сотрудники/пользователи', link: '/departments'},
             ],
           }
         ],

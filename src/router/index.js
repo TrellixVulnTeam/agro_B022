@@ -197,6 +197,17 @@ const routes = [
     component: () => import('@/views/Employees')
   },
   {
+    path: '/departments',
+    name: 'Departments',
+    component: () => import('@/views/Departments')
+  },
+  {
+    path: '/department/:name',
+    name: 'Department',
+    props: true,
+    component: () => import('@/views/Department')
+  },
+  {
     path: '/employee/:id',
     name: 'Employee',
     props: true,

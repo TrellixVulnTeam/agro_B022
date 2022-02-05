@@ -3,7 +3,11 @@ export default {
   state: {
     employee: {},
     employees: [],
-    employeesByDepts: []
+    employeesByDepts: [],
+    department: {
+      Employees: [],
+      department: ''
+    }
   },
 
   mutations: {
@@ -15,6 +19,9 @@ export default {
     },
     setEmployeesByDepts (state, payload) {
       state.employeesByDepts = payload
+    },
+    setDepartment (state, payload) {
+      state.department = payload
     }
   },
 
@@ -144,6 +151,9 @@ export default {
     },
     employeesByDepts (state) {
       return state.employeesByDepts
+    },
+    department (state) {
+      return state.department
     }
   }
 }
