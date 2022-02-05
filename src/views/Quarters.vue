@@ -60,6 +60,7 @@
         <v-card-text class="pb-0">
           <v-text-field label="Наименование" outlined v-model="block.block_name"></v-text-field>
           <v-text-field label="Размер" outlined v-model.number="block.block_size"></v-text-field>
+          <v-text-field label="Количество деревьев" outlined v-model.number="block.block_tree_count"></v-text-field>
           <!-- <productSelector @returnItem="setProduct" class="mb-7" /> -->
           <!-- <v-select
             :items="landingSchemas.data"

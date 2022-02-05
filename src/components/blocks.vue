@@ -16,6 +16,7 @@
         <v-card-text class="pb-0">
           <v-text-field label="Наименование" outlined v-model="block.block_name"></v-text-field>
           <v-text-field label="Размер" outlined v-model.number="block.block_size"></v-text-field>
+          <v-text-field label="Количество деревьев" outlined v-model.number="block.block_tree_count"></v-text-field>
           <v-textarea label="Описание" outlined v-model="block.block_description"></v-textarea>
         </v-card-text>
 
@@ -41,12 +42,15 @@
         <!-- <v-col cols="2" @click="openBlock(block.id)"> -->
         <v-col cols="2">
           <div>
-            Название: {{ block.block_name }}
+            <strong>Название:</strong> {{ block.block_name }}
           </div>
           <div>
-            Размер: {{ block.block_size }}
+            <strong>Размер:</strong> {{ block.block_size }}
           </div>
           <div>
+            <strong>Количество деревьев:</strong> {{ block.block_tree_count }}
+          </div>
+          <div class="mt-2 mb-4">
             {{ block.block_description }}
           </div>
           <v-icon
