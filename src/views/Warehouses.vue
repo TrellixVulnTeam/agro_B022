@@ -189,7 +189,8 @@ export default {
     },
     deleteFolder (folder) {
       this.folderDialog = false
-      confirm('Вы уверены что хотите удалить папку? Вернуть ее уже будет нельзя!') && this.$store.dispatch('deleteFolder', folder)
+      folder.model = 'warehouses'
+      confirm('Вы уверены что хотите удалить папку? Вернуть ее уже будет нельзя!') && this.$store.dispatch('deleteWarehouseFolder', folder)
     },
     closeFolder () {
       this.folderDialog = false
