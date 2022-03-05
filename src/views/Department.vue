@@ -9,6 +9,7 @@
         <h1 class="display-1">{{department.department}} / Сотрудники</h1>
       </v-col>
       <v-col cols="4" class="text-right">
+        <v-btn depressed color="light-grey" @click="openEmployeeDialog(department.department)">+ Добавить Пользователя</v-btn>
       </v-col>
     </v-row>
 
@@ -51,8 +52,14 @@
 
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
+          <div v-if="employee.id">
           <v-btn depressed color="light-grey" @click="closeEmployee" class="mr-3">Закрыть</v-btn>
           <v-btn depressed color="light-grey" @click="updateEmployee" class="mr-3">Обновить</v-btn>
+          </div>
+          <div v-else>
+          <v-btn depressed color="light-grey" @click="closeEmployee" class="mr-3">Закрыть</v-btn>
+          <v-btn depressed color="light-grey" @click="createEmployee" class="mr-3">Создать</v-btn>
+          </div>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -120,6 +127,14 @@ export default {
   },
   // props: [ 'department' ],
   methods: {
+    openEmployeeDialog (department) {
+      this.employeesDialog = true
+      this.employee.department = department
+    },
+    createEmployee () {
+      this.employeesDialog = false
+      this.$store.dispatch('createEmployees')
+    },
     // getEmployeesByDepts() {
     //   this.$store.dispatch('getEmployeesByDepts')
     // },
