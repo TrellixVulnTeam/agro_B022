@@ -23,7 +23,8 @@
     >
       <v-card>
         <v-card-title>
-          <h1 class="display-1">Редактирование пользователя</h1>
+          <h1 class="display-1" v-if="employee.id">Редактирование пользователя</h1>
+          <h1 class="display-1" v-else>Создание пользователя</h1>
         </v-card-title>
         <v-divider class="mb-4"></v-divider>
 
@@ -151,7 +152,7 @@ export default {
     },
     closeEmployee () {
       this.employeesDialog = false
-      this.$store.commit('setEmployees', {})
+      this.$store.commit('setEmployee', {})
     },
   },
   computed: {
