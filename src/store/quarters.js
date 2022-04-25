@@ -18,6 +18,7 @@ export default {
     },
     setQuarter (state, payload) {
       state.quarter = payload
+      console.log(payload)
     }
   },
 

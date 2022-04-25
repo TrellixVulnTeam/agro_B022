@@ -13,7 +13,7 @@
         <v-btn
           depressed
           color="light-grey"
-          @click="openQuarter()"
+          @click="openQuarter(null)"
         >
           + Добавить квартал
         </v-btn>
@@ -24,18 +24,25 @@
         >
           <v-card>
             <v-card-title>
-              <h1 class="display-1">Новый квартал</h1>
+              <h1 class="display-1" v-if="quarter.id">Редактировать квартал</h1>
+              <h1 class="display-1" v-else>Новый квартал</h1>
             </v-card-title>
             <v-divider class="mb-4"></v-divider>
 
             <v-card-text class="pb-0">
               <v-text-field label="Наименование" outlined v-model="quarter.name"></v-text-field>
             </v-card-text>
-            <v-card-actions class="pa-4">
 
+            <v-card-actions class="pa-4">
             <v-spacer></v-spacer>
-            <v-btn depressed color="light-grey" @click="closeQuarter" class="mr-3">Закрыть</v-btn>
-            <v-btn depressed color="light-grey" @click="createQuarter" class="mr-3">Создать</v-btn>
+              <div v-if="quarter.id">
+                <v-btn depressed x-large color="light-grey" @click="closeQuarter" class="mr-3">Закрыть</v-btn>
+                <v-btn depressed x-large color="success" @click="updateQuarter" class="mr-3">Обновить</v-btn>
+              </div>
+              <div v-else>
+                <v-btn depressed color="light-grey" @click="closeQuarter" class="mr-3">Закрыть</v-btn>
+                <v-btn depressed color="success" @click="createQuarter" class="mr-3">Создать</v-btn>
+              </div>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -76,7 +83,7 @@
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
           <v-btn depressed color="light-grey" @click="closeBlock" class="mr-3">Закрыть</v-btn>
-          <v-btn depressed color="light-grey" @click="createBlock" class="mr-3">Создать</v-btn>
+          <v-btn depressed color="success" @click="createBlock" class="mr-3">Создать</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -87,9 +94,10 @@
         <v-row>
           <v-col cols="7">
             <span class="headline">{{ quarter.name }}</span>
+            <v-btn depressed color="light-grey" @click="openBlockDialog(quarter.id)" class="ml-4">+ Добавить блок</v-btn>
           </v-col>
           <v-col cols="5" class="text-right">
-            <v-btn depressed color="light-grey" @click="openBlockDialog(quarter.id)" class="mr-4">+ Добавить блок</v-btn>
+            <v-btn depressed color="light-grey" @click="openQuarter(quarter)" class="mr-4">Редактировать квартал</v-btn>
             <v-btn depressed color="light-grey" @click="deleteQuarter(quarter)">Удалить квартал</v-btn>
           </v-col>
         </v-row>
@@ -117,11 +125,7 @@ export default {
   data() {
     return {
       blockDialog: false,
-      quarterDialog: false,
-      quarter: {
-        name: '',
-        garden_id: 0
-      }
+      quarterDialog: false
     }
   },
   props: [ 'garden_id' ],
@@ -146,9 +150,17 @@ export default {
       this.quarter.garden_id = parseInt(this.garden_id)
       this.$store.dispatch('createQuarter', this.quarter)
     },
-    openQuarter () {
+    updateQuarter () {
+      this.quarterDialog = false
+      this.$store.dispatch('updateQuarter')
+    },
+    openQuarter (quarter) {
       this.quarterDialog = true
-      this.quarter.name = ''
+      if (quarter == null) {
+        this.$store.commit('setQuarter', {})
+      } else {
+        this.$store.commit('setQuarter', quarter)
+      }
     },
     closeQuarter () {
       this.quarterDialog = false
@@ -173,6 +185,9 @@ export default {
   computed: {
     quarters() {
       return this.$store.getters.quarters.data
+    },
+    quarter() {
+      return this.$store.getters.quarter
     },
     quarters_paginator() {
       return this.$store.getters.quarters.paginator
