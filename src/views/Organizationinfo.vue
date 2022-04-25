@@ -94,7 +94,7 @@
             class="ml-4">
             <v-icon>mdi-tray-arrow-down</v-icon>
           </v-btn> -->
-          <v-btn
+          <!-- <v-btn
             fab
             icon
             outlined
@@ -102,7 +102,7 @@
             @click="print()"
             class="ml-4">
             <v-icon>mdi-printer-outline</v-icon>
-          </v-btn>
+          </v-btn> -->
         </v-col>
 
       </v-row>
