@@ -92,7 +92,6 @@
     </v-app-bar>
 
     <v-main>
-      <h1>1 - {{ test }}</h1>
       <v-container fluid class="pa-8">
         <router-view></router-view>
       </v-container>
@@ -108,7 +107,6 @@
     name: 'DefaultLayout',
     data () {
       return {
-        test: process.env.VUE_APP_TITLE,
         items: [
           {
             title: 'Документы',
