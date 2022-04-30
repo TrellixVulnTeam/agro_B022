@@ -16,7 +16,7 @@ Vue.component('default-layout', DefaultLayout)
 Vue.component('auth-layout', AuthLayout)
 
 Vue.prototype.$http = axios.create({
-  baseURL: 'http://64.225.100.175:8000/api/v1/',
+  baseURL: process.env.VUE_APP_ROOT_API,
   headers: {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer ' + localStorage.jwt

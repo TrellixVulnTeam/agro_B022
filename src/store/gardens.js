@@ -93,7 +93,7 @@ export default {
     deleteGarden ({commit, dispatch}, payload) {
       commit('setLoading', true)    
       this._vm.$http
-      .delete('gardens?id=' + payload.id)
+      .delete('gardens?id=' + payload.garden_id)
       .then(() => {
         router.push('/gardens')
         dispatch('getGardens')

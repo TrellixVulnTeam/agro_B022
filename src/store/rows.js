@@ -71,7 +71,7 @@ export default {
       this._vm.$http
       .put('blocks_row?id=' + state.row.id, state.row)
       .then(() => {
-        commit('setMessage', 'Ряд успешно обновлена')
+        commit('setMessage', 'Вид плодовой продукции успешно обновлен')
         commit('setLoading', false)
         commit('setRow', {})
         router.go(0)
@@ -91,7 +91,7 @@ export default {
       this._vm.$http
       .post('blocks_row', state.row)
       .then(() => {
-        commit('setMessage', 'Ряд успешно создан')
+        commit('setMessage', 'Вид плодовой продукции успешно создан')
         commit('setLoading', false)
         commit('setRow', {})
         router.go(0)
@@ -106,17 +106,14 @@ export default {
         commit('setError', error.response.data.human_data)
       })
     },
-    deleteRow ({commit, dispatch}, row) {
+    deleteRow ({commit}, row) {
       commit('setLoading', true)    
       this._vm.$http
       .delete('blocks_row?id=' + row.id)
       .then(() => {
-        // if (router.currentRoute.path !== ('/rows/' + row.block_id)) {
-        //   router.push('/rows/' + row.block_id)
-        // }
-        dispatch('getRows', row.block_id)
-        commit('setMessage', 'Ряд успешно удален')
+        commit('setMessage', 'Вид плодовой продукции успешно удален')
         commit('setLoading', false)
+        router.go(0)
       })
       .catch(error => {
         commit('setLoading', false)

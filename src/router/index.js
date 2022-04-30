@@ -60,7 +60,7 @@ const routes = [
     component: Product
   },
   {
-    path: '/product/new/:parent',
+    path: '/product/new/:parent_id',
     name: 'NewProduct',
     props: true,
     component: Product
@@ -82,7 +82,7 @@ const routes = [
     component: Warehouse
   },
   {
-    path: '/warehouse/new',
+    path: '/warehouse/new/:parent_id',
     name: 'NewWarehouse',
     props: true,
     component: Warehouse
@@ -112,7 +112,7 @@ const routes = [
 
   {
     path: '/quarters/:garden_id',
-    name: 'Gardens',
+    name: 'Quarter',
     props: true,
     component: () => import('@/views/Quarters')
   },
@@ -120,6 +120,12 @@ const routes = [
   //   path: '/quarters',
   //   redirect: '/quarters/1'
   // },
+  {
+    path: '/quarters/row/:id/:productname/:productid',
+    name: 'Row',
+    props: true,
+    component: () => import('@/views/Row')
+  },
   {
     path: '/blocks/:id',
     name: 'Block',
@@ -191,6 +197,17 @@ const routes = [
     component: () => import('@/views/Employees')
   },
   {
+    path: '/departments',
+    name: 'Departments',
+    component: () => import('@/views/Departments')
+  },
+  {
+    path: '/department/:name',
+    name: 'Department',
+    props: true,
+    component: () => import('@/views/Department')
+  },
+  {
     path: '/employee/:id',
     name: 'Employee',
     props: true,
@@ -217,8 +234,14 @@ const routes = [
     component: () => import('@/views/Rootstocks')
   },
   {
-    path: '/indicators',
+    path: '/indicatorsgroups',
+    name: 'IndicatorsGroups',
+    component: () => import('@/views/IndicatorsGroups')
+  },
+  {
+    path: '/indicators/:id-:name',
     name: 'Indicators',
+    props: true,
     component: () => import('@/views/Indicators')
   },
 ]

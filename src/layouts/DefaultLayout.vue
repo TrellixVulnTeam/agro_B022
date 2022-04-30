@@ -127,7 +127,7 @@
               { title: 'Типы складов', link: '/warehouse_types'},
               { title: 'Схема посадки', link: '/landing_schemas'},
               { title: 'Подвои', link: '/rootstocks'},
-              { title: 'Показателей исследований', link: '/indicators'}
+              { title: 'Показателей исследований', link: '/indicatorsgroups'}
             ],
           },
           {
@@ -137,7 +137,7 @@
               { title: 'Сведения об организации', link: '/organizationinfo'},
               { title: 'Структура сада', link: '/gardens'},
               { title: 'Склады', link: '/warehouses'},
-              { title: 'Сотрудники/пользователи', link: '/employees'},
+              { title: 'Сотрудники/пользователи', link: '/departments'},
             ],
           }
         ],

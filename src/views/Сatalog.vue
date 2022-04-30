@@ -83,7 +83,7 @@
       </v-col>
 
       <v-col cols="3">
-        <v-card class="mx-auto" @click="$router.push('/indicators')">
+        <v-card class="mx-auto" @click="$router.push('/indicatorsgroups')">
           <v-img
             src="/images/catalog-item.png"
           >

@@ -5,7 +5,7 @@
     </div>
     <h1 class="display-1">Склады</h1>
     <v-divider class="mt-2 mb-8"></v-divider>
-    <v-btn @click="$router.push('/warehouse/new')" depressed color="light-grey" class="mb-4 mr-4">+ Добавить склад</v-btn>
+    <v-btn @click="$router.push('/warehouse/new/' + folder_id)" depressed color="light-grey" class="mb-4 mr-4">+ Добавить склад</v-btn>
 
     <v-dialog
       v-model="folderDialog"
@@ -189,7 +189,8 @@ export default {
     },
     deleteFolder (folder) {
       this.folderDialog = false
-      confirm('Вы уверены что хотите удалить папку? Вернуть ее уже будет нельзя!') && this.$store.dispatch('deleteFolder', folder)
+      folder.model = 'warehouses'
+      confirm('Вы уверены что хотите удалить папку? Вернуть ее уже будет нельзя!') && this.$store.dispatch('deleteWarehouseFolder', folder)
     },
     closeFolder () {
       this.folderDialog = false

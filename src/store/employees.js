@@ -3,7 +3,11 @@ export default {
   state: {
     employee: {},
     employees: [],
-    employeesByDepts: []
+    employeesByDepts: [],
+    department: {
+      Employees: [],
+      department: ''
+    }
   },
 
   mutations: {
@@ -15,6 +19,9 @@ export default {
     },
     setEmployeesByDepts (state, payload) {
       state.employeesByDepts = payload
+    },
+    setDepartment (state, payload) {
+      state.department = payload
     }
   },
 
@@ -78,7 +85,7 @@ export default {
       this._vm.$http
       .post('employees', state.employee)
       .then(() => {
-        dispatch('getEmployeesByDepts')
+        dispatch('magic', state.employee)
         commit('setEmployee', {})
         commit('setLoading', false)
         commit('setMessage', 'Пользователь успешно создан!')
@@ -99,6 +106,7 @@ export default {
       .put('employees', state.employee)
       .then(() => {
         dispatch('getEmployeesByDepts')
+        dispatch('magic', state.employee)
         commit('setEmployee', {})
         commit('setLoading', false)
         commit('setMessage', 'Пользователь успешно обновлен!')
@@ -119,6 +127,7 @@ export default {
       .delete('employees?id=' + employee.id)
       .then(() => {
         dispatch('getEmployeesByDepts')
+        dispatch('magic', employee)
         commit('setEmployee', {})
         commit('setLoading', false)
         commit('setMessage', 'Пользователь успешно удален!')
@@ -132,6 +141,20 @@ export default {
         }
         commit('setError', error.response.data.message)
       })
+    },
+    magic ({commit}, empl) {
+      this._vm.$http
+      .get('employees_by_depts')
+      .then(response => {
+        let _resp = response.data
+        commit('setEmployeesByDepts', _resp)
+        _resp.forEach(dep => {
+          if (dep.department == empl.department) {
+            commit('setDepartment', dep)
+            console.log(dep)
+          }
+        });
+      })
     }
   },
 
@@ -144,6 +167,9 @@ export default {
     },
     employeesByDepts (state) {
       return state.employeesByDepts
+    },
+    department (state) {
+      return state.department
     }
   }
 }

@@ -2,10 +2,9 @@ import router from '@/router'
 export default {
   state: {
     block: {
-      name: '',
-      description: '',
-      quarter_id: null,
-      landing_schemas_id: null
+      block_name: '',
+      block_description: '',
+      block_size: null
     },
     blocks: {},
     landingSchemas: {}
@@ -120,7 +119,7 @@ export default {
     deleteBlock ({commit}, block) {
       commit('setLoading', true)    
       this._vm.$http
-      .delete('blocks_unit?id=' + block.id)
+      .delete('blocks_unit?id=' + block.block_id)
       .then(() => {
         commit('setMessage', 'Блок успешно удален')
         commit('setLoading', false)

@@ -22,12 +22,25 @@
       persistent
       max-width="1200px"
     >
-      <v-card>
-        <v-card-title>
+      <v-card class="pt-4">
+        <!-- <v-card-title>
           <span class="text-h5"><h1 class="display-1">Выбор продукции</h1></span>
         </v-card-title>
-        <v-divider class="mb-8"></v-divider>
+        <v-divider class="mb-8"></v-divider> -->
         <v-card-text class="pb-0">
+
+          <div class="folder_meta" v-if="meta.current_folder == ''">
+            <h1 class="display-1">Выбор из всей продукции</h1>
+            <v-divider class="mt-2 mb-8"></v-divider>
+          </div>
+
+          <div class="folder_meta" v-else>
+            <div @click="getProducts(meta.parent_id)" class="back-btn">
+              <v-icon class="ml-0">chevron_left</v-icon> {{ meta.parent_name }}
+            </div>
+            <h1 class="display-1">Выбор из папки "{{ meta.current_folder }}"</h1>
+            <v-divider class="mt-2 mb-8"></v-divider>
+          </div>
 
           <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
           <v-container class="tree-box" fluid>
@@ -104,7 +117,9 @@ export default {
       this.productsDialog = false;
     },
     openFolder(id) {
-      this.$router.push("/products/" + id);
+      // this.$router.push("/products/" + id);
+      console.log('тут работет роутер и идет в папку - ' + id)
+      this.getProducts(id);
     },
     getProducts(id) {
       this.$store.dispatch("getProducts", id);
@@ -116,6 +131,7 @@ export default {
       this.productsDialog= false
     },
     setExistProduct () {
+      // console.log(this.product)
       if (this.product) {
         this.title = this.product.name
       }
@@ -149,11 +165,11 @@ export default {
     this.$store.dispatch("getFolderModels");
     this.setExistProduct()
   },
-  watch: {
-    $route() {
-      this.getProducts(this.folder_id);
-    },
-  },
+  // watch: {
+  //   $route() {
+  //     this.getProducts(this.folder_id);
+  //   },
+  // },
 };
 </script>
 

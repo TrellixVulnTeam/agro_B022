@@ -88,9 +88,10 @@ export default {
       commit('setLoading', true)
       this._vm.$http
       .post('warehouse?', state.warehouse)
-      .then(() => {
+      .then(response => {
         commit('setMessage', 'Склад успешно создан')
-        router.push('/warehouses')
+        router.push('/warehouse/' + response.data.id)
+        router.go(0)
         commit('setLoading', false)
       })
       .catch(error => {
@@ -143,6 +144,25 @@ export default {
         commit('setError', error.response.data.message)
       })
     }, 200),
+    deleteWarehouseFolder ({commit, dispatch}, folder) {
+      commit('setLoading', true)
+      this._vm.$http
+      .delete('folder?id=' + folder.id + '&model=' + folder.model)
+      .then(() => {
+        dispatch('getWarehouses', folder.parent_id)
+        commit('setMessage', 'Папка успешно удалена')
+        commit('setLoading', false)
+      })
+      .catch(error => {
+        commit('setLoading', false)
+        if (error.response.status === 401) {
+          // REFRESH
+          router.push('/getpass')
+          commit('setError', error.response.data.message)
+        }
+        commit('setError', error.response.data.message)
+      })
+    }
   },
 
   getters: {

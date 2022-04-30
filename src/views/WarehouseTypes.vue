@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div @click="$router.back()" class="back-btn">
+    <div @click="$router.push('/catalog')" class="back-btn">
       <v-icon class="ml-0">chevron_left</v-icon>назад
     </div>
     <h1 class="display-1">Типы складов</h1>
@@ -33,6 +33,7 @@
 
         <v-card-text class="pb-0">
           <v-text-field label="Название" outlined v-model="warehouse_type.name"></v-text-field>
+          <v-textarea label="Описание" outlined v-model="warehouse_type.description"></v-textarea>
         </v-card-text>
 
         <v-card-actions class="pa-4">
@@ -53,14 +54,20 @@
     <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
     <v-container class="tree-box" fluid>
       <v-row class="tree-header">
-        <v-col cols="11">
+        <v-col cols="5">
           Название
+        </v-col>
+        <v-col cols="6">
+          Описание
         </v-col>
       </v-row> 
 
       <v-row class="tree-row" v-for="item in warehouses_types" :key="item.id">
-        <v-col cols="11">
+        <v-col cols="5">
           {{ item.name }}
+        </v-col>
+        <v-col cols="6">
+          {{ item.description }}
         </v-col>
         <v-col cols="1" class="text-right">
           <div class="actions">

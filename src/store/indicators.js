@@ -10,7 +10,14 @@ export default {
       }
     },
     indicator: {},
-    indicatorsGroups: [],
+    indicatorsGroups: {
+      data: [],
+      paginator: {
+        total_pages: 1,
+        current_pages: 1,
+        total_items: 1
+      }
+    },
     indicatorsGrouped: []
   },
 

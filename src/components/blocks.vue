@@ -14,17 +14,10 @@
         <v-divider class="mb-4"></v-divider>
 
         <v-card-text class="pb-0">
-          <v-text-field label="Наименование" outlined v-model="block.name"></v-text-field>
-          <productSelector @returnItem="setProduct" :product="block.product" class="mb-7" />
-          <v-select
-            :items="landingSchemas.data"
-            v-model.number="block.landing_schemas_id"
-            outlined
-            label="Схема посадки(м)"
-            item-text="name"
-            item-value="id"
-          ></v-select>
-          <v-textarea label="Описание" outlined v-model="block.description"></v-textarea>
+          <!-- <v-text-field label="Наименование" outlined v-model="block.block_name"></v-text-field> -->
+          <v-text-field label="Размер" outlined v-model.number="block.block_size"></v-text-field>
+          <!-- <v-text-field label="Количество деревьев" outlined v-model.number="block.block_tree_count"></v-text-field> -->
+          <v-textarea label="Описание" outlined v-model="block.block_description"></v-textarea>
         </v-card-text>
 
         <v-card-actions class="pa-4">
@@ -39,42 +32,27 @@
     <v-container class="tree-box" fluid>
       <v-row class="tree-header">
         <v-col cols="2">
-          Наименование
+          Блок
         </v-col>
-        <v-col cols="2">
-          Схема посадки(м)
-        </v-col>
-        <v-col cols="2">
-          Вид плодовой продукции
-        </v-col>
-        <v-col cols="3">
-          Наименование плодовой продукции
-        </v-col>
-        <v-col cols="2">
-          Описание
-        </v-col>
-        <v-col cols="1">
+        <v-col cols="10">
+          Виды плодовой продукции
         </v-col>
       </v-row>
       <v-row class="tree-row" v-for="block in blocks" :key="block.id">
-        <v-col cols="2" @click="openBlock(block.id)">
-          <span class="folder-name">
-            {{ block.name }}
-          </span>
-        </v-col>
+        <!-- <v-col cols="2" @click="openBlock(block.id)"> -->
         <v-col cols="2">
-          {{ block.landing_schema }}
-        </v-col>
-        <v-col cols="2">
-          {{ block.product_type }}
-        </v-col>
-        <v-col cols="3">
-          {{ block.product_name }}
-        </v-col>
-        <v-col cols="2">
-          {{ block.description }}
-        </v-col>
-        <v-col cols="1" class="text-right actions">
+          <div>
+            <strong>Название:</strong> {{ block.block_name }}
+          </div>
+          <div>
+            <strong>Размер:</strong> {{ block.block_size }}
+          </div>
+          <div>
+            <strong>Количество деревьев:</strong> {{ block.block_tree_count }}
+          </div>
+          <div class="mt-2 mb-4">
+            {{ block.block_description }}
+          </div>
           <v-icon
             small
             class="mr-2"
@@ -89,6 +67,11 @@
             mdi-delete
           </v-icon>
         </v-col>
+        <v-col cols="10">
+          <!-- Component with table of rows -->
+          <rows :block="block"></rows>
+          <!-- / Component with table of rows -->
+        </v-col>
       </v-row>
     </v-container>
     <!-- <div class="mt-4">
@@ -102,8 +85,8 @@
   </div>
 </template>
 <script>
-import productSelector from '@/components/selectors/productSelector'
-import { nameTheLandingSchemas } from '@/helpers/helpers.js'
+import rows from '@/components/rows'
+// import { nameTheLandingSchemas } from '@/helpers/helpers.js'
 export default {
   name: 'Blocks',
   data() {
@@ -119,7 +102,7 @@ export default {
   },
   props: [ 'quarter_id'],
   components: {
-    productSelector
+    rows
   },
   methods: {
     getBlocks () {
@@ -131,18 +114,9 @@ export default {
         this.blocks.paginator = response.paginator
         this.$store.commit('setLoading', false)
       })
-      .catch(error => {
+      .catch(() => {
         this.$store.commit('setLoading', false)
-        if (error.response.status === 401) {
-          // REFRESH
-          this.$router.push('/getpass')
-          this.$store.commit('setError', error.response.data.message)
-        }
-        this.$store.commit('setError', error.response.data.message)
       })
-    },
-    getLandingSchemas() {
-      this.$store.dispatch('getLandingSchemas')
     },
     editItem (block) {
       this.blockDialog = true
@@ -152,10 +126,11 @@ export default {
       confirm('Вы уверены что хотите удалить блок? Вернуть его уже будет нельзя!') && this.$store.dispatch('deleteBlock', block)
       setTimeout(() => {
         this.getBlocks()
-      }, 300)
+      }, 500)
     },
     updateBlock () {
       this.blockDialog = false
+      this.block.id = this.block.block_id
       this.$store.dispatch('updateBlock')
       setTimeout(() => {
         this.getBlocks()
@@ -168,16 +143,16 @@ export default {
     openBlock (id) {
       this.$router.push('/blocks/' + id)
     },
-    setProduct (payload) {
-      this.block.product_id = payload.id
+    getLandingSchemas() {
+      this.$store.dispatch('getLandingSchemas')
+    },
+    getRootstocks() {
+      this.$store.dispatch('getRootstocks')
     }
   },
   computed: {
     block () {
       return this.$store.getters.block
-    },
-    landingSchemas () {
-      return this.$store.getters.landingSchemas
     },
     loading () {
       return this.$store.getters.loading
@@ -186,22 +161,32 @@ export default {
   created() {
     this.getBlocks()
     this.getLandingSchemas()
+    this.getRootstocks()
   },
   watch: {
-    block() {
-      this.block.product = {
-        name: this.block.product_name,
-        id: this.block.product_id
-      }
-    },
-    blocks() {
-      this.blocks.forEach(block => {
-        block.landing_schema = nameTheLandingSchemas(block, this.landingSchemas.data)
-      })
-    }
+    // blocks() {
+    //   this.blocks.forEach(block => {
+    //     block.landing_schema = nameTheLandingSchemas(block, this.landingSchemas.data)
+    //   })
+    // }
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+  .tree-box {
+    .tree-row {
+      cursor: default;
+      border-bottom: 1px solid #DEDEDE;
+      &:last-child {
+        border: none;
+      }
+      &:nth-child(odd) {
+        background: none !important;
+      }
+      &:hover {
+        background: none !important;
+      }
+    }
+  }
 </style>

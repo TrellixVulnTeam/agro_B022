@@ -15,7 +15,7 @@
           </div>
           <div class="field-row">
             <h3 class="field-name">Cокращенное наименование организации</h3>
-            <v-text-field class="field-value" v-model="contractor.short_name" placeholder="не указан" onfocus="this.placeholder=''" onblur="this.placeholder='не указан'" :disabled="!editable"></v-text-field>
+            <v-text-field class="field-value" v-model="contractor.requisites.short_name" placeholder="не указан" onfocus="this.placeholder=''" onblur="this.placeholder='не указан'" :disabled="!editable"></v-text-field>
           </div>
           <div class="field-row">
             <h3 class="field-name">Юридический адрес</h3>
@@ -94,7 +94,7 @@
             class="ml-4">
             <v-icon>mdi-tray-arrow-down</v-icon>
           </v-btn> -->
-          <v-btn
+          <!-- <v-btn
             fab
             icon
             outlined
@@ -102,7 +102,7 @@
             @click="print()"
             class="ml-4">
             <v-icon>mdi-printer-outline</v-icon>
-          </v-btn>
+          </v-btn> -->
         </v-col>
 
       </v-row>

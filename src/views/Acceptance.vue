@@ -157,7 +157,7 @@
           </v-toolbar>
           <v-divider></v-divider>
           <v-card-text v-if="!files">
-            Что бы загрузить документы перетащите их на в зону ниже или просто кликните по ней
+            Что бы загрузить документы перетащите их на зону ниже или просто кликните по ней
           </v-card-text>
           <v-list
             subheader
@@ -556,7 +556,7 @@ export default {
       this.$store.dispatch('getWarehouse', this.acceptance.warehouse_id)
       this.$store.dispatch('getContractor', this.acceptance.contractor_id)
       this.getRow(this.acceptance.blockrow_id)
-      this.date = this.$moment.utc(this.acceptance.acceptance_date).format('YYYY-MM-DD')  
+      this.date = this.$moment.utc(this.acceptance.acceptance_date).format('YYYY-MM-DD')
       // this.$store.dispatch('getEmployee', this.acceptance.employee_id)
     },
     acceptances () {

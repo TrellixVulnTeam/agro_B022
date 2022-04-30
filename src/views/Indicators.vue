@@ -1,13 +1,13 @@
 <template>
   <div>
     <div @click="$router.back()" class="back-btn">
-      <v-icon class="ml-0">chevron_left</v-icon>назад
+      <v-icon class="ml-0">chevron_left</v-icon>Показатели исследований
     </div>
     <v-row>
-      <v-col>
-        <h1 class="display-1">Показатели исследований</h1>
+      <v-col cols="8">
+        <h1 class="display-1">{{name}}</h1>
       </v-col>
-      <v-col class="text-right">
+      <v-col class="text-right" cols="4">
         <!-- indicator creating dialog -->
         <v-dialog
           v-model="indicatorDialog"
@@ -36,8 +36,7 @@
 
               <v-text-field label="Название" outlined v-model="indicator.name"></v-text-field>
               <v-text-field label="Описание" outlined v-model="indicator.description"></v-text-field>
-              <!-- <v-text-field label="Цвет" outlined v-model="indicator.color"></v-text-field> -->
-
+<!-- 
               <v-select
                 :items="indicatorsGroups"
                 v-model="indicator.indicator_group_id"
@@ -45,7 +44,7 @@
                 label="Группа индикаторов"
                 item-text="name"
                 item-value="id"
-              ></v-select>
+              ></v-select> -->
 
               <v-select
                 :items="measurementUnits"
@@ -61,6 +60,7 @@
                 width="600"
                 swatches-max-height="200"
                 v-model="selectedColor"
+                mode="hexa"
               ></v-color-picker>
 
             </v-card-text>
@@ -84,91 +84,67 @@
     <v-divider class="mt-2 mb-8"></v-divider>
 
     <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
-    <v-tabs
-      v-model="tab"
-      background-color="primary"
-      dark
-    >
-      <v-tab
-        v-for="indicatorsGroup in indicatorsGrouped"
-        :key="indicatorsGroup.group_name"
-      >
-        {{ indicatorsGroup.group_name }}
-      </v-tab>
-    </v-tabs>
+    <!-- indicators list begin -->
+    <v-container class="tree-box" fluid>
+      <v-row class="tree-header">
+        <v-col cols="2">
+          Название
+        </v-col>
+        <v-col cols="1">
+          Цвет
+        </v-col>
+        <v-col cols="6">
+          Описание
+        </v-col>
+        <v-col cols="2">
+          Единица измерения
+        </v-col>
+      </v-row> 
 
-    <v-tabs-items v-model="tab" class="tabs-box">
-      <v-tab-item
-        v-for="indicatorsGroup in indicatorsGrouped"
-        :key="indicatorsGroup.group_name"
-      >
-        <v-card flat>
-          <!-- indicators list begin -->
-
-          <v-container class="tree-box" fluid>
-            <v-row class="tree-header">
-              <v-col cols="2">
-                Название
-              </v-col>
-              <v-col cols="1">
-                Цвет
-              </v-col>
-              <v-col cols="6">
-                Описание
-              </v-col>
-              <v-col cols="2">
-                Единица измерения
-              </v-col>
-            </v-row> 
-
-            <v-row class="tree-row" v-for="item in indicatorsGroup.Indicators" :key="item.id">
-              <v-col cols="2">
-                {{ item.name }}
-              </v-col>
-              <v-col cols="1">
-                <v-chip
-                  :color="item.color"
-                  small
-                >
-                </v-chip>
-              </v-col>
-              <v-col cols="6">
-                {{ item.description }}
-              </v-col>
-              <v-col cols="2">
-                {{ item.measurement_name }}
-              </v-col>
-              <v-col cols="1" class="text-right">
-                <div class="actions">
-                  <v-icon
-                    small
-                    class="mr-2"
-                    @click="openIndicator(item)"
-                  >
-                    mdi-pencil
-                  </v-icon>
-                  <v-icon
-                    small
-                    @click="deleteIndicator(item)"
-                  >
-                    mdi-delete
-                  </v-icon>
-                </div>
-              </v-col>
-            </v-row>
-          </v-container>
-          <!-- indicators list end -->
-
-        </v-card>
-      </v-tab-item>
-    </v-tabs-items>
-
+      <v-row class="tree-row" v-for="item in indicators" :key="item.id">
+        <v-col cols="2">
+          <v-icon>mdi-file-outline</v-icon>
+          {{ item.name }}
+        </v-col>
+        <v-col cols="1">
+          <v-chip
+            :color="item.color"
+            small
+          >
+          </v-chip>
+        </v-col>
+        <v-col cols="6">
+          {{ item.description }}
+        </v-col>
+        <v-col cols="2">
+          {{ item.measurement_name }}
+        </v-col>
+        <v-col cols="1" class="text-right">
+          <div class="actions">
+            <v-icon
+              small
+              class="mr-2"
+              @click="openIndicator(item)"
+            >
+              mdi-pencil
+            </v-icon>
+            <v-icon
+              small
+              @click="deleteIndicator(item)"
+            >
+              mdi-delete
+            </v-icon>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+    <!-- indicators list end -->
   </div>
 </template>
 
 <script>
 export default {
-  name: 'indicators',
+  name: 'Indicators',
   data() {
     return {
       tab: null,
@@ -176,14 +152,16 @@ export default {
       selectedColor: ''
     }
   },
+  props: ['id', 'name'],
   methods: {
-    getIndicatorsGrouped() {
-      this.$store.dispatch('getIndicatorsGrouped')
+    getIndicators() {
+      this.$store.dispatch('getIndicators')
     },
     getIndicatorsGroups() {
       this.$store.dispatch('getIndicatorsGroups')
     },
     createIndicator () {
+      this.indicator.indicator_group_id = parseInt(this.id)
       this.$store.dispatch('createIndicator')
       this.indicatorDialog = false
     },
@@ -194,6 +172,9 @@ export default {
     openIndicator (item) {
       this.indicatorDialog = true
       this.$store.commit('setIndicator', item)
+      if (!item.name) {
+        item.color = "#FF0202"
+      }
     },
     deleteIndicator (item) {
       this.indicatorDialog = false
@@ -201,18 +182,25 @@ export default {
     },
     closeIndicator () {
       this.indicatorDialog = false
-      this.getIndicatorsGrouped()
+      this.getIndicators()
     },
     getMeasurementUnits () {
       this.$store.dispatch('getMeasurementUnits')
     },
   },
   computed: {
-    indicatorsGrouped () {
-      return this.$store.getters.indicatorsGrouped
+    indicators () {
+      let _all_indicators = this.$store.getters.indicators.data
+      let _selected_indicators = []
+      _all_indicators.forEach(indicator => {
+        if (indicator.indicator_group_id == this.id) {
+          _selected_indicators.push(indicator)
+        }
+      });
+      return _selected_indicators
     },
-    indicatorsGroups () {
-      return this.$store.getters.indicatorsGroups.data
+    pagination () {
+      return this.$store.getters.indicators.pagination
     },
     indicator () {
       return this.$store.getters.indicator
@@ -225,8 +213,7 @@ export default {
     }
   },
   created() {
-    this.getIndicatorsGrouped()
-    this.getIndicatorsGroups()
+    this.getIndicators()
     this.getMeasurementUnits()
   },
   watch: {

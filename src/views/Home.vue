@@ -69,7 +69,7 @@
             <router-link to="/">Блоки квартала</router-link>
             <router-link to="/">Кварталы сада</router-link>
             <router-link to="/gardens">Сады</router-link>
-            <router-link to="/indicators">Показатели исследований</router-link>
+            <router-link to="/indicatorsgroups">Показатели исследований</router-link>
           </div>
         </v-col>
         <v-col>

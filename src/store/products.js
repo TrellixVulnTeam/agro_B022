@@ -101,6 +101,7 @@ export default {
         commit('setLoading', false)
         commit('setMessage', 'Продукция успешно создана')
         router.push('/product/' + response.data.id)
+        location.reload()
       })
       .catch(error => {
         commit('setLoading', false)
@@ -153,10 +154,10 @@ export default {
         commit('setError', error.response.data.message)
       })
     }, 200),
-    getFolderMeta ({commit}, parent) {
+    getFolderMeta ({commit}, parent_id) {
       commit('setLoading', true)
       this._vm.$http
-      .get('/folder_meta?model=product&folder=' + parent)
+      .get('/folder_meta?model=product&folder=' + parent_id)
       .then(response => {
         commit('setFolderMeta', response.data)
         commit('setLoading', false)

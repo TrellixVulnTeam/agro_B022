@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div @click="$router.back()" class="back-btn">
-      <v-icon class="ml-0">chevron_left</v-icon>назад
+    <div @click="$router.push('/products/' + product.parent_id)" class="back-btn">
+      <v-icon class="ml-0">chevron_left</v-icon> {{ folderMeta.current_folder }}
     </div>
     <h1 class="display-1" v-if="product.id">{{product.name}}</h1>
     <h1 class="display-1" v-else>
@@ -41,7 +41,7 @@
           </v-toolbar>
           <v-divider></v-divider>
           <v-card-text v-if="!files">
-            Что бы загрузить документы перетащите их на в зону ниже или просто кликните по ней
+            Что бы загрузить документы перетащите их на зону ниже или просто кликните по ней
           </v-card-text>
           <v-list
             subheader
@@ -101,7 +101,7 @@ import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 export default {
   name: 'Product',
-  props: ['id'],
+  props: ['id', 'parent_id'],
   components: {
     vueDropzone: vue2Dropzone
   },
@@ -135,7 +135,7 @@ export default {
       this.$store.dispatch('updateProduct')
     },
     createProduct () {
-      this.product.parent_id =  parseInt(this.parent)
+      this.product.parent_id = parseInt(this.parent_id)
       this.$store.dispatch('createProduct')
     },
     deleteProduct () {
@@ -171,6 +171,8 @@ export default {
     if (!isNaN(this.id)) {
       this.$store.dispatch('getProduct', this.id)
       this.$store.dispatch('getFiles', { model: 'product', id: this.id })
+    } else {
+      this.$store.dispatch('getFolderMeta', this.parent_id)
     }
   },
   beforeDestroy () {
