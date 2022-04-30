@@ -164,7 +164,6 @@ export default {
     },
     closeQuarter () {
       this.quarterDialog = false
-      this.quarter.name = ''
     },
     openBlockDialog (quarter_id) {
       this.blockDialog = true
