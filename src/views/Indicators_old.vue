@@ -56,13 +56,13 @@
                 item-value="id"
               ></v-select>
 
-              <v-color-picker
+              <!-- <v-color-picker
                 hide-inputs
                 width="600"
                 swatches-max-height="200"
                 v-model="selectedColor"
                 mode="hexa"
-              ></v-color-picker>
+              ></v-color-picker> -->
 
             </v-card-text>
             <v-card-actions class="pa-4">
