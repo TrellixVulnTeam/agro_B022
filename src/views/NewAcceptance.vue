@@ -69,19 +69,30 @@
               label="Склад"
               item-text="name"
               item-value="id"
+              no-data="ddd"
               @input.native="searchWarehouse($event)"
-            ></v-autocomplete>
+            >
+            <template v-slot:no-data>
+              <v-list-item>
+                <v-list-item-title>
+                  Начните ввод имени нужного склада
+                </v-list-item-title>
+              </v-list-item>
+            </template>
+            <template v-slot:selection="{ attr, item, selected }">
+              <span
+                v-bind="attr"
+                :input-value="selected"
+                v-text="item.name"></span>
+            </template>
+            <template v-slot:item="{ item }">
+              <v-list-item-content>
+                <v-list-item-title v-text="item.name"></v-list-item-title>
+              </v-list-item-content>
+            </template>
+          </v-autocomplete>
           </v-col>
           <v-col cols="6">
-            <!-- <v-autocomplete
-              :items="searchedContractors"
-              v-model.number="acceptance.contractor_id"
-              outlined
-              label="Контрагент"
-              item-text="name"
-              item-value="id"
-              @input.native="searchСontractor($event)"
-            ></v-autocomplete> -->
             <contactorSelector @returnItem="setContactor"/>
           </v-col>
           <v-col cols="6">
@@ -105,8 +116,8 @@
               v-model.number="garden_id"
               outlined
               label="Сад"
-              item-text="name"
-              item-value="id"
+              item-text="garden_name"
+              item-value="garden_id"
             ></v-select>
           </v-col>
           <v-col cols="3">
@@ -126,8 +137,8 @@
               v-model.number="block_id"
               outlined
               label="Блок"
-              item-text="name"
-              item-value="id"
+              item-text="block_name"
+              item-value="block_id"
               :disabled="!quarter_id"
             ></v-select> 
           </v-col>
@@ -157,7 +168,7 @@
       </v-col> -->
     </v-row>
 
-    <v-btn depressed x-large color="light-grey" @click="closeAcceptance" class="mr-3">Закрыть</v-btn>
+    <v-btn depressed x-large color="light-grey" @click="$router.go(-1)" class="mr-3">Закрыть</v-btn>
     <v-btn depressed x-large color="success" @click="createAcceptance" class="mr-3">Принять продукцию</v-btn>
 
   </div>
@@ -180,7 +191,7 @@ export default {
       menu: false,
       id: 0,
       searchquery: '',
-      garden_id: 1,
+      garden_id: null,
       quarter_id: null,
       block_id: null,
       row_id: null,
@@ -240,6 +251,9 @@ export default {
     },
     getEmployees () {
       this.$store.dispatch('getEmployees')
+    },
+    getGardens() {
+      this.$store.dispatch('getGardens')
     }
   },
   computed: {
@@ -255,8 +269,8 @@ export default {
     searchedContractors () {
       return this.$store.getters.searchedContractors
     },
-    gardens () {
-      return [ {name: 'Первый', id: 1} ]
+    gardens() {
+      return this.$store.getters.gardens
     },
     quarters () {
       return this.$store.getters.quarters.data
@@ -275,10 +289,14 @@ export default {
     }
   },
   created() {
+    this.getGardens()
     this.getQuarters()
     this.getEmployees()
   },
   watch:{
+    garden_id () {
+      this.getQuarters()
+    },
     quarter_id () {
       this.getBlocks()
     },
