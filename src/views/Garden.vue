@@ -71,6 +71,7 @@ export default {
       this.$store.dispatch('createGarden')
     },
     deleteGarden () {
+      console.log(this.garden)
       this.$store.dispatch('deleteGarden', this.garden)
     }
   },

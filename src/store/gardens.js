@@ -76,8 +76,7 @@ export default {
       .post('gardens', state.garden)
       .then(response => {
         commit('setMessage', 'Сад успешно создан')
-        router.push('/garden/' + response.data.id)
-        router.push('/gardens')
+        router.push('/quarters/' + response.data.id)
         commit('setLoading', false)
       })
       .catch(error => {
